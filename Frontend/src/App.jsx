@@ -1,22 +1,24 @@
 import React from 'react'
 import Header from './components/Header'
-import home from './pages/Home'
-import about from './pages/About'
-import contact from './pages/Contact'
-import services from './pages/Services'
+import Home from './pages/Home'
+import About from './pages/About'
+import Contact from './pages/Contact'
+import Services from './pages/Services'
 import { Routes, Route } from 'react-router-dom'
 
-export const App = () => {
+const App = () => {
   return (
     <>
-      <Header/>
+      <Header />
+
       <Routes>
-        <Route path='/Home' element={<home/>}/>
-        <Route path='/About' element={<about/>}/>
-        <Route path='/Contact' element={<contact/>}/>
-        <Route path='/Services' element={<services/>}/>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/services" element={<Services />} />
       </Routes>
     </>
   )
 }
-export default App  
+
+export default App

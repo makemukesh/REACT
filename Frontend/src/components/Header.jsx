@@ -1,20 +1,29 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import index from '../index.css'
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Header.css";
 
 const Header = () => {
   return (
+    <header className="header">
+      {/* Logo */}
+      <div className="logo">
+        <span>Auto</span>Drive
+      </div>
 
-    <div>  <nav className="Header">
-      <h1>Welcome to  MyApp..!</h1>
+      {/* Navigation */}
+      <nav className="nav">
         <Link to="/">Home</Link>
-        <Link to="/About">About</Link>
-        <Link to="/Contact">Contact</Link>
-        <Link to="/Services">Services</Link>
+        <Link to="/about">About</Link>
+        <Link to="/services">Services</Link>
+        <Link to="/contact">Contact</Link>
+      </nav>
 
-    </nav>    
-    </div>
-  )
-}
+      {/* CTA Button */}
+      <div className="cta">
+        <button>Book Test Drive</button>
+      </div>
+    </header>
+  );
+};
 
-export default Header
+export default Header;
