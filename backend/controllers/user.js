@@ -1,13 +1,13 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User from '../models/userModel.js';
+import User from '../models/User.js';
 
 const generateOtp = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
 
-const registerUser = async (req, res, next) => {
+export const registerUser = async (req, res, next) => {
     try {
         const { username, email, password } = req.body;
 
@@ -43,9 +43,7 @@ export  const verifyOtp = async (req, res) => {
         if (user.otp !== otp || user.otpExpiry < Date.now()) {
             return res.status(400).json({ message: 'Invalid or expired OTP' });
         }
-        if(user.otp!== otp || user.otpExpiry < Date.now()){
-            return res.status(400).json({ message: 'Invalid or expired OTP' });
-        }
+       
     } catch (error) {
         
         res.status(500).json({ message: 'Server error' , error: error.message });

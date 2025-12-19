@@ -15,7 +15,7 @@ app.use(express.json());
 
 
 
-import carRoutes from './routes/carRoutes.js';
+import carRoutes from './routing/carRoutes.js';
 app.use('/api/cars', carRoutes);
 
 const PORT = process.env.PORT || 3000;
