@@ -1,20 +1,20 @@
 import React from 'react'
-import Header from './componenrs/Header'
-import home from './pages/home.jsx'
-import about from './pages/about.jsx'
-import contact from './pages/contact.jsx'
-import services from './pages/services.jsx'
-import { Route } from 'react-router-dom'
+import Header from './components/Header'
+import home from './pages/Home'
+import about from './pages/About'
+import contact from './pages/Contact'
+import services from './pages/Services'
+import { Routes, Route } from 'react-router-dom'
 
 export const App = () => {
   return (
     <>
       <Header/>
       <Routes>
-        <Route path='/home' element={<home/>}/>
-        <Route path='/about' element={<about/>}/>
-        <Route path='/contact' element={<contact/>}/>
-        <Route path='/services' element={<services/>}/>
+        <Route path='/Home' element={<home/>}/>
+        <Route path='/About' element={<about/>}/>
+        <Route path='/Contact' element={<contact/>}/>
+        <Route path='/Services' element={<services/>}/>
       </Routes>
     </>
   )
