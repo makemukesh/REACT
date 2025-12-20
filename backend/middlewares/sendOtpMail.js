@@ -1,22 +1,28 @@
 import transporter from '../config/mailer.js';
-
+import dotenv from 'dotenv';
+dotenv.config();
 const sendOtpEmail = async (req, res, next) => {
-  try{
-    const { email, otp, next } = next.otpData;
+  try {
+    // otpData must be attached earlier (from controller or previous middleware)
+    const { email, otp, type } = req.otpData;
 
-    const subject = type === 'registration failed' ? 'Your Registration OTP' : 'Your Password Reset OTP';
-    
+    const subject =
+      type === 'registration'
+        ? 'Your Registration OTP'
+        : 'Your Password Reset OTP';
+
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: 'makwanamukesh2845@gmail.com',
       to: email,
-      subject: subject,
+      subject,
       text: `Your OTP is: ${otp}. It is valid for 10 minutes.`,
-    }); 
-    next();
+    });
+
+    next(); // ✅ move to next middleware/controller
   } catch (error) {
     console.error('Error sending OTP email:', error);
-    throw new Error('Failed to send OTP email');
+    next(error); // ✅ Express error handling
   }
-}
+};
 
 export default sendOtpEmail;
