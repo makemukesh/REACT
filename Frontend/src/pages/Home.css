@@ -65,3 +65,64 @@
 .hero-content button:hover {
   background-color: #202f9c;
 }
+
+/* Auth Box Styles */
+.auth-box {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.auth-box h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 28px;
+}
+
+.auth-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-box input {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.auth-box input:focus {
+  outline: none;
+  border-color: #ff3d00;
+}
+
+.auth-box button {
+  padding: 12px;
+  background-color: #ff3d00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.auth-box button:hover {
+  background-color: #e63600;
+}
+
+.auth-box a {
+  text-decoration: none;
+  color: #ff3d00;
+}
+
+.auth-box a:hover {
+  text-decoration: underline;
+}

@@ -1,7 +1,7 @@
-import {useState} from 'react';
-import {userLocation, useNavigate} from 'react-router-dom';
-import { verifyOtp } from  '.../services/authservices.js';
-import '../pages/Home.css';
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { verifyUser } from '../../services/authServices';
+import './Home.css';
 
 const VerifyOtp = () => {
     const navigate = useNavigate();
@@ -13,14 +13,15 @@ const VerifyOtp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await verifyUser    ({ email, otp });
+            await verifyUser({ email, otp });
             alert('OTP verified successfully!');
             navigate('/');
 
         } catch (error) {
-            alert('Failed to verify OTP. Please try again.');
+            alert(error.response?.data?.message || 'Failed to verify OTP. Please try again.');
         }
     };
+    
     return (
         <div className="auth-box">
             <h2>Verify OTP</h2>
@@ -33,10 +34,12 @@ const VerifyOtp = () => {
                     value={otp}
                     onChange={(e) => setOtp(e.target.value)}
                     required
-                    />
+                />
 
                 <button type="submit">Verify OTP</button>
             </form>
         </div>
     );
-}
+};
+
+export default VerifyOtp;
