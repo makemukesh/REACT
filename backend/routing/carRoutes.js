@@ -1,14 +1,19 @@
 import express from 'express';
-import sendOtpEmail from '../middlewares/sendOtpMail.js';
-import { register, verifyOtp } from '../controllers/user.js';
+import {
+  getAllCars,
+  getCarById,
+  createCar,
+  updateCar,
+  deleteCar,
+} from '../controllers/car.js';
 
 const router = express.Router();
 
-router.post('/register',register , sendOtpEmail, (req, res) => {
-  res.status(200).json({ message: 'Registration successful, OTP sent to email' });
-});
+// Car routes
+router.get('/', getAllCars);
+router.get('/:id', getCarById);
+router.post('/', createCar);
+router.put('/:id', updateCar);
+router.delete('/:id', deleteCar);
 
-router.post('/verify-otp', verifyOtp, (req, res) => {
-  res.status(200).json({ message: 'OTP verified successfully' });
-}); 
 export default router;

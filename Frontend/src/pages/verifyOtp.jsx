@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { verifyUser } from '../../services/authServices';
-import './Home.css';
+import '../components/Header.css';
 
 const VerifyOtp = () => {
     const navigate = useNavigate();
@@ -23,22 +23,24 @@ const VerifyOtp = () => {
     };
     
     return (
-        <div className="auth-box">
-            <h2>Verify OTP</h2>
-            <p>OTP sent to <strong>{email}</strong></p>
+        <section className="verify-otp-page">
+            <div className="auth-box">
+                <h2>Verify OTP</h2>
+                <p>OTP sent to <strong>{email}</strong></p>
 
-            <form onSubmit={handleSubmit}>
-                <input 
-                    type="text" 
-                    placeholder="Enter OTP" 
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value)}
-                    required
-                />
+                <form onSubmit={handleSubmit}>
+                    <input 
+                        type="text" 
+                        placeholder="Enter OTP" 
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value)}
+                        required
+                    />
 
-                <button type="submit">Verify OTP</button>
-            </form>
-        </div>
+                    <button type="submit">Verify OTP</button>
+                </form>
+            </div>
+        </section>
     );
 };
 
