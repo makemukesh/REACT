@@ -1,65 +1,52 @@
-import Car from '../models/Car.js';
+import Product from "../models/product.js";
 
-// Get all cars
+// Treat "cars" as products for now to keep the API responsive
 export const getAllCars = async (req, res) => {
   try {
-    const cars = await Car.find();
+    const cars = await Product.find({});
     res.status(200).json(cars);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Error fetching cars", error: error.message });
   }
 };
 
-// Get a single car by ID
 export const getCarById = async (req, res) => {
   try {
-    const car = await Car.findById(req.params.id);
-    if (!car) {
-      return res.status(404).json({ message: 'Car not found' });
-    }
+    const car = await Product.findById(req.params.id);
+    if (!car) return res.status(404).json({ message: "Car not found" });
     res.status(200).json(car);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Error fetching car", error: error.message });
   }
 };
 
-// Create a new car
 export const createCar = async (req, res) => {
   try {
-    const car = new Car(req.body);
-    const savedCar = await car.save();
-    res.status(201).json(savedCar);
+    const car = await Product.create(req.body);
+    res.status(201).json({ message: "Car created successfully", car });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: "Error creating car", error: error.message });
   }
 };
 
-// Update a car
 export const updateCar = async (req, res) => {
   try {
-    const car = await Car.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-    if (!car) {
-      return res.status(404).json({ message: 'Car not found' });
-    }
-    res.status(200).json(car);
+    const car = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!car) return res.status(404).json({ message: "Car not found" });
+    res.status(200).json({ message: "Car updated successfully", car });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: "Error updating car", error: error.message });
   }
 };
 
-// Delete a car
 export const deleteCar = async (req, res) => {
   try {
-    const car = await Car.findByIdAndDelete(req.params.id);
-    if (!car) {
-      return res.status(404).json({ message: 'Car not found' });
-    }
-    res.status(200).json({ message: 'Car deleted successfully' });
+    const car = await Product.findByIdAndDelete(req.params.id);
+    if (!car) return res.status(404).json({ message: "Car not found" });
+    res.status(200).json({ message: "Car deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Error deleting car", error: error.message });
   }
 };
+
 

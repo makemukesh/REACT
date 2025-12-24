@@ -2,6 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
+import userRoutes from './routing/userRoutes.js';
+import productRoutes from './routing/productRoutes.js';
+import carRoutes from './routing/carRoutes.js';
 
 dotenv.config();
 
@@ -13,10 +16,9 @@ app.use(cors());
 app.use(express.json());
 
 
-
-
-import carRoutes from './routing/carRoutes.js';
-app.use('/api/cars', carRoutes);
+app.use('/api/admin/cars', carRoutes);
+app.use('/users', userRoutes);
+app.use('/api/admin/products', productRoutes);
 
 const PORT = process.env.PORT || 3000;
 

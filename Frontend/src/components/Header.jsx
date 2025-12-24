@@ -1,10 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import LoginModal from "../pages/LoginModal";
 import "./Header.css";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const decodeToken = (token) => {
+    try {
+      const payload = token.split(".")[1];
+      const decoded = JSON.parse(atob(payload));
+      return decoded;
+    } catch (e) {
+      return null;
+    }
+  };
+
+  const initials = useMemo(() => {
+    if (!user?.name) return "U";
+    const parts = user.name.trim().split(" ");
+    const first = parts[0]?.[0] || "";
+    const last = parts[1]?.[0] || "";
+    return (first + last).toUpperCase() || "U";
+  }, [user]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = decodeToken(token);
+      if (decoded) {
+        setUser({ name: decoded.name || "User", email: decoded.email });
+      }
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    setShowMenu(false);
+  };
 
   return (
     <>
@@ -25,9 +61,21 @@ const Header = () => {
         {/* CTA Buttons */}
         <div className="cta-buttons">
           <button className="cta-btn">Book Test Drive</button>
-          <button className="login-btn" onClick={() => setIsModalOpen(true)}>
-            Login
-          </button>
+          {!user ? (
+            <button className="login-btn" onClick={() => setIsModalOpen(true)}>
+              Login
+            </button>
+          ) : (
+            <div className="user-chip" onClick={() => setShowMenu((s) => !s)}>
+              <div className="user-avatar">{initials}</div>
+              {showMenu && (
+                <div className="user-menu">
+                  <Link to="/profile" onClick={() => setShowMenu(false)}>Profile</Link>
+                  <button onClick={handleLogout}>Logout</button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </header>
 

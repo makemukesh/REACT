@@ -8,19 +8,3 @@ export const registerUser = (data)=> API.post('/users/register', data);
 export const verifyUser = (data)=> API.post('/users/verify-otp', data);
 
 export const loginUser = (data)=> API.post('/users/login', data);
-
-// Fetch all cars
-export const getAllCars = () => API.get('/api/cars');
-
-// Fetch a single car by ID
-export const getCarById = (id) => API.get(`/api/cars/${id}`);
-
-// Add a new car (for admin use)
-export const addCar = (data) => API.post('/api/cars', data);
-
-// Update a car (for admin use)
-export const updateCar = (id, data) => API.put(`/api/cars/${id}`, data);
-
-// Delete a car (for admin use)
-export const deleteCar = (id) => API.delete(`/api/cars/${id}`);
-
