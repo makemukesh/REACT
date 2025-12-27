@@ -1,7 +1,4 @@
 /* ============================================
-<<<<<<< HEAD
-   HEADER & NAVIGATION CSS
-=======
    MASTER STYLESHEET - REACT CARS APP
    ============================================ */
 
@@ -49,36 +46,12 @@ button {
 
 /* ============================================
    HEADER & NAVIGATION
->>>>>>> 699a03d (inital deployment)
    ============================================ */
 .header {
   position: fixed;
   top: 0;
   width: 100%;
   height: 70px;
-<<<<<<< HEAD
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  backdrop-filter: blur(6px);
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  padding: 0 60px;
-  z-index: 1000;
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
-}
-
-.logo {
-  font-size: 28px;
-
-  justify-items: left;
-  font-weight: bold;
-  color: white;
-  letter-spacing: 1px;
-}
-
-.logo span {
-  color: #ff3d00;
-=======
   background: var(--primary-gradient);
   backdrop-filter: blur(10px);
   display: flex;
@@ -98,21 +71,10 @@ button {
 
 .logo span {
   color: var(--accent-color);
->>>>>>> 699a03d (inital deployment)
 }
 
 .nav {
   display: flex;
-<<<<<<< HEAD
-  gap: 20px;
-}
-
-.nav a {
-  color: white;
-  text-decoration: none;
-  font-size: 16px;
-  position: relative;
-=======
   gap: 30px;
 }
 
@@ -126,7 +88,6 @@ button {
 
 .nav a:hover {
   color: var(--white);
->>>>>>> 699a03d (inital deployment)
 }
 
 .nav a::after {
@@ -134,17 +95,10 @@ button {
   position: absolute;
   width: 0%;
   height: 2px;
-<<<<<<< HEAD
-  background-color: #ff3d00;
-  left: 0;
-  bottom: -6px;
-  transition: 0.3s;
-=======
   background-color: var(--accent-color);
   left: 0;
   bottom: -4px;
   transition: 0.3s ease;
->>>>>>> 699a03d (inital deployment)
 }
 
 .nav a:hover::after {
@@ -153,41 +107,6 @@ button {
 
 .cta-buttons {
   display: flex;
-<<<<<<< HEAD
-  gap: 12px;
-  align-items: center;
-}
-
-.user-chip {
-  display: flex;
-  align-items: center;
-  padding: 8px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 40px;
-  cursor: pointer;
-  position: relative;
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-
-.user-chip:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.user-avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #ff3d00 0%, #e63600 100%);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 14px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-=======
   gap: 15px;
   align-items: center;
 }
@@ -220,94 +139,73 @@ button {
   justify-content: center;
   font-weight: 600;
   font-size: 14px;
->>>>>>> 699a03d (inital deployment)
 }
 
 .user-menu {
   position: absolute;
-<<<<<<< HEAD
-  top: 110%;
+  top: 120%;
   right: 0;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  padding: 8px;
-  min-width: 140px;
-  box-shadow: 0 10px 30px rgba(240, 147, 251, 0.4);
-  backdrop-filter: blur(8px);
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  min-width: 160px;
+  box-shadow: var(--shadow-lg);
   z-index: 1200;
+  overflow: hidden;
 }
 
-.user-menu a {
+.user-menu a,
+.user-menu button {
   display: block;
   width: 100%;
-  background: transparent;
-  color: white;
-  border: none;
-  padding: 10px;
+  padding: 10px 15px;
   text-align: left;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.user-menu a:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-.user-menu button {
-  width: 100%;
   background: transparent;
-  color: white;
+  color: var(--text-dark);
   border: none;
-  padding: 10px;
-  text-align: left;
   border-radius: 8px;
+  font-size: 14px;
   cursor: pointer;
-  transition: background 0.2s ease;
-  font-weight: 500;
+  transition: background 0.2s;
 }
 
+.user-menu a:hover,
 .user-menu button:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: #f0f0f0;
+  color: var(--accent-color);
 }
 
 .cta-btn {
-  padding: 10px 22px;
-  background-color: #ff3d00;
+  padding: 8px 20px;
+  background-color: var(--accent-color);
   border: none;
-  color: white;
-  font-size: 15px;
-  border-radius: 4px;
+  color: var(--white);
+  font-size: 14px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: 0.3s;
-  font-weight: 500;
+  transition: background 0.3s;
+  font-weight: 600;
 }
 
 .cta-btn:hover {
-  background-color: #e63600;
+  background-color: var(--accent-hover);
 }
 
 .login-btn {
-  padding: 10px 22px;
-  font-size: 15px;
-  border-radius: 4px;
+  padding: 8px 20px;
+  font-size: 14px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: 0.3s;
-  font-weight: 500;
+  transition: all 0.3s;
+  font-weight: 600;
   background-color: transparent;
-  color: white;
-  border: 2px solid white;
+  color: var(--white);
+  border: 2px solid rgba(255, 255, 255, 0.6);
 }
 
 .login-btn:hover {
-  background-color: white;
-  color: #333;
-  border-color: white;
+  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* Modal Styles */
@@ -336,8 +234,6 @@ button {
   position: relative;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
-
-
 
 .modal-close {
   position: absolute;
@@ -445,7 +341,7 @@ button {
 }
 
 /* ============================================
-   VERIFY OTP PAGE CSS STARTS HERE
+   VERIFY OTP PAGE CSS
    ============================================ */
 .verify-otp-page {
   padding: 120px 8% 80px;
@@ -458,7 +354,7 @@ button {
   justify-content: center;
 }
 
-/* Auth Box Styles (for verifyOtp page) */
+/* Auth Box Styles */
 .auth-box {
   max-width: 450px;
   width: 100%;
@@ -533,118 +429,6 @@ button {
   background-color: #e63600;
 }
 
-/* Services page styles - keeping only used classes */
-
-.service-card {
-  background: white;
-  padding: 40px 30px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-bottom: 30px;
-}
-
-.service-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-}
-
-.service-card h3 {
-  font-size: 1.8rem;
-  color: #f5576c;
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-.service-card p {
-  font-size: 1.1rem;
-  color: #555;
-  line-height: 1.8;
-}
-
-.service-Question ul li h3 {
-  font-size: 1.5rem;
-  margin-bottom: 12px;
-  font-weight: 600;
-  color: white;
-}
-
-.service-Question ul li .answer {
-  font-size: 1rem;
-  line-height: 1.7;
-  opacity: 0.95;
-  margin: 0;
-  color: white;
-}
-
-/* ============================================
-   HOME PAGE CSS STARTS HERE
-=======
-  top: 120%;
-  right: 0;
-  background: var(--white);
-  border-radius: var(--radius-md);
-  padding: 10px;
-  min-width: 160px;
-  box-shadow: var(--shadow-lg);
-  z-index: 1200;
-  overflow: hidden;
-}
-
-.user-menu a,
-.user-menu button {
-  display: block;
-  width: 100%;
-  padding: 10px 15px;
-  text-align: left;
-  background: transparent;
-  color: var(--text-dark);
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.user-menu a:hover,
-.user-menu button:hover {
-  background: #f0f0f0;
-  color: var(--accent-color);
-}
-
-.cta-btn {
-  padding: 8px 20px;
-  background-color: var(--accent-color);
-  border: none;
-  color: var(--white);
-  font-size: 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s;
-  font-weight: 600;
-}
-
-.cta-btn:hover {
-  background-color: var(--accent-hover);
-}
-
-.login-btn {
-  padding: 8px 20px;
-  font-size: 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s;
-  font-weight: 600;
-  background-color: transparent;
-  color: var(--white);
-  border: 2px solid rgba(255, 255, 255, 0.6);
-}
-
-.login-btn:hover {
-  border-color: var(--white);
-  background: rgba(255, 255, 255, 0.1);
-}
-
 /* ============================================
    COMMON PAGE LAYOUTS
    ============================================ */
@@ -671,7 +455,6 @@ button {
 
 /* ============================================
    HOME & CARS PAGES
->>>>>>> 699a03d (inital deployment)
    ============================================ */
 .home {
   width: 100%;
@@ -680,98 +463,25 @@ button {
 
 .mySwiper {
   width: 100%;
-<<<<<<< HEAD
-  height: 100vh;
-=======
   height: 90vh;
->>>>>>> 699a03d (inital deployment)
 }
 
 .slide {
   position: relative;
   width: 100%;
-<<<<<<< HEAD
-  height: 100vh;
-=======
   height: 100%;
->>>>>>> 699a03d (inital deployment)
 }
 
 .slide img {
   width: 100%;
-<<<<<<< HEAD
-  height: 100vh;
-  object-fit: cover;
-}
-
-/* Overlay */
-=======
   height: 100%;
   object-fit: cover;
 }
 
->>>>>>> 699a03d (inital deployment)
 .slide::after {
   content: "";
   position: absolute;
   inset: 0;
-<<<<<<< HEAD
-  background: rgba(21, 20, 20, 0.5);
-}
-
-/* Hero Content */
-.hero-content {
-  position: absolute;
-  top: 50%;
-  left: 8%;
-  transform: translateY(-50%);
-  color: rgb(241, 244, 241);
-  z-index: 10;
-  max-width: 500px;
-}
-
-.hero-content h1 {
-  font-size: 48px;
-  margin-bottom: 15px;
-}
-
-.hero-content p {
-  font-size: 18px;
-  margin-bottom: 25px;
-  line-height: 1.5;
-}
-
-.hero-content button {
-  padding: 14px 32px;
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
-  background: linear-gradient(135deg, #ff3d00 0%, #e63600 100%);
-  color: white;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(255, 61, 0, 0.3);
-}
-
-.hero-content button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 61, 0, 0.4);
-  background: linear-gradient(135deg, #e63600 0%, #cc2e00 100%);
-}
-
-/* Cars Section Styles */
-.cars-section {
-  width: 100%;
-  padding: 80px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: auto;
-}
-
-.cars-container {
-  max-width: 1400px;
-  margin: 0 auto;
-=======
   background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.1) 100%);
 }
 
@@ -819,60 +529,14 @@ button {
 .cars-section {
   padding: 80px 5%;
   background: var(--bg-light);
->>>>>>> 699a03d (inital deployment)
 }
 
 .cars-header {
   text-align: center;
-<<<<<<< HEAD
-  color: white;
-=======
->>>>>>> 699a03d (inital deployment)
   margin-bottom: 60px;
 }
 
 .cars-header h2 {
-<<<<<<< HEAD
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 15px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.cars-header p {
-  font-size: 1.2rem;
-  opacity: 0.95;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 20px;
-  color: white;
-}
-
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid white;
-  border-radius: 50%;
-  margin-bottom: 20px;
-}
-
-
-.error-message {
-  text-align: center;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: white;
-  margin-bottom: 30px;
-=======
   font-size: 2.5rem;
   color: #2c3e50;
   margin-bottom: 10px;
@@ -881,36 +545,10 @@ button {
 .cars-header p {
   color: var(--text-light);
   font-size: 1.1rem;
->>>>>>> 699a03d (inital deployment)
 }
 
 .cars-grid {
   display: grid;
-<<<<<<< HEAD
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 30px;
-  margin-top: 40px;
-}
-
-.car-card {
-  background: white;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.car-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-}
-
-.car-image-container {
-  position: relative;
-  width: 100%;
-  height: 250px;
-  overflow: hidden;
-=======
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 30px;
 }
@@ -934,45 +572,23 @@ button {
   overflow: hidden;
   height: 220px;
   position: relative;
->>>>>>> 699a03d (inital deployment)
 }
 
 .car-image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-<<<<<<< HEAD
-  transition: transform 0.3s ease;
-}
-
-.car-card:hover .car-image-container img {
-  transform: scale(1.1);
-=======
   transition: transform 0.5s;
 }
 
 .car-card:hover .car-image-container img {
   transform: scale(1.05);
->>>>>>> 699a03d (inital deployment)
 }
 
 .car-badge {
   position: absolute;
   top: 15px;
   right: 15px;
-<<<<<<< HEAD
-  background: rgba(102, 126, 234, 0.9);
-  color: white;
-  padding: 8px 15px;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  backdrop-filter: blur(10px);
-}
-
-.car-info {
-  padding: 25px;
-=======
   background: rgba(0, 0, 0, 0.7);
   color: var(--white);
   padding: 5px 12px;
@@ -988,50 +604,11 @@ button {
   flex: 1;
   display: flex;
   flex-direction: column;
->>>>>>> 699a03d (inital deployment)
 }
 
 .car-header-info {
   display: flex;
   justify-content: space-between;
-<<<<<<< HEAD
-  align-items: flex-start;
-  margin-bottom: 15px;
-  gap: 15px;
-}
-
-.car-header-info h3 {
-  font-size: 1.5rem;
-  color: #333;
-  margin: 0;
-  font-weight: 600;
-  flex: 1;
-}
-
-.car-price {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #667eea;
-  white-space: nowrap;
-}
-
-.car-description {
-  color: #666;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 20px;
-  min-height: 45px;
-}
-
-.car-specs {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 20px;
-  padding: 15px;
-  background: #f8f9fa;
-  border-radius: 8px;
-=======
   align-items: center;
   margin-bottom: 10px;
 }
@@ -1062,28 +639,16 @@ button {
   border-radius: 8px;
   margin-bottom: 15px;
   font-size: 0.85rem;
->>>>>>> 699a03d (inital deployment)
 }
 
 .spec-item {
   display: flex;
-<<<<<<< HEAD
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.9rem;
-}
-
-.spec-label {
-  color: #666;
-  font-weight: 500;
-=======
   flex-direction: column;
 }
 
 .spec-label {
   color: #888;
   font-size: 0.75rem;
->>>>>>> 699a03d (inital deployment)
 }
 
 .spec-value {
@@ -1093,53 +658,6 @@ button {
 
 .car-actions {
   display: flex;
-<<<<<<< HEAD
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.btn-view-details,
-.btn-book-test-drive {
-  flex: 1;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-view-details {
-  background: #f0f0f0;
-  color: #333;
-}
-
-.btn-view-details:hover {
-  background: #e0e0e0;
-  transform: translateY(-2px);
-}
-
-.btn-book-test-drive {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-}
-
-.btn-book-test-drive:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-}
-
-/* ============================================
-   ABOUT PAGE CSS STARTS HERE
-   ============================================ */
-.about-page {
-  padding: 120px 8% 90px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #f5f5f5;
-  min-height: 100vh;
-  box-sizing: border-box;
-=======
   gap: 10px;
 }
 
@@ -1182,33 +700,14 @@ button {
   padding: 100px 10% 60px;
   background: var(--bg-light);
   min-height: 100vh;
->>>>>>> 699a03d (inital deployment)
 }
 
 .about-hero {
   text-align: center;
-<<<<<<< HEAD
-  color: white;
-=======
->>>>>>> 699a03d (inital deployment)
   margin-bottom: 60px;
 }
 
 .about-hero h1 {
-<<<<<<< HEAD
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.about-hero p {
-  font-size: 1.3rem;
-  max-width: 700px;
-  margin: 0 auto;
-  opacity: 0.95;
-  line-height: 1.6;
-=======
   font-size: 3rem;
   color: var(--text-dark);
   margin-bottom: 15px;
@@ -1219,117 +718,10 @@ button {
   font-size: 1.1rem;
   max-width: 700px;
   margin: 0 auto;
->>>>>>> 699a03d (inital deployment)
 }
 
 .about-grid {
   display: grid;
-<<<<<<< HEAD
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto 60px;
-}
-
-.about-card {
-  background: white;
-  padding: 40px 30px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.about-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-}
-
-.about-card h3 {
-  font-size: 1.8rem;
-  color: #667eea;
-  margin-bottom: 20px;
-  font-weight: 600;
-}
-
-.about-card p {
-  font-size: 1.1rem;
-  color: #555;
-  line-height: 1.8;
-}
-
-.about-card ul {
-  list-style: none;
-  padding: 0;
-}
-
-.about-card ul li {
-  font-size: 1.1rem;
-  color: #555;
-  padding: 10px 0;
-  padding-left: 30px;
-  position: relative;
-  line-height: 1.6;
-}
-
-.about-card ul li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  color: #667eea;
-  font-weight: bold;
-  font-size: 1.3rem;
-}
-
-.about-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.stat {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  padding: 40px 20px;
-  border-radius: 15px;
-  text-align: center;
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  transition: transform 0.3s ease, background 0.3s ease;
-}
-
-.stat:hover {
-  transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.25);
-}
-
-.stat-number {
-  display: block;
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.stat-label {
-  display: block;
-  font-size: 1.1rem;
-  opacity: 0.9;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* ============================================
-   SERVICES PAGE CSS STARTS HERE
-   ============================================ */
-.services-page {
-  padding: 120px 8% 90px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #f5f5f5;
-  min-height: 100vh;
-  box-sizing: border-box;
-=======
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
 }
@@ -1354,68 +746,48 @@ button {
   margin-bottom: 15px;
 }
 
+/* Stats for About Page */
+.about-stats {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.stat-label {
+  color: var(--accent-color);
+  font-weight: 500;
+}
+
 /* ============================================
    SERVICES PAGE
    ============================================ */
 .services-page {
   padding: 100px 10% 60px;
   min-height: 100vh;
->>>>>>> 699a03d (inital deployment)
 }
 
 .services-hero {
   text-align: center;
-<<<<<<< HEAD
-  color: white;
-=======
->>>>>>> 699a03d (inital deployment)
   margin-bottom: 60px;
 }
 
 .services-hero h1 {
-<<<<<<< HEAD
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.services-hero p {
-  font-size: 1.3rem;
-  max-width: 700px;
-  margin: 0 auto;
-  opacity: 0.95;
-  line-height: 1.6;
-}
-
-.services-grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  margin-bottom: 40px;
-}
-
-.service-Question {
-  max-width: 1200px;
-  margin: 60px auto 0;
-  padding: 50px 40px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.service-Question h1 {
-  font-size: 2.8rem;
-  color: #ffffff;
-  margin-bottom: 40px;
-  text-align: center;
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-=======
   font-size: 3rem;
   color: #2c3e50;
 }
@@ -1464,57 +836,10 @@ button {
   text-align: center;
   margin-bottom: 40px;
   color: #333;
->>>>>>> 699a03d (inital deployment)
 }
 
 .service-Question ul {
   list-style: none;
-<<<<<<< HEAD
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.service-Question ul li {
-  padding: 30px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 15px;
-  border-left: 5px solid #ff3d00;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.service-Question ul li:hover {
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  transform: translateY(-3px);
-}
-
-.service-Question ul li h3 {
-  font-size: 1.5rem;
-  color: #ff3d00;
-  margin-bottom: 12px;
-  font-weight: 600;
-}
-
-.service-Question ul li .answer {
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.7;
-  margin: 0;
-}
-
-/* ============================================
-   CONTACT PAGE CSS STARTS HERE
-   ============================================ */
-.contact-page {
-  padding: 120px 8% 80px;
-  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-  color: #333;
-  min-height: 100vh;
-  box-sizing: border-box;
-=======
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 40px;
@@ -1531,30 +856,10 @@ button {
 .contact-page {
   padding: 100px 10% 60px;
   min-height: 100vh;
->>>>>>> 699a03d (inital deployment)
 }
 
 .contact-hero {
   text-align: center;
-<<<<<<< HEAD
-  color: #333;
-  margin-bottom: 60px;
-}
-
-.contact-hero h1 {
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  color: #667eea;
-}
-
-.contact-hero p {
-  font-size: 1.3rem;
-  max-width: 700px;
-  margin: 0 auto;
-  color: #555;
-  line-height: 1.6;
-=======
   margin-bottom: 50px;
 }
 
@@ -1566,68 +871,10 @@ button {
 .contact-hero p {
   font-size: 1.1rem;
   color: #666;
->>>>>>> 699a03d (inital deployment)
 }
 
 .contact-grid {
   display: grid;
-<<<<<<< HEAD
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto 60px;
-}
-
-.contact-card {
-  background: white;
-  padding: 40px 30px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.contact-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-}
-
-.contact-card h3 {
-  font-size: 1.8rem;
-  color: #4facfe;
-  margin-bottom: 20px;
-  font-weight: 600;
-}
-
-.contact-card p {
-  font-size: 1.1rem;
-  color: #555;
-  line-height: 1.8;
-}
-
-.contact-form {
-  max-width: 800px;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 50px 40px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
-  border: 2px solid rgba(102, 126, 234, 0.2);
-}
-
-.contact-form h2 {
-  font-size: 2.2rem;
-  color: #667eea;
-  margin-bottom: 30px;
-  text-align: center;
-  font-weight: 600;
-}
-
-.contact-form form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-=======
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   margin-bottom: 60px;
@@ -1659,7 +906,6 @@ button {
   text-align: center;
   margin-bottom: 30px;
   color: #333;
->>>>>>> 699a03d (inital deployment)
 }
 
 .form-row {
@@ -1670,18 +916,6 @@ button {
 
 .contact-form input,
 .contact-form textarea {
-<<<<<<< HEAD
-  padding: 15px 20px;
-  border: 2px solid rgba(102, 126, 234, 0.3);
-  border-radius: 8px;
-  font-size: 1rem;
-  font-family: inherit;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  width: 100%;
-  box-sizing: border-box;
-  background: #ffffff;
-  color: #333;
-=======
   width: 100%;
   padding: 15px;
   margin-bottom: 20px;
@@ -1690,60 +924,12 @@ button {
   font-size: 1rem;
   font-family: var(--font-main);
   background: #f9f9f9;
->>>>>>> 699a03d (inital deployment)
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
   border-color: #667eea;
-<<<<<<< HEAD
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.contact-form textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.contact-form button {
-  padding: 15px 40px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  align-self: center;
-  margin-top: 10px;
-}
-
-.contact-form button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-}
-
-.contact-form button:active {
-  transform: translateY(0);
-}
-
-/* ============================================
-   PROFILE PAGE CSS STARTS HERE
-   ============================================ */
-.profile-page {
-  padding: 120px 8% 80px;
-  background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
-  color: #333;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
-
-.profile-container {
-  max-width: 900px;
-  margin: 0 auto;
-=======
   background: #fff;
 }
 
@@ -1777,46 +963,10 @@ button {
 .profile-container {
   width: 100%;
   max-width: 900px;
->>>>>>> 699a03d (inital deployment)
 }
 
 .profile-header {
   text-align: center;
-<<<<<<< HEAD
-  margin-bottom: 50px;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 20px;
-  border: 2px solid rgba(102, 126, 234, 0.3);
-  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2);
-}
-
-.profile-avatar-large {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #ff3d00 0%, #e63600 100%);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 48px;
-  margin: 0 auto 20px;
-  box-shadow: 0 8px 24px rgba(255, 61, 0, 0.3);
-}
-
-.profile-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-  color: #667eea;
-}
-
-.profile-email {
-  font-size: 1.1rem;
-  color: #555;
-  margin: 0;
-=======
   background: var(--white);
   padding: 40px;
   border-radius: var(--radius-lg);
@@ -1847,58 +997,15 @@ button {
 .profile-email {
   color: #666;
   font-size: 1.1rem;
->>>>>>> 699a03d (inital deployment)
 }
 
 .profile-content {
   display: grid;
-<<<<<<< HEAD
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-=======
   grid-template-columns: 2fr 1fr;
->>>>>>> 699a03d (inital deployment)
   gap: 30px;
 }
 
 .profile-card {
-<<<<<<< HEAD
-  background: rgba(255, 255, 255, 0.95);
-  border: 2px solid rgba(102, 126, 234, 0.2);
-  border-radius: 15px;
-  padding: 30px;
-  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.15);
-}
-
-.profile-card h2 {
-  font-size: 1.8rem;
-  color: #667eea;
-  margin-bottom: 25px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid rgba(102, 126, 234, 0.3);
-}
-
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.info-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.info-item:last-child {
-  border-bottom: none;
-}
-
-.info-label {
-  font-size: 0.95rem;
-  color: #666;
-=======
   background: var(--white);
   padding: 30px;
   border-radius: var(--radius-lg);
@@ -1922,15 +1029,10 @@ button {
 
 .info-label {
   color: #888;
->>>>>>> 699a03d (inital deployment)
   font-weight: 500;
 }
 
 .info-value {
-<<<<<<< HEAD
-  font-size: 1rem;
-=======
->>>>>>> 699a03d (inital deployment)
   color: #333;
   font-weight: 600;
 }
@@ -1942,9 +1044,6 @@ button {
 }
 
 .profile-btn {
-<<<<<<< HEAD
-  padding: 14px 24px;
-=======
   padding: 12px;
   border: none;
   border-radius: 8px;
@@ -1973,93 +1072,6 @@ button {
   transform: translateY(-2px);
 }
 
-/* ============================================
-   AUTH / OTP / MODAL
-   ============================================ */
-.verify-otp-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-light);
-}
-
-.auth-box,
-.modal-content {
-  background: var(--white);
-  padding: 40px;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  width: 100%;
-  max-width: 450px;
-  position: relative;
-}
-
-.auth-box h2,
-.auth-form h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.auth-form input,
-.auth-box input {
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
-.auth-form button,
-.auth-box button {
-  width: 100%;
-  padding: 14px;
-  background: var(--accent-color);
-  color: var(--white);
->>>>>>> 699a03d (inital deployment)
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-<<<<<<< HEAD
-  transition: all 0.3s ease;
-}
-
-.profile-btn.primary {
-  background: linear-gradient(135deg, #ff3d00 0%, #e63600 100%);
-  color: white;
-}
-
-.profile-btn.primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 61, 0, 0.4);
-}
-
-.profile-btn.secondary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #ffffff;
-  border: none;
-}
-
-.profile-btn.secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.profile-btn.danger {
-  background: rgba(220, 53, 69, 0.2);
-  color: #dc3545;
-  border: 1px solid rgba(220, 53, 69, 0.3);
-}
-
-.profile-btn.danger:hover {
-  background: rgba(220, 53, 69, 0.3);
-  border-color: rgba(220, 53, 69, 0.5);
-}
-
 .loading-spinner {
   width: 50px;
   height: 50px;
@@ -2068,49 +1080,9 @@ button {
   border-radius: 50%;
   margin: 0 auto 20px;
 }
-=======
-  transition: 0.3s;
-}
-
-.auth-form button:hover {
-  background: var(--accent-hover);
-}
-
-.modal-close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #999;
-}
-
-.auth-tabs {
-  display: flex;
-  margin-bottom: 30px;
-  border-bottom: 1px solid #eee;
-}
-
-.tab-btn {
-  flex: 1;
-  padding: 15px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  color: #999;
-  border-bottom: 3px solid transparent;
-}
-
-.tab-btn.active {
-  color: var(--accent-color);
-  border-bottom-color: var(--accent-color);
-}
 
 /* ============================================
-   ADMIN PANEL CSS (Enhanced)
+   ADMIN PANEL CSS
    ============================================ */
 .admin-page-container {
   min-height: 100vh;
@@ -2792,34 +1764,3 @@ button {
     transform: translateX(-50%);
   }
 }
-
-/* ============================================
-   ABOUT STATS CSS (Fixing missing css for About page stats)
-   ============================================ */
-.about-stats {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 30px;
-  text-align: center;
-  padding: 40px 0;
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-}
-
-.stat-number {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #333;
-}
-
-.stat-label {
-  color: var(--accent-color);
-  font-weight: 500;
-}
->>>>>>> 699a03d (inital deployment)
