@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import product from"../models/product.js"
-
-export const createProduct = async (req,res) =>{
-    const product = await product.create({
-        ...req.body,
-        createdBy: req.user_id,
-    })
-=======
 import Product from "../models/product.js";
 
 export const createProduct = async (req, res) => {
@@ -119,5 +110,4 @@ export const deleteProduct = async (req, res) => {
         console.error("Error deleting product:", error);
         res.status(500).json({ message: "Error deleting product", error: error.message });
     }
->>>>>>> 699a03d (inital deployment)
 }

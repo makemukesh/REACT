@@ -27,14 +27,11 @@ const userSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
-<<<<<<< HEAD
-=======
         role: {
             type: String,
             enum: ["user", "admin"],
             default: "user",
         },
->>>>>>> 699a03d (inital deployment)
     },
     {
         timestamps: true,
