@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProductById } from '../../services/productServices';
-import '../components/Header.css';
-
 const CarDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
