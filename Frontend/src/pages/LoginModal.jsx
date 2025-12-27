@@ -6,7 +6,11 @@ import '../components/Header.css';
 const LoginModal = ({ isOpen, onClose }) => {
     const navigate = useNavigate();
     const [isLogin, setIsLogin] = useState(true);
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 699a03d (inital deployment)
     const [loginData, setLoginData] = useState({
         email: "",
         password: ""
@@ -39,9 +43,19 @@ const LoginModal = ({ isOpen, onClose }) => {
             alert("Login successful!");
             if (response.data.token) {
                 localStorage.setItem('token', response.data.token);
+<<<<<<< HEAD
             }
             onClose();
             navigate('/');
+=======
+                // Store user info if needed
+                localStorage.setItem('user', JSON.stringify(response.data.user));
+            }
+            onClose();
+
+            navigate('/');
+            window.location.reload(); // Ensure header state updates immediately
+>>>>>>> 699a03d (inital deployment)
         } catch (error) {
             alert(error.response?.data?.message || "Login failed. Please try again.");
         }
@@ -65,15 +79,25 @@ const LoginModal = ({ isOpen, onClose }) => {
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <button className="modal-close" onClick={onClose}>×</button>
+<<<<<<< HEAD
                 
                 <div className="auth-tabs">
                     <button 
+=======
+
+                <div className="auth-tabs">
+                    <button
+>>>>>>> 699a03d (inital deployment)
                         className={`tab-btn ${isLogin ? 'active' : ''}`}
                         onClick={() => setIsLogin(true)}
                     >
                         Login
                     </button>
+<<<<<<< HEAD
                     <button 
+=======
+                    <button
+>>>>>>> 699a03d (inital deployment)
                         className={`tab-btn ${!isLogin ? 'active' : ''}`}
                         onClick={() => setIsLogin(false)}
                     >
@@ -85,9 +109,15 @@ const LoginModal = ({ isOpen, onClose }) => {
                     <div className="auth-form">
                         <h2>Login</h2>
                         <form onSubmit={handleLoginSubmit}>
+<<<<<<< HEAD
                             <input 
                                 type="email" 
                                 name="email"    
+=======
+                            <input
+                                type="email"
+                                name="email"
+>>>>>>> 699a03d (inital deployment)
                                 placeholder="Email"
                                 value={loginData.email}
                                 onChange={handleLoginChange}
@@ -108,17 +138,28 @@ const LoginModal = ({ isOpen, onClose }) => {
                     <div className="auth-form">
                         <h2>Register</h2>
                         <form onSubmit={handleRegisterSubmit}>
+<<<<<<< HEAD
                             <input 
                                 type="text" 
+=======
+                            <input
+                                type="text"
+>>>>>>> 699a03d (inital deployment)
                                 name="name"
                                 placeholder="Name"
                                 value={registerData.name}
                                 onChange={handleRegisterChange}
                                 required
                             />
+<<<<<<< HEAD
                             <input 
                                 type="email" 
                                 name="email"    
+=======
+                            <input
+                                type="email"
+                                name="email"
+>>>>>>> 699a03d (inital deployment)
                                 placeholder="Email"
                                 value={registerData.email}
                                 onChange={handleRegisterChange}

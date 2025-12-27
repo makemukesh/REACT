@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
+<<<<<<< HEAD
 
+=======
+import { getAllProducts } from "../../services/productServices";
+import { useNavigate } from 'react-router-dom';
+>>>>>>> 699a03d (inital deployment)
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -12,8 +17,33 @@ const Home = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+<<<<<<< HEAD
 
  
+=======
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const response = await getAllProducts();
+        if (response.data && response.data.products) {
+          setCars(response.data.products);
+        } else {
+          setCars(response.data || []);
+        }
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching cars:", err);
+        setError("Failed to load cars. Please try again later.");
+        setLoading(false);
+      }
+    };
+
+    fetchCars();
+  }, []);
+
+>>>>>>> 699a03d (inital deployment)
   return (
     <div className="home">
       {/* Hero Slider Section */}
@@ -104,11 +134,16 @@ const Home = () => {
                 <div className="car-image-container">
                   <img
                     src={car.image || "https://images.unsplash.com/photo-1503376780353-7e6692767b70"}
+<<<<<<< HEAD
                     alt={car.name || `${car.brand} ${car.model}`}
+=======
+                    alt={car.title}
+>>>>>>> 699a03d (inital deployment)
                     onError={(e) => {
                       e.target.src = "https://images.unsplash.com/photo-1503376780353-7e6692767b70";
                     }}
                   />
+<<<<<<< HEAD
                   <div className="car-badge">
                     {car.year || "2024"}
                   </div>
@@ -116,6 +151,17 @@ const Home = () => {
                 <div className="car-info">
                   <div className="car-header-info">
                     <h3>{car.name || `${car.brand || ""} ${car.model || ""}`}</h3>
+=======
+                  {car.genre && (
+                    <div className="car-badge">
+                      {car.genre}
+                    </div>
+                  )}
+                </div>
+                <div className="car-info">
+                  <div className="car-header-info">
+                    <h3>{car.title}</h3>
+>>>>>>> 699a03d (inital deployment)
                     <span className="car-price">
                       ${car.price ? car.price.toLocaleString() : "N/A"}
                     </span>
@@ -125,6 +171,7 @@ const Home = () => {
                   </p>
                   <div className="car-specs">
                     <div className="spec-item">
+<<<<<<< HEAD
                       <span className="spec-label">Brand:</span>
                       <span className="spec-value">{car.brand || "N/A"}</span>
                     </div>
@@ -143,6 +190,23 @@ const Home = () => {
                   </div>
                   <div className="car-actions">
                     <button className="btn-view-details">View Details</button>
+=======
+                      <span className="spec-label">Type:</span>
+                      <span className="spec-value">{car.genre || "N/A"}</span>
+                    </div>
+                    <div className="spec-item">
+                      <span className="spec-label">Stock:</span>
+                      <span className="spec-value">{car.stock > 0 ? "Available" : "Out of Stock"}</span>
+                    </div>
+                  </div>
+                  <div className="car-actions">
+                    <button
+                      className="btn-view-details"
+                      onClick={() => navigate(`/car/${car._id}`)}
+                    >
+                      View Details
+                    </button>
+>>>>>>> 699a03d (inital deployment)
                     <button className="btn-book-test-drive">Book Test Drive</button>
                   </div>
                 </div>

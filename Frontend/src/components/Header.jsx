@@ -31,7 +31,15 @@ const Header = () => {
     if (token) {
       const decoded = decodeToken(token);
       if (decoded) {
+<<<<<<< HEAD
         setUser({ name: decoded.name || "User", email: decoded.email });
+=======
+        setUser({
+          name: decoded.name || "User",
+          email: decoded.email,
+          role: decoded.role
+        });
+>>>>>>> 699a03d (inital deployment)
       }
     }
   }, []);
@@ -53,6 +61,10 @@ const Header = () => {
         {/* Navigation */}
         <nav className="nav">
           <Link to="/">Home</Link>
+<<<<<<< HEAD
+=======
+          <Link to="/cars">Cars</Link>
+>>>>>>> 699a03d (inital deployment)
           <Link to="/about">About</Link>
           <Link to="/services">Services</Link>
           <Link to="/contact">Contact</Link>
@@ -60,7 +72,11 @@ const Header = () => {
 
         {/* CTA Buttons */}
         <div className="cta-buttons">
+<<<<<<< HEAD
           <button className="cta-btn">Book Test Drive</button>
+=======
+
+>>>>>>> 699a03d (inital deployment)
           {!user ? (
             <button className="login-btn" onClick={() => setIsModalOpen(true)}>
               Login
@@ -71,6 +87,12 @@ const Header = () => {
               {showMenu && (
                 <div className="user-menu">
                   <Link to="/profile" onClick={() => setShowMenu(false)}>Profile</Link>
+<<<<<<< HEAD
+=======
+                  {user.role === 'admin' && (
+                    <Link to="/admin" onClick={() => setShowMenu(false)}>Admin Panel</Link>
+                  )}
+>>>>>>> 699a03d (inital deployment)
                   <button onClick={handleLogout}>Logout</button>
                 </div>
               )}

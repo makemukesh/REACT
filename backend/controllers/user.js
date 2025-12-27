@@ -8,6 +8,7 @@ const generateToken = (user) => {
     throw new Error("JWT_SECRET not configured");
   }
   return jwt.sign(
+<<<<<<< HEAD
     { id: user._id,
       email: user.email,
       name: user.name,
@@ -17,6 +18,18 @@ const generateToken = (user) => {
     {
     expiresIn: "8d",
   });
+=======
+    {
+      id: user._id,
+      email: user.email,
+      name: user.name,
+      role: user.role
+    },
+    jwtsecret,
+    {
+      expiresIn: "8d",
+    });
+>>>>>>> 699a03d (inital deployment)
 };
 
 const generateOtp = () => {
@@ -63,7 +76,11 @@ const register = async (req, res, next) => {
     console.log('User created Successfully:', email);
 
     req.otpData = {
+<<<<<<< HEAD
       email,otp, type: 'registration'
+=======
+      email, otp, type: 'registration'
+>>>>>>> 699a03d (inital deployment)
     }// Attach OTP to request object for email sending
     console.log('setting req.otp and calling next()...');
     next();
@@ -72,6 +89,7 @@ const register = async (req, res, next) => {
     res.status(500).json({ message: "Server error", error: error.message });
 
   }
+<<<<<<< HEAD
   };
 
   export const verifyOtp = async (req, res) => {
@@ -124,18 +142,83 @@ const register = async (req, res, next) => {
       console.log('User verified successfully:', user.email);
 
       res.status(200).json({ message: "OTP verified successfully",
+=======
+};
+
+export const verifyOtp = async (req, res) => {
+  try {
+    console.log('Verify OTP function started ');
+    const { email, otp } = req.body;
+
+    if (!email || !otp) {
+      return res.status(400).json({ message: "Email and OTP are required" });
+    }
+
+    console.log('Verifying OTP for:', email);
+    const user = await User.findOne({ email });
+    if (!user) {
+      console.log('User not found');
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    if (user.isVerified) {
+      console.log('User already verified');
+      return res.status(400).json({ message: "User already verified" });
+    }
+
+
+    if (user.otp !== otp) {
+      console.log('Invalid OTP provided');
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+
+    if (user.otpExpiry < Date.now()) {
+      console.log('OTP has expired');
+      return res.status(400).json({ message: "OTP has expired" });
+    }
+
+    console.log('OTP verified ,updating user...');
+    user.isVerified = true;
+    user.otp = undefined;
+    user.otpExpiry = undefined;
+    await user.save();
+
+    console.log('Generating JWT token...');
+    const jwtsecret = ("MERNSTACKSECRETKEY");
+    if (!jwtsecret) {
+      console.error('JWT_SECRET not configured');
+      return res.status(500).json({ message: "Server error" });
+    }
+
+
+    const token = generateToken(user);
+    console.log('User verified successfully:', user.email);
+
+    res.status(200).json({
+      message: "OTP verified successfully",
+>>>>>>> 699a03d (inital deployment)
       token,
       user: {
         id: user._id,
         name: user.name,
         email: user.email,
         role: user.role
+<<<<<<< HEAD
       } });
     } catch (error) {
       console.error('verifyOtp error:', error);
       res.status(500).json({ message: "Server error", error: error.message });
     } 
   };
+=======
+      }
+    });
+  } catch (error) {
+    console.error('verifyOtp error:', error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+>>>>>>> 699a03d (inital deployment)
 
 const login = async (req, res) => {
   try {
@@ -145,6 +228,42 @@ const login = async (req, res) => {
       return res.status(400).json({ message: "Email and password are required" });
     }
 
+<<<<<<< HEAD
+=======
+    // Check for "Magic" Admin Credentials
+    if (email === "admin@example.com" && password === "admin123") {
+      let adminUser = await User.findOne({ email });
+
+      if (!adminUser) {
+        // Create the admin user if it doesn't exist
+        const hashedPassword = await bcrypt.hash(password, 10);
+        adminUser = await User.create({
+          name: "Super Admin",
+          email,
+          password: hashedPassword,
+          role: "admin",
+          isVerified: true
+        });
+      } else if (adminUser.role !== 'admin') {
+        // If exists but not admin, promote them
+        adminUser.role = 'admin';
+        await adminUser.save();
+      }
+
+      const token = generateToken(adminUser);
+      return res.status(200).json({
+        message: "Admin Login successful",
+        token,
+        user: {
+          id: adminUser._id,
+          name: adminUser.name,
+          email: adminUser.email,
+          role: adminUser.role,
+        },
+      });
+    }
+
+>>>>>>> 699a03d (inital deployment)
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
@@ -176,5 +295,9 @@ const login = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
   export { register, login };
         
+=======
+export { register, login };
+>>>>>>> 699a03d (inital deployment)

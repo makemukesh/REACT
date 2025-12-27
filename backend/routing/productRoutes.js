@@ -1,4 +1,5 @@
 import express from "express";
+<<<<<<< HEAD
 import Product from "../models/product.js";
 
 const router = express.Router();
@@ -60,6 +61,27 @@ const getAllProducts = async (req, res) => {
 // Product routes
 router.post("/create-product", createProduct);
 router.get("/", getAllProducts);
+=======
+import {
+  createProduct,
+  getAllProducts,
+  getSingleProduct,
+  updateProduct,
+  deleteProduct
+} from "../controllers/productControllers.js";
+import { protect, adminOnly } from "../middlewares/authmiddlewares.js";
+
+const router = express.Router();
+
+// Public routes
+router.get("/", getAllProducts);
+router.get("/:id", getSingleProduct);
+
+// Admin routes
+router.post("/create-product", protect, adminOnly, createProduct);
+router.put("/:id", protect, adminOnly, updateProduct);
+router.delete("/:id", protect, adminOnly, deleteProduct);
+>>>>>>> 699a03d (inital deployment)
 
 // Test endpoint to verify route is working
 router.get("/test", (req, res) => {
