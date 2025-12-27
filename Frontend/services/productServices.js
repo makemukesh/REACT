@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:3000" });
+const API = axios.create({ baseURL: "http://localhost:10000" });
 
 // Add a request interceptor to include the token in headers
 API.interceptors.request.use((req) => {

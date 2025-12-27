@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:3000" });
+const API = axios.create({ baseURL: "http://localhost:10000" });
 
 export const getAllCars = () => API.get("/api/cars");
 export const getCarById = (id) => API.get(`/api/cars/${id}`);
