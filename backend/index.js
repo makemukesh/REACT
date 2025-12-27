@@ -20,7 +20,7 @@ app.use('/api/admin/cars', carRoutes);
 app.use('/users', userRoutes);
 app.use('/api/admin/products', productRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
 app.get('/', (req, res) => {
   res.send('Backend  is running...');
