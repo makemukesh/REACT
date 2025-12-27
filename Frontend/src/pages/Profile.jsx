@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../components/Header.css';
 
 const Profile = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const decodeToken = (token) => {
-    try {
-      const payload = token.split(".")[1];
-      const decoded = JSON.parse(atob(payload));
-      return decoded;
-    } catch (e) {
-      return null;
-    }
-  };
-
   useEffect(() => {
+    const decodeToken = (token) => {
+      try {
+        const payload = token.split(".")[1];
+        const decoded = JSON.parse(atob(payload));
+        return decoded;
+      } catch (e) {
+        return null;
+      }
+    };
+
     const token = localStorage.getItem("token");
     if (!token) {
       navigate('/');

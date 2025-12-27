@@ -1,22 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import LoginModal from "../pages/LoginModal";
-import "./Header.css";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
-
-  const decodeToken = (token) => {
-    try {
-      const payload = token.split(".")[1];
-      const decoded = JSON.parse(atob(payload));
-      return decoded;
-    } catch (e) {
-      return null;
-    }
-  };
 
   const initials = useMemo(() => {
     if (!user?.name) return "U";
@@ -27,6 +16,16 @@ const Header = () => {
   }, [user]);
 
   useEffect(() => {
+    const decodeToken = (token) => {
+      try {
+        const payload = token.split(".")[1];
+        const decoded = JSON.parse(atob(payload));
+        return decoded;
+      } catch (e) {
+        return null;
+      }
+    };
+
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = decodeToken(token);

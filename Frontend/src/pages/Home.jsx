@@ -7,8 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import "swiper/css";
 import "swiper/css/pagination";
 
-import "../components/Header.css";
-
 const Home = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);

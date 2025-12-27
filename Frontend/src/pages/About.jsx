@@ -1,5 +1,4 @@
 import React from 'react';
-import '../components/Header.css';
 
 import Faqs from '../components/Faqs';
 

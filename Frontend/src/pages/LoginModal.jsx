@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser, registerUser } from '../../services/authServices';
-import '../components/Header.css';
 
 const LoginModal = ({ isOpen, onClose }) => {
     const navigate = useNavigate();
