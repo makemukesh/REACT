@@ -7,7 +7,7 @@ dotenv.config();
 const cars = [
     {
         title: "BMW M4 Competition",
-        image: "https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2670&auto=format&fit=crop",
+        image: "https://prod.cosy.bmw.cloud/bmwweb/cosySec?COSY-EU-100-7331sBgrfZ7dQMw1pMWowyu4%25P6CaKM4eC9iwWNRduIwQ081ZmQGwgYXcjnWqVskbNDOBeagd087uw8javEMFe0H2gXmv7GqapGTQLXg7AF3D%25zhrLGwg6QuiVpRBnHJA0KETayVqTbhBHHS9amvhz25Ga2LWD3gXAjHpVdv6Ovu91MhVo7VRi4aNF1%25OMoHzykJEcuu0YCjgkRCzChCmE5GvloMjegp2XHhDXv6jQ%25oq12YDafHL2jmqn1%25JcDyLOEx%25dqTJIs8vSL3uBrU2PJdSeZGgAuzVMRpXcSkNh56JRVA0ogYuyNF4HvmfL0Kc%252y194Wxfj0p%25cP81D4vixbUEqcNX89GsLx0bUiprJ8iyGw6ZuUNnptYRSG0b67m5Vp4EYCygN69omlTv0YhwyX324mOzTQdjcyB73azDxTeddnkq83MbzOALUdh8kIFJGz0rABKupkb8FeWS6ABoKMPVYFeSWhbNmKMMPo90yWafbHi4TPnu9%25wc3bO9iftxd9CKw178zmaftECUkyKX7slGAT5GCrXpF3gBlZQ6KdvZXRaYWzC4Q5nmPej7agOybMD4nvIT9hqxO2B3ioUVIjedwHGpBDMzt%25SQeqhk7fVeMLoAC1fKhJHFlExpou%25KXsg8HSfWQrvK%25V1Pa8lqfNEbnUBJ10s9OGJJE4riIpzsscZwB67irxRteYCPZ857MmlqRUgChgE55Gvlovfdgp2XH2Vcv6jQ%25j1k2YDafDE7jmqn1qY9DyLOELFUqTJIsdvLL3uBrz9PJdSeZk32uzVMRAd0SkNh5FzrVA0og1mLNF1Ysa5Tn65evuOZ",
         price: 89000,
         description: "The BMW M4 Competition Coupe offers 503 horsepower and 0-60 mph in just 3.8 seconds.",
         genre: "Coupe",
