@@ -1,11 +1,8 @@
 import React from 'react';
 import '../components/Header.css';
 
-<<<<<<< HEAD
-=======
 import Faqs from '../components/Faqs';
 
->>>>>>> 699a03d (inital deployment)
 const About = () => {
   return (
     <section className="about-page">
@@ -58,11 +55,8 @@ const About = () => {
           <span className="stat-label">Support</span>
         </div>
       </div>
-<<<<<<< HEAD
-=======
 
       <Faqs />
->>>>>>> 699a03d (inital deployment)
     </section>
   );
 };
