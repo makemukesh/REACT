@@ -1,9 +1,7 @@
 import React from 'react';
-import '../components/Header.css';
-
 const Services = () => {
   return (
-   <section className="services-page">
+    <section className="services-page">
       <div className="services-hero">
         <h1>Our Services</h1>
         <p>Comprehensive solutions tailored for your driving needs.</p>

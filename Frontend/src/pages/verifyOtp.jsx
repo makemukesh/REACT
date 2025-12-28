@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { verifyUser } from '../../services/authServices';
-import '../components/Header.css';
-
 const VerifyOtp = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -21,7 +19,7 @@ const VerifyOtp = () => {
             alert(error.response?.data?.message || 'Failed to verify OTP. Please try again.');
         }
     };
-    
+
     return (
         <section className="verify-otp-page">
             <div className="auth-box">
@@ -29,9 +27,9 @@ const VerifyOtp = () => {
                 <p>OTP sent to <strong>{email}</strong></p>
 
                 <form onSubmit={handleSubmit}>
-                    <input 
-                        type="text" 
-                        placeholder="Enter OTP" 
+                    <input
+                        type="text"
+                        placeholder="Enter OTP"
                         value={otp}
                         onChange={(e) => setOtp(e.target.value)}
                         required

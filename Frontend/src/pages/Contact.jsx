@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import '../components/Header.css';
-
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -56,38 +54,38 @@ const Contact = () => {
         <h2>Send us a message</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-row">
-            <input 
-              type="text" 
-              name="name" 
-              placeholder="Your name" 
+            <input
+              type="text"
+              name="name"
+              placeholder="Your name"
               value={formData.name}
               onChange={handleChange}
-              required 
+              required
             />
-            <input 
-              type="email" 
-              name="email" 
-              placeholder="Your email" 
+            <input
+              type="email"
+              name="email"
+              placeholder="Your email"
               value={formData.email}
               onChange={handleChange}
-              required 
+              required
             />
           </div>
-          <input 
-            type="text" 
-            name="subject" 
-            placeholder="Subject" 
+          <input
+            type="text"
+            name="subject"
+            placeholder="Subject"
             value={formData.subject}
             onChange={handleChange}
-            required 
+            required
           />
-          <textarea 
-            name="message" 
-            rows="5" 
-            placeholder="How can we help?" 
+          <textarea
+            name="message"
+            rows="5"
+            placeholder="How can we help?"
             value={formData.message}
             onChange={handleChange}
-            required 
+            required
           />
           <button type="submit">Submit</button>
         </form>

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { getAllProducts, deleteProduct } from '../../services/productServices';
 import { Link } from 'react-router-dom';
 import AdminHeader from './AdminHeader';
-import '../components/Header.css';
-
 const CarsManagement = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);

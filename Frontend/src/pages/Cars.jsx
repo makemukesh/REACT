@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAllProducts } from '../../services/productServices';
 import { useNavigate } from 'react-router-dom';
-import '../components/Header.css';
-
 const Cars = () => {
     const [cars, setCars] = useState([]);
     const [loading, setLoading] = useState(true);

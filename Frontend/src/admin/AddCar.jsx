@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { createProduct } from '../../services/productServices';
 import { useNavigate } from 'react-router-dom';
 import AdminHeader from './AdminHeader';
-import '../components/Header.css';
-
 const AddCar = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({

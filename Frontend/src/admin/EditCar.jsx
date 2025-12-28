@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { getProductById, updateProduct } from '../../services/productServices';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdminHeader from './AdminHeader';
-import '../components/Header.css';
-
 const EditCar = () => {
     const { id } = useParams();
     const navigate = useNavigate();
