@@ -12,14 +12,17 @@ import AddCar from './admin/AddCar'
 import EditCar from './admin/EditCar'
 import CarDetails from './pages/CarDetails'
 import Cars from './pages/Cars'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 
 import Footer from './components/Footer'
 
 const App = () => {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
   return (
     <>
-      <Header />
+      {!isAdminRoute && <Header />}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -35,7 +38,7 @@ const App = () => {
         <Route path="/cars" element={<Cars />} />
         <Route path="/car/:id" element={<CarDetails />} />
       </Routes>
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </>
   )
 }
