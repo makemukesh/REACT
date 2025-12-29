@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
 const generateToken = (user) => {
-  const jwtsecret = "MERNSTACKSECRETKEY";
+  const jwtsecret = process.env.JWT_SECRET || "MERNSTACKSECRETKEY";
   if (!jwtsecret) {
     throw new Error("JWT_SECRET not configured");
   }
@@ -114,7 +114,7 @@ export const verifyOtp = async (req, res) => {
     await user.save();
 
     console.log('Generating JWT token...');
-    const jwtsecret = ("MERNSTACKSECRETKEY");
+    const jwtsecret = process.env.JWT_SECRET || "MERNSTACKSECRETKEY";
     if (!jwtsecret) {
       console.error('JWT_SECRET not configured');
       return res.status(500).json({ message: "Server error" });

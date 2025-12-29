@@ -1,11 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginModal from "../pages/LoginModal";
+import { useSelector } from "react-redux";
+import { FiShoppingCart } from "react-icons/fi";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
+  const navigate = useNavigate();
+
+  const cartCount = useSelector((state) => state.cart.items.length);
 
   const initials = useMemo(() => {
     if (!user?.name) return "U";
@@ -41,15 +46,18 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
     setShowMenu(false);
+    navigate("/");
+    window.location.reload();
   };
 
   return (
     <>
       <header className="header">
         {/* Logo */}
-        <div className="logo">
+        <div className="logo" onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
           <span>Auto</span>Drive
         </div>
 
@@ -61,6 +69,17 @@ const Header = () => {
           <Link to="/services">Services</Link>
           <Link to="/contact">Contact</Link>
         </nav>
+
+        <div className="cart-wrapper">
+          <div onClick={() => navigate("/cart")} className="cart-icon-container">
+            <FiShoppingCart className="cart-icon" />
+            {cartCount > 0 && (
+              <span className="cart-badge">
+                {cartCount}
+              </span>
+            )}
+          </div>
+        </div>
 
         {/* CTA Buttons */}
         <div className="cta-buttons">

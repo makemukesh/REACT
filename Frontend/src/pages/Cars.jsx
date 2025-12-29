@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { getAllProducts } from '../../services/productServices';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../store/cartSlice';
 const Cars = () => {
     const [cars, setCars] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handleAddToCart = (car) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("Please login to add items to your cart.");
+            return;
+        }
+        dispatch(addToCart(car));
+        alert(`${car.title} added to cart!`);
+    };
 
     useEffect(() => {
         const fetchCars = async () => {
@@ -79,7 +92,7 @@ const Cars = () => {
                                 >
                                     View Details
                                 </button>
-                                <button className="btn-book-test-drive">Book Test Drive</button>
+                                <button className="btn-add-to-cart-mini" onClick={() => handleAddToCart(car)}>Add to Cart</button>
                             </div>
                         </div>
                     </div>

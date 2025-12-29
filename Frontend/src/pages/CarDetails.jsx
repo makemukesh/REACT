@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProductById } from '../../services/productServices';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../store/cartSlice';
+
 const CarDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [car, setCar] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        const fetchCars = async () => {
+        const fetchCar = async () => {
             try {
                 const response = await getProductById(id);
-                setCar(response.data.product);
+                setCar(response.data.product || response.data);
                 setLoading(false);
             } catch (err) {
                 console.error("Error fetching car details:", err);
@@ -22,9 +26,28 @@ const CarDetails = () => {
         };
 
         if (id) {
-            fetchCars();
+            fetchCar();
         }
     }, [id]);
+
+    const handleAddToCart = () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("Please login to add products to cart.");
+            return;
+        }
+
+        dispatch(
+            addToCart({
+                _id: car._id,
+                title: car.title,
+                price: car.price,
+                image: car.image,
+                genre: car.genre
+            })
+        );
+        alert(`${car.title} added to cart successfully!`);
+    };
 
     if (loading) return <div className="loading-container"><div className="loading-spinner"></div></div>;
     if (error) return <div className="error-message">{error}</div>;
@@ -64,8 +87,12 @@ const CarDetails = () => {
                         </p>
 
                         <div className="action-buttons">
-                            <button className="btn-book-now">Book Now</button>
-                            <button className="btn-contact-dealer">Contact Dealer</button>
+                            <button className="btn-add-to-cart" onClick={handleAddToCart}>
+                                Add to Cart
+                            </button>
+                            <button className="btn-contact-dealer" onClick={() => navigate('/contact')}>
+                                Contact Dealer
+                            </button>
                         </div>
                     </div>
                 </div>

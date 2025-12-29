@@ -12,8 +12,11 @@ import AddCar from './admin/AddCar'
 import EditCar from './admin/EditCar'
 import CarDetails from './pages/CarDetails'
 import Cars from './pages/Cars'
+import Cart from './pages/Cart'
+import Checkout from './pages/Checkout'
 import { Routes, Route, useLocation } from 'react-router-dom'
 
+import ProtectRoute from './components/ProtectRoute'
 import Footer from './components/Footer'
 
 const App = () => {
@@ -31,12 +34,17 @@ const App = () => {
         <Route path="/services" element={<Services />} />
         <Route path="/verify-otp" element={<VerifyOtp />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/cars" element={<CarsManagement />} />
-        <Route path="/admin/add" element={<AddCar />} />
-        <Route path="/admin/edit/:id" element={<EditCar />} />
+
+        {/* Admin Routes wrapped in ProtectRoute */}
+        <Route path="/admin" element={<ProtectRoute adminOnly={true}><AdminDashboard /></ProtectRoute>} />
+        <Route path="/admin/cars" element={<ProtectRoute adminOnly={true}><CarsManagement /></ProtectRoute>} />
+        <Route path="/admin/add" element={<ProtectRoute adminOnly={true}><AddCar /></ProtectRoute>} />
+        <Route path="/admin/edit/:id" element={<ProtectRoute adminOnly={true}><EditCar /></ProtectRoute>} />
+
         <Route path="/cars" element={<Cars />} />
         <Route path="/car/:id" element={<CarDetails />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       {!isAdminRoute && <Footer />}
     </>
