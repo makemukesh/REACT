@@ -1,11 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LoginModal from "../pages/LoginModal";
 import { useSelector } from "react-redux";
 import { FiShoppingCart } from "react-icons/fi";
 
 const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
@@ -84,15 +82,16 @@ const Header = () => {
         {/* CTA Buttons */}
         <div className="cta-buttons">
           {!user ? (
-            <button className="login-btn" onClick={() => setIsModalOpen(true)}>
+            <Link to="/login" className="login-btn">
               Login
-            </button>
+            </Link>
           ) : (
             <div className="user-chip" onClick={() => setShowMenu((s) => !s)}>
               <div className="user-avatar">{initials}</div>
               {showMenu && (
                 <div className="user-menu">
                   <Link to="/profile" onClick={() => setShowMenu(false)}>Profile</Link>
+                  <Link to="/my-bookings" onClick={() => setShowMenu(false)}>My Bookings</Link>
                   {user.role === 'admin' && (
                     <Link to="/admin" onClick={() => setShowMenu(false)}>Admin Panel</Link>
                   )}
@@ -103,8 +102,6 @@ const Header = () => {
           )}
         </div>
       </header>
-
-      <LoginModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 };

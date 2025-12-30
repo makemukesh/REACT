@@ -36,6 +36,36 @@ export const createProduct = async (req, res) => {
     }
 };
 
+export const bulkCreateProducts = async (req, res) => {
+    try {
+        const products = req.body; // Expecting an array
+
+        if (!Array.isArray(products)) {
+            return res.status(400).json({ message: "Data must be an array of products" });
+        }
+
+        const formattedProducts = products.map(item => ({
+            title: item.title || item.name || "Untitled Car",
+            image: item.image || item.img || item.url || "",
+            price: Number(item.price || item.cost || 0),
+            description: item.description || item.desc || "No description provided",
+            genre: item.genre || item.category || item.type || "general",
+            stock: Number(item.stock || item.qty || 1),
+            isActive: true
+        }));
+
+        const result = await Product.insertMany(formattedProducts);
+
+        res.status(201).json({
+            message: `${result.length} products imported successfully`,
+            products: result
+        });
+    } catch (error) {
+        console.error("Error bulk creating products:", error);
+        res.status(500).json({ message: "Error importing products", error: error.message });
+    }
+};
+
 export const getAllProducts = async (req, res) => {
     try {
         const products = await Product.find({ isActive: true }).sort({ createdAt: -1 });

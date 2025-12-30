@@ -10,13 +10,18 @@ import AdminDashboard from './admin/AdminDashboard'
 import CarsManagement from './admin/CarsManagement'
 import AddCar from './admin/AddCar'
 import EditCar from './admin/EditCar'
+import OrdersManagement from './admin/OrdersManagement'
 import CarDetails from './pages/CarDetails'
 import Cars from './pages/Cars'
 import Cart from './pages/Cart'
-import Checkout from './pages/Checkout'
+import Checkout from './pages/CheckOut'
+import Auth from './pages/Auth'
+import MyOrders from './pages/MyOrders'
+import NotFound from './pages/NotFound'
 import { Routes, Route, useLocation } from 'react-router-dom'
 
 import ProtectRoute from './components/ProtectRoute'
+import ScrollToTop from './components/ScrollToTop'
 import Footer from './components/Footer'
 
 const App = () => {
@@ -25,6 +30,7 @@ const App = () => {
 
   return (
     <>
+      <ScrollToTop />
       {!isAdminRoute && <Header />}
 
       <Routes>
@@ -40,11 +46,15 @@ const App = () => {
         <Route path="/admin/cars" element={<ProtectRoute adminOnly={true}><CarsManagement /></ProtectRoute>} />
         <Route path="/admin/add" element={<ProtectRoute adminOnly={true}><AddCar /></ProtectRoute>} />
         <Route path="/admin/edit/:id" element={<ProtectRoute adminOnly={true}><EditCar /></ProtectRoute>} />
+        <Route path="/admin/orders" element={<ProtectRoute adminOnly={true}><OrdersManagement /></ProtectRoute>} />
 
         <Route path="/cars" element={<Cars />} />
         <Route path="/car/:id" element={<CarDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/my-bookings" element={<ProtectRoute adminOnly={false}><MyOrders /></ProtectRoute>} />
+        <Route path="/login" element={<Auth />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       {!isAdminRoute && <Footer />}
     </>

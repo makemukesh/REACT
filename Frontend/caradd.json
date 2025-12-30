@@ -1,0 +1,26 @@
+[
+  {
+    "title": "BMW X5 M Sport",
+    "price": 8500000,
+    "image": "https://images.unsplash.com/photo-1619767886558-efdc259cde1a",
+    "genre": "SUV",
+    "stock": 3,
+    "description": "Luxury SUV with powerful performance, premium interiors, and advanced safety features."
+  },
+  {
+    "title": "BMW 3 Series",
+    "price": 5200000,
+    "image": "https://images.unsplash.com/photo-1617531653332-bd46c24f2068",
+    "genre": "Sedan",
+    "stock": 5,
+    "description": "Sporty sedan offering dynamic driving experience, elegant design, and cutting-edge technology."
+  },
+  {
+    "title": "BMW i8",
+    "price": 24000000,
+    "image": "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9",
+    "genre": "Sports",
+    "stock": 1,
+    "description": "Hybrid sports car with futuristic design, exceptional performance, and eco-friendly innovation."
+  }
+]

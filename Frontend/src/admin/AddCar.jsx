@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { createProduct } from '../../services/productServices';
+import { createProduct, bulkCreateProducts } from '../../services/productServices';
 import { useNavigate } from 'react-router-dom';
 import AdminHeader from './AdminHeader';
+
 const AddCar = () => {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -17,14 +19,57 @@ const AddCar = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            let cars = [];
+            try {
+                const jsonData = JSON.parse(event.target.result);
+                cars = Array.isArray(jsonData) ? jsonData : [jsonData];
+            } catch (parseError) {
+                console.error("JSON Parsing Error:", parseError);
+                alert("Invalid JSON file. Please check for syntax errors or extra characters at the end of the file.");
+                e.target.value = '';
+                return;
+            }
+
+            // Show a preview/summary before importing
+            const confirmMsg = `Found ${cars.length} car(s).\nFormat Example: { "title": "BMW X5", "price": 50000, ... }\n\nContinue with import?`;
+
+            if (window.confirm(confirmMsg)) {
+                setLoading(true);
+                try {
+                    const response = await bulkCreateProducts(cars);
+                    alert(response.data.message || "Cars imported successfully!");
+                    navigate('/admin/cars');
+                } catch (apiError) {
+                    console.error("API Error during bulk import:", apiError);
+                    alert("Server Error: " + (apiError.response?.data?.message || apiError.message));
+                } finally {
+                    setLoading(false);
+                    e.target.value = '';
+                }
+            } else {
+                e.target.value = '';
+            }
+        };
+        reader.readAsText(file);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            setLoading(true);
             await createProduct(formData);
             alert("Car added successfully!");
             navigate('/admin/cars');
         } catch (err) {
             alert("Error adding car: " + (err.response?.data?.message || err.message));
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -33,7 +78,25 @@ const AddCar = () => {
             <AdminHeader />
             <div className="admin-content">
                 <div className="form-container">
-                    <h1>Add New Car</h1>
+                    <div className="form-header-flex">
+                        <h1>Add New Car</h1>
+                        <div className="bulk-import-container">
+                            <div className="import-wrapper">
+                                <label htmlFor="json-upload-add" className={`bulk-import-btn ${loading ? 'loading' : ''}`}>
+                                    {loading ? "⌛ Processing..." : "📤 Bulk Import JSON"}
+                                </label>
+                                <p className="import-help">Must be an array of car objects</p>
+                            </div>
+                            <input
+                                id="json-upload-add"
+                                type="file"
+                                accept=".json"
+                                onChange={handleFileUpload}
+                                style={{ display: 'none' }}
+                                disabled={loading}
+                            />
+                        </div>
+                    </div>
                     <form onSubmit={handleSubmit} className="admin-form">
                         <div className="form-group">
                             <label>Title</label>

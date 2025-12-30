@@ -30,6 +30,33 @@ const CarDetails = () => {
         }
     }, [id]);
 
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                const payload = JSON.parse(atob(token.split(".")[1]));
+                setUser(payload);
+            } catch (e) {
+                console.error("Error decoding token", e);
+            }
+        }
+    }, []);
+
+    const handleDelete = async () => {
+        if (window.confirm("Are you sure you want to delete this car? This action cannot be undone.")) {
+            try {
+                await deleteProduct(car._id);
+                alert("Car deleted successfully");
+                navigate("/admin");
+            } catch (err) {
+                console.error("Error deleting car:", err);
+                alert("Failed to delete car");
+            }
+        }
+    };
+
     const handleAddToCart = () => {
         const token = localStorage.getItem("token");
         if (!token) {
@@ -87,12 +114,25 @@ const CarDetails = () => {
                         </p>
 
                         <div className="action-buttons">
-                            <button className="btn-add-to-cart" onClick={handleAddToCart}>
-                                Add to Cart
-                            </button>
-                            <button className="btn-contact-dealer" onClick={() => navigate('/contact')}>
-                                Contact Dealer
-                            </button>
+                            {user?.role === 'admin' ? (
+                                <>
+                                    <button className="btn-edit-details" onClick={() => navigate(`/admin/edit/${car._id}`)}>
+                                        Edit Car
+                                    </button>
+                                    <button className="btn-delete-details" onClick={handleDelete}>
+                                        Delete Car
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    <button className="btn-add-to-cart" onClick={handleAddToCart}>
+                                        Add to Cart
+                                    </button>
+                                    <button className="btn-contact-dealer" onClick={() => navigate('/contact')}>
+                                        Contact Dealer
+                                    </button>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

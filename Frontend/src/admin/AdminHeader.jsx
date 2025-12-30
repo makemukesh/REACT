@@ -62,6 +62,7 @@ const AdminHeader = () => {
                 <Link to="/admin" className="admin-link">Dashboard</Link>
                 <Link to="/admin/cars" className="admin-link">Inventory</Link>
                 <Link to="/admin/add" className="admin-link">Add New</Link>
+                <Link to="/admin/orders" className="admin-link">Bookings</Link>
             </nav>
 
             <div className="admin-actions-right">

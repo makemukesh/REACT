@@ -13,5 +13,6 @@ API.interceptors.request.use((req) => {
 export const getAllProducts = () => API.get("/api/admin/products");
 export const getProductById = (id) => API.get(`/api/admin/products/${id}`);
 export const createProduct = (data) => API.post("/api/admin/products/create-product", data);
+export const bulkCreateProducts = (data) => API.post("/api/admin/products/bulk-import", data);
 export const updateProduct = (id, data) => API.put(`/api/admin/products/${id}`, data);
 export const deleteProduct = (id) => API.delete(`/api/admin/products/${id}`);

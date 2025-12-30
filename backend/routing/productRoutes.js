@@ -4,7 +4,8 @@ import {
   getAllProducts,
   getSingleProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  bulkCreateProducts
 } from "../controllers/productControllers.js";
 import { protect, adminOnly } from "../middlewares/authmiddlewares.js";
 
@@ -16,6 +17,7 @@ router.get("/:id", getSingleProduct);
 
 // Admin routes
 router.post("/create-product", protect, adminOnly, createProduct);
+router.post("/bulk-import", protect, adminOnly, bulkCreateProducts);
 router.put("/:id", protect, adminOnly, updateProduct);
 router.delete("/:id", protect, adminOnly, deleteProduct);
 
