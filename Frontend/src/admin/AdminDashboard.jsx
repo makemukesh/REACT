@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { getAllProducts, deleteProduct, bulkCreateProducts } from '../../services/productServices';
-import { Link } from 'react-router-dom';
-import AdminHeader from './AdminHeader';
+import { getAllProducts, deleteProduct } from '../../services/productServices';
+import { getAllOrders } from '../../services/orderServices';
+import { Link, useNavigate } from 'react-router-dom';
+import AdminSidebar from './AdminSidebar';
 import DashboardStatics from './DashboardStatics';
+import { FiUser } from 'react-icons/fi';
 
 const AdminDashboard = () => {
     const [products, setProducts] = useState([]);
+    const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     const fetchData = async () => {
         setLoading(true);
         try {
-            const response = await getAllProducts();
-            setProducts(response.data.products || []);
+            const [productsRes, ordersRes] = await Promise.all([
+                getAllProducts(),
+                getAllOrders()
+            ]);
+            setProducts(productsRes.data.products || productsRes.data || []);
+            setOrders(ordersRes.data || []);
             setLoading(false);
         } catch (err) {
             console.error(err);
@@ -24,83 +32,92 @@ const AdminDashboard = () => {
         fetchData();
     }, []);
 
-    const handleDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this car?")) {
+    const [adminUser, setAdminUser] = useState(null);
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
             try {
-                await deleteProduct(id);
-                alert("Car deleted successfully");
-                fetchData();
-            } catch (err) {
-                console.error("Error deleting car:", err);
-                alert("Failed to delete car");
-            }
+                const decoded = JSON.parse(atob(token.split(".")[1]));
+                setAdminUser(decoded);
+            } catch (e) { }
         }
-    };
+    }, []);
+
+    const initials = adminUser?.name?.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2) || "A";
 
     return (
-        <div className="admin-page-container">
-            <AdminHeader refreshTrigger={fetchData} />
-            <div className="admin-content">
-                <div className="dashboard-header-flex">
-                    <div className="header-left">
+        <div className="admin-layout">
+            <AdminSidebar />
+            <main className="admin-main-content">
+                <div className="admin-top-bar">
+                    <div className="top-bar-left">
                         <h1>Dashboard Overview</h1>
-                        <p className="subtitle">Manage your inventory and site performance</p>
+                        <p className="subtitle">Welcome back, {adminUser?.name || 'Admin'}</p>
                     </div>
-                    <div className="header-actions">
+                    <div className="top-bar-right">
                         <Link to="/admin/add" className="btn-add-car-primary">
                             ➕ Add New Car
                         </Link>
+                        <div className="user-chip" onClick={() => navigate('/profile')}>
+                            <div className="user-avatar">{initials}</div>
+                        </div>
                     </div>
                 </div>
 
-                <DashboardStatics totalCars={products.length} />
+                <DashboardStatics totalCars={products.length} totalOrders={orders.length} />
 
                 <div className="recent-activity-section">
                     <div className="section-header-flex">
-                        <h2>Recent Inventory</h2>
-                        <Link to="/admin/cars" className="view-all-link">View All Inventory</Link>
+                        <h2>Recent Bookings</h2>
+                        <Link to="/admin/orders" className="view-all-link">View All Bookings</Link>
                     </div>
 
                     {loading ? (
-                        <div className="loading-spinner">Loading inventory...</div>
+                        <div className="loading-spinner">Loading bookings...</div>
                     ) : (
                         <div className="inventory-rows">
                             <div className="rows-header">
-                                <span>Image</span>
-                                <span>Car Name</span>
+                                <span>Order ID</span>
+                                <span>Customer</span>
+                                <span>Vehicle</span>
                                 <span>Price</span>
-                                <span>Stock</span>
-                                <span>Actions</span>
+                                <span>Status</span>
                             </div>
-                            {products.slice(0, 6).map(car => (
-                                <div key={car._id} className="inventory-row">
-                                    <div className="row-img">
-                                        <img src={car.image} alt={car.title} />
+                            {orders.slice(0, 5).map(order => (
+                                <div key={order._id} className="inventory-row">
+                                    <div className="row-name">
+                                        <span className="order-id-short">#{order._id.substring(order._id.length - 8).toUpperCase()}</span>
                                     </div>
                                     <div className="row-name">
-                                        <h4>{car.title}</h4>
-                                        <p>{car.genre}</p>
+                                        <h4>{order.shippingAddress.firstName} {order.shippingAddress.lastName}</h4>
+                                        <p>{order.shippingAddress.email}</p>
+                                    </div>
+                                    <div className="row-items-preview">
+                                        {order.items.map((item, i) => (
+                                            <span key={i}>{item.title}{i < order.items.length - 1 ? ', ' : ''}</span>
+                                        ))}
                                     </div>
                                     <div className="row-price">
-                                        ${car.price.toLocaleString()}
+                                        ${order.totalPrice.toLocaleString()}
                                     </div>
                                     <div className="row-stock">
-                                        <span className={`stock-badge ${car.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
-                                            {car.stock > 0 ? `${car.stock} in stock` : 'Out of Stock'}
-                                        </span>
-                                    </div>
-                                    <div className="row-actions">
-                                        <Link to={`/admin/edit/${car._id}`} className="row-btn edit">Edit</Link>
-                                        <Link to={`/car/${car._id}`} className="row-btn view">Detail</Link>
-                                        <button onClick={() => handleDelete(car._id)} className="row-btn delete">Delete</button>
+                                        {order.status === 'Cancelled' ? (
+                                            <div className={`cancelled-by-tag ${order.cancelledBy?.toLowerCase()}`}>
+                                                {order.cancelledBy === 'User' ? 'User Cancelled' : 'Admin Cancelled'}
+                                            </div>
+                                        ) : (
+                                            <span className={`status-pill ${order.status.toLowerCase()}`}>
+                                                {order.status}
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                             ))}
-                            {products.length === 0 && <p className="no-data">No cars found in inventory.</p>}
+                            {orders.length === 0 && <p className="no-data">No bookings found yet.</p>}
                         </div>
                     )}
                 </div>
-            </div>
+            </main>
         </div>
     );
 };

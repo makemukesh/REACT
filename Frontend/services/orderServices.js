@@ -46,3 +46,12 @@ export const deleteOrder = async (id) => {
         }
     });
 };
+
+export const cancelOrder = async (id) => {
+    const token = localStorage.getItem('token');
+    return await axios.put(`${API_URL}/${id}/cancel`, {}, {
+        headers: {
+            Authorization: token
+        }
+    });
+};

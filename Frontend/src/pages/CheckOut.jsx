@@ -5,6 +5,27 @@ import { clearCart } from "../store/cartSlice";
 import { FiArrowLeft, FiCheckCircle, FiCreditCard, FiMapPin, FiUser } from "react-icons/fi";
 import { createOrder } from "../../services/orderServices";
 
+const DeliveryAnimation = ({ carImage }) => {
+    return (
+        <div className="delivery-animation-box">
+            <div className="animation-road"></div>
+            <div className="truck-wrapper">
+                <div className="truck-body">
+                    <div className="truck-cabin"></div>
+                    <div className="truck-bed">
+                        <div className="loaded-car">
+                            <img src={carImage} alt="Loaded Vehicle" />
+                        </div>
+                    </div>
+                    <div className="truck-wheel wheel-1"></div>
+                    <div className="truck-wheel wheel-2"></div>
+                </div>
+            </div>
+            <div className="loading-effect-text">PREPARING YOUR LUXURY SHIPMENT...</div>
+        </div>
+    );
+};
+
 const Checkout = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -114,14 +135,25 @@ const Checkout = () => {
     if (isOrderPlaced) {
         return (
             <div className="checkout-success-container">
+                <div className="success-overlay-glow"></div>
                 <div className="success-card">
-                    <FiCheckCircle className="success-icon" />
-                    <h1>Order Placed Successfully!</h1>
-                    <p>Thank you for your purchase. Your luxury vehicle is being prepared for delivery.</p>
-                    <p className="order-number">Order ID: #AD-{Math.floor(Math.random() * 90000) + 10000}</p>
-                    <button onClick={() => navigate("/")} className="btn-return-home">
-                        Return to Showroom
-                    </button>
+                    <div className="success-header-top">
+                        <FiCheckCircle className="success-icon" />
+                        <h1>Payment Confirmed!</h1>
+                    </div>
+
+                    <DeliveryAnimation carImage={cartItems[0]?.image || "https://images.unsplash.com/photo-1503376780353-7e6692767b70"} />
+
+                    <div className="success-info-bottom">
+                        <p>Your order has been secured. Our transport team is now dispatching your vehicle to the provided address.</p>
+                        <div className="order-details-summary">
+                            <span className="order-number">Order ID: #AD-{Math.floor(Math.random() * 90000) + 10000}</span>
+                            <span className="order-track-info">Track delivery in your profile</span>
+                        </div>
+                        <button onClick={() => navigate("/")} className="btn-return-home">
+                            Explore More Vehicles
+                        </button>
+                    </div>
                 </div>
             </div>
         );

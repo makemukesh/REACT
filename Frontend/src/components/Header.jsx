@@ -91,7 +91,9 @@ const Header = () => {
               {showMenu && (
                 <div className="user-menu">
                   <Link to="/profile" onClick={() => setShowMenu(false)}>Profile</Link>
-                  <Link to="/my-bookings" onClick={() => setShowMenu(false)}>My Bookings</Link>
+                  {user.role !== 'admin' && (
+                    <Link to="/my-bookings" onClick={() => setShowMenu(false)}>My Bookings</Link>
+                  )}
                   {user.role === 'admin' && (
                     <Link to="/admin" onClick={() => setShowMenu(false)}>Admin Panel</Link>
                   )}

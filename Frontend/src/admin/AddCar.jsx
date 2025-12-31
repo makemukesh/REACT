@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createProduct, bulkCreateProducts } from '../../services/productServices';
 import { useNavigate } from 'react-router-dom';
-import AdminHeader from './AdminHeader';
+import AdminSidebar from './AdminSidebar';
 
 const AddCar = () => {
     const navigate = useNavigate();
@@ -36,7 +36,6 @@ const AddCar = () => {
                 return;
             }
 
-            // Show a preview/summary before importing
             const confirmMsg = `Found ${cars.length} car(s).\nFormat Example: { "title": "BMW X5", "price": 50000, ... }\n\nContinue with import?`;
 
             if (window.confirm(confirmMsg)) {
@@ -73,62 +72,90 @@ const AddCar = () => {
         }
     };
 
+    const [adminUser, setAdminUser] = useState(null);
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                const decoded = JSON.parse(atob(token.split(".")[1]));
+                setAdminUser(decoded);
+            } catch (e) { }
+        }
+    }, []);
+
+    const initials = adminUser?.name?.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2) || "A";
+
     return (
-        <div className="admin-page-container">
-            <AdminHeader />
-            <div className="admin-content">
-                <div className="form-container">
-                    <div className="form-header-flex">
-                        <h1>Add New Car</h1>
-                        <div className="bulk-import-container">
-                            <div className="import-wrapper">
-                                <label htmlFor="json-upload-add" className={`bulk-import-btn ${loading ? 'loading' : ''}`}>
-                                    {loading ? "⌛ Processing..." : "📤 Bulk Import JSON"}
-                                </label>
-                                <p className="import-help">Must be an array of car objects</p>
-                            </div>
-                            <input
-                                id="json-upload-add"
-                                type="file"
-                                accept=".json"
-                                onChange={handleFileUpload}
-                                style={{ display: 'none' }}
-                                disabled={loading}
-                            />
+        <div className="admin-layout">
+            <AdminSidebar />
+            <main className="admin-main-content">
+                <div className="admin-top-bar">
+                    <div className="top-bar-left">
+                        <h1>Add New Listing</h1>
+                        <p className="subtitle">Expand your premium vehicle inventory</p>
+                    </div>
+                    <div className="top-bar-right">
+                        <div className="user-chip" onClick={() => navigate('/profile')}>
+                            <div className="user-avatar">{initials}</div>
                         </div>
                     </div>
-                    <form onSubmit={handleSubmit} className="admin-form">
-                        <div className="form-group">
-                            <label>Title</label>
-                            <input name="title" value={formData.title} onChange={handleChange} required />
-                        </div>
-                        <div className="form-group">
-                            <label>Price</label>
-                            <input name="price" type="number" value={formData.price} onChange={handleChange} required />
-                        </div>
-                        <div className="form-group">
-                            <label>Image URL</label>
-                            <input name="image" value={formData.image} onChange={handleChange} required />
-                        </div>
-                        <div className="form-group">
-                            <label>Genre (Type)</label>
-                            <input name="genre" value={formData.genre} onChange={handleChange} placeholder="e.g. SUV, Sedan" required />
-                        </div>
-                        <div className="form-group">
-                            <label>Stock</label>
-                            <input name="stock" type="number" value={formData.stock} onChange={handleChange} required />
-                        </div>
-                        <div className="form-group full-width">
-                            <label>Description</label>
-                            <textarea name="description" value={formData.description} onChange={handleChange} required />
-                        </div>
-                        <div className="form-actions">
-                            <button type="button" onClick={() => navigate('/admin/cars')} className="btn-cancel">Cancel</button>
-                            <button type="submit" className="btn-submit">Add Car</button>
-                        </div>
-                    </form>
                 </div>
-            </div>
+
+                <div className="recent-activity-section">
+                    <div className="form-container">
+                        <div className="form-header-flex">
+                            <h2>Vehicle Details</h2>
+                            <div className="bulk-import-container">
+                                <label htmlFor="json-upload-add" className={`bulk-import-btn ${loading ? 'loading' : ''}`} style={{ cursor: 'pointer' }}>
+                                    {loading ? "⌛ Processing..." : "📤 Bulk Import JSON"}
+                                </label>
+                                <input
+                                    id="json-upload-add"
+                                    type="file"
+                                    accept=".json"
+                                    onChange={handleFileUpload}
+                                    style={{ display: 'none' }}
+                                    disabled={loading}
+                                />
+                            </div>
+                        </div>
+                        <form onSubmit={handleSubmit} className="admin-form">
+                            <div className="form-group-grid">
+                                <div className="form-group">
+                                    <label>Vehicle Name</label>
+                                    <input name="title" value={formData.title} onChange={handleChange} placeholder="e.g. Mercedes-Benz G-Class" required />
+                                </div>
+                                <div className="form-group">
+                                    <label>Base Price ($)</label>
+                                    <input name="price" type="number" value={formData.price} onChange={handleChange} required />
+                                </div>
+                                <div className="form-group">
+                                    <label>Display Image URL</label>
+                                    <input name="image" value={formData.image} onChange={handleChange} required />
+                                </div>
+                                <div className="form-group">
+                                    <label>Genre / Category</label>
+                                    <input name="genre" value={formData.genre} onChange={handleChange} placeholder="SUV, Luxury, etc." required />
+                                </div>
+                                <div className="form-group">
+                                    <label>Inventory Stock</label>
+                                    <input name="stock" type="number" value={formData.stock} onChange={handleChange} required />
+                                </div>
+                            </div>
+                            <div className="form-group full-width" style={{ marginTop: '20px' }}>
+                                <label>Detailed Description</label>
+                                <textarea name="description" value={formData.description} onChange={handleChange} rows="5" required />
+                            </div>
+                            <div className="form-actions" style={{ marginTop: '30px' }}>
+                                <button type="button" onClick={() => navigate('/admin/cars')} className="btn-cancel">Discard</button>
+                                <button type="submit" className="btn-submit" disabled={loading}>
+                                    {loading ? "Adding..." : "Launch Listing"}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
         </div>
     );
 };

@@ -60,6 +60,9 @@ export const updateOrderStatus = async (req, res) => {
 
         if (order) {
             order.status = req.body.status || order.status;
+            if (req.body.status === 'Cancelled') {
+                order.cancelledBy = req.user.role === 'admin' ? 'Admin' : 'User';
+            }
             const updatedOrder = await order.save();
             res.json(updatedOrder);
         } else {
@@ -93,6 +96,27 @@ export const getMyOrders = async (req, res) => {
     try {
         const orders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 });
         res.json(orders);
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error: error.message });
+    }
+};
+// @desc    Cancel my order
+// @route   PUT /api/orders/:id/cancel
+// @access  Private
+export const cancelMyOrder = async (req, res) => {
+    try {
+        const order = await Order.findById(req.params.id);
+        if (order) {
+            if (order.user.toString() !== req.user._id.toString()) {
+                return res.status(401).json({ message: 'Not authorized to cancel this order' });
+            }
+            order.status = 'Cancelled';
+            order.cancelledBy = 'User';
+            const updatedOrder = await order.save();
+            res.json(updatedOrder);
+        } else {
+            res.status(404).json({ message: 'Order not found' });
+        }
     } catch (error) {
         res.status(500).json({ message: 'Server Error', error: error.message });
     }

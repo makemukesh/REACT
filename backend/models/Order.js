@@ -45,6 +45,11 @@ const orderSchema = new mongoose.Schema({
         default: 'Processing',
         enum: ['Processing', 'Shipped', 'Delivered', 'Cancelled']
     },
+    cancelledBy: {
+        type: String,
+        enum: ['User', 'Admin'],
+        default: null
+    },
     isPaid: {
         type: Boolean,
         required: true,

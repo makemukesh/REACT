@@ -1,6 +1,7 @@
 import express from 'express';
-import { register, verifyOtp, login } from '../controllers/user.js';
+import { register, verifyOtp, login, updateProfile, changePassword } from '../controllers/user.js';
 import sendOtpEmail from '../middlewares/sendOtpMail.js';
+import { protect } from '../middlewares/authmiddlewares.js';
 
 const router = express.Router();
 
@@ -22,6 +23,10 @@ router.post('/verify-otp', verifyOtp);
 
 // Login
 router.post('/login', login);
+
+// Profile Management
+router.put('/profile', protect, updateProfile);
+router.put('/change-password', protect, changePassword);
 
 export default router;
 

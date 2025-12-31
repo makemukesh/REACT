@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getProductById, updateProduct } from '../../services/productServices';
 import { useNavigate, useParams } from 'react-router-dom';
-import AdminHeader from './AdminHeader';
+import AdminSidebar from './AdminSidebar';
+
 const EditCar = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -19,7 +20,6 @@ const EditCar = () => {
         const fetchCar = async () => {
             try {
                 const response = await getProductById(id);
-                // Ensure we handle both response structures just in case
                 const product = response.data.product || response.data;
                 setFormData({
                     title: product.title,
@@ -53,46 +53,77 @@ const EditCar = () => {
         }
     };
 
-    if (loading) return <div>Loading...</div>;
+    const [adminUser, setAdminUser] = useState(null);
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                const decoded = JSON.parse(atob(token.split(".")[1]));
+                setAdminUser(decoded);
+            } catch (e) { }
+        }
+    }, []);
+
+    const initials = adminUser?.name?.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2) || "A";
 
     return (
-        <div className="admin-page-container">
-            <AdminHeader />
-            <div className="admin-content">
-                <div className="form-container">
-                    <h1>Edit Car</h1>
-                    <form onSubmit={handleSubmit} className="admin-form">
-                        <div className="form-group">
-                            <label>Title</label>
-                            <input name="title" value={formData.title} onChange={handleChange} required />
+        <div className="admin-layout">
+            <AdminSidebar />
+            <main className="admin-main-content">
+                <div className="admin-top-bar">
+                    <div className="top-bar-left">
+                        <h1>Edit Vehicle</h1>
+                        <p className="subtitle">Modify listing information for #{id.substring(0, 8).toUpperCase()}</p>
+                    </div>
+                    <div className="top-bar-right">
+                        <div className="user-chip" onClick={() => navigate('/profile')}>
+                            <div className="user-avatar">{initials}</div>
                         </div>
-                        <div className="form-group">
-                            <label>Price</label>
-                            <input name="price" type="number" value={formData.price} onChange={handleChange} required />
-                        </div>
-                        <div className="form-group">
-                            <label>Image URL</label>
-                            <input name="image" value={formData.image} onChange={handleChange} required />
-                        </div>
-                        <div className="form-group">
-                            <label>Genre (Type)</label>
-                            <input name="genre" value={formData.genre} onChange={handleChange} required />
-                        </div>
-                        <div className="form-group">
-                            <label>Stock</label>
-                            <input name="stock" type="number" value={formData.stock} onChange={handleChange} required />
-                        </div>
-                        <div className="form-group full-width">
-                            <label>Description</label>
-                            <textarea name="description" value={formData.description} onChange={handleChange} required />
-                        </div>
-                        <div className="form-actions">
-                            <button type="button" onClick={() => navigate('/admin/cars')} className="btn-cancel">Cancel</button>
-                            <button type="submit" className="btn-submit">Update Car</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+
+                <div className="recent-activity-section">
+                    {loading ? (
+                        <div className="loading-spinner">Loading vehicle data...</div>
+                    ) : (
+                        <div className="form-container">
+                            <h2>Technical Specifications</h2>
+                            <form onSubmit={handleSubmit} className="admin-form">
+                                <div className="form-group-grid">
+                                    <div className="form-group">
+                                        <label>Vehicle Name</label>
+                                        <input name="title" value={formData.title} onChange={handleChange} required />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Price ($)</label>
+                                        <input name="price" type="number" value={formData.price} onChange={handleChange} required />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Image URL</label>
+                                        <input name="image" value={formData.image} onChange={handleChange} required />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Genre / Type</label>
+                                        <input name="genre" value={formData.genre} onChange={handleChange} required />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Current Stock</label>
+                                        <input name="stock" type="number" value={formData.stock} onChange={handleChange} required />
+                                    </div>
+                                </div>
+                                <div className="form-group full-width" style={{ marginTop: '20px' }}>
+                                    <label>Description</label>
+                                    <textarea name="description" value={formData.description} onChange={handleChange} rows="5" required />
+                                </div>
+                                <div className="form-actions" style={{ marginTop: '30px' }}>
+                                    <button type="button" onClick={() => navigate('/admin/cars')} className="btn-cancel">Cancel Edits</button>
+                                    <button type="submit" className="btn-submit">Update Listing</button>
+                                </div>
+                            </form>
+                        </div>
+                    )}
+                </div>
+            </main>
         </div>
     );
 };
