@@ -12,7 +12,17 @@ const AddCar = () => {
         price: '',
         image: '',
         genre: '',
-        stock: ''
+        stock: '',
+        manufacturingYear: '',
+        transmission: '',
+        fuelType: '',
+        groundClearance: '',
+        bootSpace: '',
+        torque: '',
+        power: '',
+        engineCapacity: '',
+        kilometersDone: '',
+        exteriorColor: ''
     });
 
     const handleChange = (e) => {
@@ -140,6 +150,46 @@ const AddCar = () => {
                                 <div className="form-group">
                                     <label>Inventory Stock</label>
                                     <input name="stock" type="number" value={formData.stock} onChange={handleChange} required />
+                                </div>
+                                <div className="form-group">
+                                    <label>Manufacturing Year</label>
+                                    <input name="manufacturingYear" type="number" value={formData.manufacturingYear} onChange={handleChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Transmission</label>
+                                    <input name="transmission" value={formData.transmission} onChange={handleChange} placeholder="Automatic / Manual" />
+                                </div>
+                                <div className="form-group">
+                                    <label>Fuel Type</label>
+                                    <input name="fuelType" value={formData.fuelType} onChange={handleChange} placeholder="Petrol / Diesel / Electric" />
+                                </div>
+                                <div className="form-group">
+                                    <label>Ground Clearance</label>
+                                    <input name="groundClearance" value={formData.groundClearance} onChange={handleChange} placeholder="e.g. 140 mm" />
+                                </div>
+                                <div className="form-group">
+                                    <label>Boot Space</label>
+                                    <input name="bootSpace" value={formData.bootSpace} onChange={handleChange} placeholder="e.g. 490 L" />
+                                </div>
+                                <div className="form-group">
+                                    <label>Torque</label>
+                                    <input name="torque" value={formData.torque} onChange={handleChange} placeholder="e.g. 450 Nm" />
+                                </div>
+                                <div className="form-group">
+                                    <label>Power</label>
+                                    <input name="power" value={formData.power} onChange={handleChange} placeholder="e.g. 300 hp" />
+                                </div>
+                                <div className="form-group">
+                                    <label>Engine Capacity</label>
+                                    <input name="engineCapacity" value={formData.engineCapacity} onChange={handleChange} placeholder="e.g. 3.0 L" />
+                                </div>
+                                <div className="form-group">
+                                    <label>Kilometers Done</label>
+                                    <input name="kilometersDone" value={formData.kilometersDone} onChange={handleChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Exterior Color</label>
+                                    <input name="exteriorColor" value={formData.exteriorColor} onChange={handleChange} />
                                 </div>
                             </div>
                             <div className="form-group full-width" style={{ marginTop: '20px' }}>

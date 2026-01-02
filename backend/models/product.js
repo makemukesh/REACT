@@ -10,6 +10,17 @@ const productSchema = new mongoose.Schema(
     genre: { type: String, default: "general" },
     stock: { type: Number, default: 1 },
     isActive: { type: Boolean, default: true },
+    // New Car Specs
+    manufacturingYear: { type: Number },
+    transmission: { type: String },
+    fuelType: { type: String },
+    groundClearance: { type: String },
+    bootSpace: { type: String },
+    torque: { type: String },
+    power: { type: String },
+    engineCapacity: { type: String },
+    kilometersDone: { type: String },
+    exteriorColor: { type: String },
   },
   {
     timestamps: true,

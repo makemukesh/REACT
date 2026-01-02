@@ -3,6 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getProductById } from '../../services/productServices';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../store/cartSlice';
+import {
+    MdCalendarMonth, MdRoute, MdSettings, MdLocalGasStation,
+    MdPalette, MdOutlineHeight, MdWorkOutline,
+    MdSpeed, MdBolt, MdDirectionsCar
+} from 'react-icons/md';
+import { deleteProduct } from '../../services/productServices';
 
 const CarDetails = () => {
     const { id } = useParams();
@@ -136,6 +142,135 @@ const CarDetails = () => {
                         </div>
                     </div>
                 </div>
+
+                {/* Technical Specifications Section */}
+                <div className="car-specs-grid-section">
+                    <h2>Technical Specifications</h2>
+                    <div className="specs-grid">
+                        <div className="spec-card">
+                            <MdCalendarMonth className="spec-icon" />
+                            <div className="spec-info-text">
+                                <span className="label">Manufacturing Year</span>
+                                <span className="value">{car.manufacturingYear || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <div className="spec-card">
+                            <MdRoute className="spec-icon" />
+                            <div className="spec-info-text">
+                                <span className="label">Kilometers Done</span>
+                                <span className="value">{car.kilometersDone || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <div className="spec-card">
+                            <MdSettings className="spec-icon" />
+                            <div className="spec-info-text">
+                                <span className="label">Transmission</span>
+                                <span className="value">{car.transmission || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <div className="spec-card">
+                            <MdLocalGasStation className="spec-icon" />
+                            <div className="spec-info-text">
+                                <span className="label">Fuel Type</span>
+                                <span className="value">{car.fuelType || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <div className="spec-card">
+                            <MdPalette className="spec-icon" />
+                            <div className="spec-info-text">
+                                <span className="label">Exterior Color</span>
+                                <span className="value">{car.exteriorColor || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <div className="spec-card">
+                            <MdOutlineHeight className="spec-icon" />
+                            <div className="spec-info-text">
+                                <span className="label">Ground Clearance</span>
+                                <span className="value">{car.groundClearance || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <div className="spec-card">
+                            <MdWorkOutline className="spec-icon" />
+                            <div className="spec-info-text">
+                                <span className="label">Boot Space</span>
+                                <span className="value">{car.bootSpace || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <div className="spec-card">
+                            <MdSpeed className="spec-icon" />
+                            <div className="spec-info-text">
+                                <span className="label">Torque</span>
+                                <span className="value">{car.torque || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <div className="spec-card">
+                            <MdBolt className="spec-icon" />
+                            <div className="spec-info-text">
+                                <span className="label">Power</span>
+                                <span className="value">{car.power || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <div className="spec-card">
+                            <MdDirectionsCar className="spec-icon" />
+                            <div className="spec-info-text">
+                                <span className="label">Engine Capacity</span>
+                                <span className="value">{car.engineCapacity || 'N/A'}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>{`
+                    .car-specs-grid-section {
+                        margin-top: 30px;
+                        padding: 30px;
+                        background: #fff;
+                        border-top: 1px solid #eee;
+                    }
+                    .car-specs-grid-section h2 {
+                        font-size: 1.6rem;
+                        color: #1a1a1a;
+                        margin-bottom: 25px;
+                        font-weight: 600;
+                    }
+                    .specs-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                        gap: 20px;
+                    }
+                    .spec-card {
+                        display: flex;
+                        align-items: center;
+                        gap: 15px;
+                        padding: 15px;
+                        background: #fafafa;
+                        border-radius: 8px;
+                    }
+                    .spec-icon {
+                        font-size: 1.5rem;
+                        color: #ff4d4d;
+                    }
+                    .spec-info-text {
+                        display: flex;
+                        flex-direction: column;
+                    }
+                    .spec-info-text .label {
+                        font-size: 0.75rem;
+                        color: #666;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                    }
+                    .spec-info-text .value {
+                        font-size: 0.95rem;
+                        color: #111;
+                        font-weight: 600;
+                    }
+                    @media (max-width: 600px) {
+                        .specs-grid {
+                            grid-template-columns: 1fr;
+                        }
+                    }
+                `}</style>
             </div>
         </div>
     );

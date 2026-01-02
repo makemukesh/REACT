@@ -2,7 +2,12 @@ import Product from "../models/product.js";
 
 export const createProduct = async (req, res) => {
     try {
-        const { title, image, price, description, genre, stock } = req.body;
+        const {
+            title, image, price, description, genre, stock,
+            manufacturingYear, transmission, fuelType, groundClearance,
+            bootSpace, torque, power, engineCapacity,
+            kilometersDone, exteriorColor
+        } = req.body;
 
         // Validate required fields
         if (!title || !description) {
@@ -19,6 +24,16 @@ export const createProduct = async (req, res) => {
             genre: genre || "general",
             stock: stock || 1,
             isActive: true,
+            manufacturingYear,
+            transmission,
+            fuelType,
+            groundClearance,
+            bootSpace,
+            torque,
+            power,
+            engineCapacity,
+            kilometersDone,
+            exteriorColor
         });
 
         await newProduct.save();
@@ -51,7 +66,17 @@ export const bulkCreateProducts = async (req, res) => {
             description: item.description || item.desc || "No description provided",
             genre: item.genre || item.category || item.type || "general",
             stock: Number(item.stock || item.qty || 1),
-            isActive: true
+            isActive: true,
+            manufacturingYear: item.manufacturingYear || item.year,
+            transmission: item.transmission,
+            fuelType: item.fuelType,
+            groundClearance: item.groundClearance,
+            bootSpace: item.bootSpace,
+            torque: item.torque,
+            power: item.power,
+            engineCapacity: item.engineCapacity,
+            kilometersDone: item.kilometersDone,
+            exteriorColor: item.exteriorColor
         }));
 
         const result = await Product.insertMany(formattedProducts);
@@ -98,7 +123,12 @@ export const getSingleProduct = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
     try {
-        const { title, image, price, description, genre, stock } = req.body;
+        const {
+            title, image, price, description, genre, stock,
+            manufacturingYear, transmission, fuelType, groundClearance,
+            bootSpace, torque, power, engineCapacity,
+            kilometersDone, exteriorColor
+        } = req.body;
         const product = await Product.findById(req.params.id);
 
         if (!product) {
@@ -111,6 +141,17 @@ export const updateProduct = async (req, res) => {
         product.description = description || product.description;
         product.genre = genre || product.genre;
         product.stock = stock || product.stock;
+
+        product.manufacturingYear = manufacturingYear !== undefined ? manufacturingYear : product.manufacturingYear;
+        product.transmission = transmission || product.transmission;
+        product.fuelType = fuelType || product.fuelType;
+        product.groundClearance = groundClearance || product.groundClearance;
+        product.bootSpace = bootSpace || product.bootSpace;
+        product.torque = torque || product.torque;
+        product.power = power || product.power;
+        product.engineCapacity = engineCapacity || product.engineCapacity;
+        product.kilometersDone = kilometersDone || product.kilometersDone;
+        product.exteriorColor = exteriorColor || product.exteriorColor;
 
         await product.save();
 
