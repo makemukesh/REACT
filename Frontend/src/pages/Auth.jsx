@@ -119,6 +119,11 @@ const Auth = () => {
                                     required
                                 />
                             </div>
+                            <div style={{ textAlign: 'right', marginBottom: '15px', marginTop: '-10px' }}>
+                                <Link to="/forgot-password" style={{ fontSize: '0.85rem', color: 'var(--accent-color)', textDecoration: 'none', fontWeight: '700' }}>
+                                    Forgot Password?
+                                </Link>
+                            </div>
                             <button type="submit" className="btn-auth-primary" disabled={loading}>
                                 {loading ? 'Processing...' : 'Sign In'} <FiArrowRight />
                             </button>

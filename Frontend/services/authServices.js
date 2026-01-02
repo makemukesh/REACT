@@ -19,5 +19,7 @@ export const loginUser = (data) => API.post('/login', data);
 
 export const updateProfile = (data) => API.put('/profile', data);
 export const changePassword = (data) => API.put('/change-password', data);
+export const forgotPassword = (data) => API.post('/forgot-password', data);
+export const resetPassword = (data) => API.post('/reset-password', data);
 
 export default API;

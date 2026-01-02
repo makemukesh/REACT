@@ -104,6 +104,14 @@ const LoginModal = ({ isOpen, onClose }) => {
                                 onChange={handleLoginChange}
                                 required
                             />
+                            <p style={{ textAlign: 'right', marginTop: '-10px', marginBottom: '15px' }}>
+                                <span
+                                    onClick={() => { onClose(); navigate('/forgot-password'); }}
+                                    style={{ color: 'var(--accent-color)', cursor: 'pointer', fontSize: '14px', fontWeight: '600' }}
+                                >
+                                    Forgot Password?
+                                </span>
+                            </p>
                             <button type="submit">Login</button>
                         </form>
                     </div>

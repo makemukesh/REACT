@@ -221,6 +221,13 @@ const Profile = () => {
             ) : (
               <div className="security-info">
                 <p>Password was last changed recently. We recommend a strong, unique password for security.</p>
+                <button
+                  onClick={() => navigate('/forgot-password')}
+                  className="btn-link"
+                  style={{ color: 'var(--accent-color)', background: 'none', border: 'none', padding: 0, fontWeight: '700', cursor: 'pointer', marginTop: '10px' }}
+                >
+                  Forgot Password? Send Reset OTP to Email
+                </button>
               </div>
             )}
           </div>

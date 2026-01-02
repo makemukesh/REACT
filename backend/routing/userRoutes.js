@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, verifyOtp, login, updateProfile, changePassword } from '../controllers/user.js';
+import { register, verifyOtp, login, updateProfile, changePassword, forgotPassword, resetPassword } from '../controllers/user.js';
 import sendOtpEmail from '../middlewares/sendOtpMail.js';
 import { protect } from '../middlewares/authmiddlewares.js';
 
@@ -27,6 +27,12 @@ router.post('/login', login);
 // Profile Management
 router.put('/profile', protect, updateProfile);
 router.put('/change-password', protect, changePassword);
+
+// Forgot Password
+router.post('/forgot-password', forgotPassword, sendOtpEmail, (req, res) => {
+  res.status(200).json({ message: "OTP sent to your email for password reset" });
+});
+router.post('/reset-password', resetPassword);
 
 export default router;
 

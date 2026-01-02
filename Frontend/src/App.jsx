@@ -4,7 +4,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Services from './pages/Services'
-import VerifyOtp from './pages/verifyOtp'
+import VerifyOtp from './pages/VerifyOtp'
 import Profile from './pages/Profile'
 import AdminDashboard from './admin/AdminDashboard'
 import CarsManagement from './admin/CarsManagement'
@@ -17,6 +17,8 @@ import Cart from './pages/Cart'
 import Checkout from './pages/CheckOut'
 import Auth from './pages/Auth'
 import MyOrders from './pages/MyOrders'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 import NotFound from './pages/NotFound'
 import { Routes, Route, useLocation } from 'react-router-dom'
 
@@ -54,6 +56,9 @@ const App = () => {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/my-bookings" element={<ProtectRoute adminOnly={false}><MyOrders /></ProtectRoute>} />
         <Route path="/login" element={<Auth />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!isAdminRoute && <Footer />}
