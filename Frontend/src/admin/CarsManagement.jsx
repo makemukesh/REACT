@@ -45,7 +45,13 @@ const CarsManagement = () => {
         }
     }, []);
 
-    const initials = adminUser?.name?.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2) || "A";
+    const initials = (adminUser?.name || "Admin")
+        .split(" ")
+        .filter(Boolean)
+        .map(n => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2) || "A";
 
     return (
         <div className="admin-layout">
@@ -71,7 +77,7 @@ const CarsManagement = () => {
                 ) : (
                     <div className="recent-activity-section">
                         <div className="inventory-rows">
-                            <div className="rows-header">
+                            <div className="rows-header car-rows-header">
                                 <span>Image</span>
                                 <span>Car Name</span>
                                 <span>Price</span>
@@ -79,20 +85,24 @@ const CarsManagement = () => {
                                 <span>Actions</span>
                             </div>
                             {products.map(product => (
-                                <div key={product._id} className="inventory-row">
+                                <div key={product._id} className="inventory-row car-inventory-row">
                                     <div className="row-img">
-                                        <img src={product.image} alt={product.title} />
+                                        <img
+                                            src={product.image || "https://images.unsplash.com/photo-1503376780353-7e6692767b70"}
+                                            alt={product.title}
+                                            onError={(e) => e.target.src = "https://images.unsplash.com/photo-1503376780353-7e6692767b70"}
+                                        />
                                     </div>
                                     <div className="row-name">
                                         <h4>{product.title}</h4>
                                         <p>{product.genre}</p>
                                     </div>
                                     <div className="row-price">
-                                        ${product.price.toLocaleString()}
+                                        ${product.price ? product.price.toLocaleString() : "0"}
                                     </div>
                                     <div className="row-stock">
-                                        <span className={`stock-badge ${product.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
-                                            {product.stock > 0 ? `${product.stock} in stock` : 'Out of Stock'}
+                                        <span className={`stock-badge ${(product.stock || 0) > 0 ? 'in-stock' : 'out-of-stock'}`}>
+                                            {(product.stock || 0) > 0 ? `${product.stock} in stock` : 'Out of Stock'}
                                         </span>
                                     </div>
                                     <div className="row-actions">

@@ -41,7 +41,8 @@ const AdminSidebar = () => {
         { path: '/admin', icon: <FiGrid />, label: 'Dashboard' },
         { path: '/admin/cars', icon: <FiBox />, label: 'Inventory' },
         { path: '/admin/add', icon: <FiPlusSquare />, label: 'Add New Car' },
-        { path: '/admin/orders', icon: <FiShoppingBag />, label: 'Bookings' },
+        { path: '/admin/orders', icon: <FiShoppingBag />, label: 'All Bookings' },
+        { path: '/admin/my-bookings', icon: <FiUser />, label: 'My Bookings' },
     ];
 
     return (

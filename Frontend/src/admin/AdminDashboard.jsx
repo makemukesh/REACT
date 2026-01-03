@@ -19,11 +19,18 @@ const AdminDashboard = () => {
                 getAllProducts(),
                 getAllOrders()
             ]);
-            setProducts(productsRes.data.products || productsRes.data || []);
-            setOrders(ordersRes.data || []);
+
+            // Handle different potential response structures
+            const productsList = productsRes.data?.products || productsRes.data || [];
+            const ordersList = Array.isArray(ordersRes.data) ? ordersRes.data : [];
+
+            setProducts(productsList);
+            setOrders(ordersList);
             setLoading(false);
         } catch (err) {
-            console.error(err);
+            console.error("Dashboard Fetch Error:", err);
+            setProducts([]);
+            setOrders([]);
             setLoading(false);
         }
     };
@@ -37,13 +44,22 @@ const AdminDashboard = () => {
         const token = localStorage.getItem("token");
         if (token) {
             try {
-                const decoded = JSON.parse(atob(token.split(".")[1]));
+                const payload = token.split(".")[1];
+                const decoded = JSON.parse(atob(payload));
                 setAdminUser(decoded);
-            } catch (e) { }
+            } catch (e) {
+                console.error("Token Decode Error:", e);
+            }
         }
     }, []);
 
-    const initials = adminUser?.name?.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2) || "A";
+    const initials = (adminUser?.name || "Admin")
+        .split(" ")
+        .filter(Boolean)
+        .map(n => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2) || "A";
 
     return (
         <div className="admin-layout">

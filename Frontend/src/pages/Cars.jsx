@@ -45,12 +45,46 @@ const Cars = () => {
 
     return (
         <div className="cars-page">
-            <div className="cars-header">
+            <style>{`
+                .cars-page {
+                    padding-top: 40px;
+                    background-color: #f8fafc;
+                    min-height: 100vh;
+                }
+                .cars-banner {
+                    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+                    color: white;
+                    padding: 80px 5%;
+                    margin-bottom: 50px;
+                    text-align: center;
+                    border-radius: 0 0 50px 50px;
+                }
+                .cars-banner h1 {
+                    font-size: 3rem;
+                    font-weight: 800;
+                    margin-bottom: 15px;
+                    letter-spacing: -1px;
+                }
+                .cars-banner p {
+                    font-size: 1.2rem;
+                    opacity: 0.9;
+                    max-width: 600px;
+                    margin: 0 auto;
+                }
+                .cars-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                    gap: 30px;
+                    padding: 0 8% 80px !important;
+                }
+            `}</style>
+
+            <div className="cars-banner">
                 <h1>Our Complete Collection</h1>
-                <p>Browse through our extensive range of premium vehicles.</p>
+                <p>Browse through our extensive range of premium vehicles and find your perfect drive.</p>
             </div>
 
-            <div className="cars-grid" style={{ padding: '0 20px' }}>
+            <div className="cars-grid">
                 {cars.map((car) => (
                     <div key={car._id || car.id} className="car-card">
                         <div className="car-image-container">

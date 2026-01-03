@@ -109,6 +109,7 @@ const EditCar = () => {
                         <div className="form-container">
                             <h2>Technical Specifications</h2>
                             <form onSubmit={handleSubmit} className="admin-form">
+                                <h3 className="form-sub-title" style={{ marginBottom: '20px', color: '#6366f1', fontSize: '1rem' }}>Basic Information</h3>
                                 <div className="form-group-grid">
                                     <div className="form-group">
                                         <label>Vehicle Name</label>
@@ -126,6 +127,10 @@ const EditCar = () => {
                                         <label>Genre / Type</label>
                                         <input name="genre" value={formData.genre} onChange={handleChange} required />
                                     </div>
+                                </div>
+
+                                <h3 className="form-sub-title" style={{ marginTop: '30px', marginBottom: '20px', color: '#6366f1', fontSize: '1rem' }}>Technical Specifications</h3>
+                                <div className="form-group-grid">
                                     <div className="form-group">
                                         <label>Current Stock</label>
                                         <input name="stock" type="number" value={formData.stock} onChange={handleChange} required />
@@ -142,6 +147,10 @@ const EditCar = () => {
                                         <label>Fuel Type</label>
                                         <input name="fuelType" value={formData.fuelType} onChange={handleChange} />
                                     </div>
+                                </div>
+
+                                <h3 className="form-sub-title" style={{ marginTop: '30px', marginBottom: '20px', color: '#6366f1', fontSize: '1rem' }}>Performance & Dimensions</h3>
+                                <div className="form-group-grid">
                                     <div className="form-group">
                                         <label>Ground Clearance</label>
                                         <input name="groundClearance" value={formData.groundClearance} onChange={handleChange} />

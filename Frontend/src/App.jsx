@@ -11,6 +11,7 @@ import CarsManagement from './admin/CarsManagement'
 import AddCar from './admin/AddCar'
 import EditCar from './admin/EditCar'
 import OrdersManagement from './admin/OrdersManagement'
+import AdminMyBookings from './admin/AdminMyBookings'
 import CarDetails from './pages/CarDetails'
 import Cars from './pages/Cars'
 import Cart from './pages/Cart'
@@ -49,6 +50,7 @@ const App = () => {
         <Route path="/admin/add" element={<ProtectRoute adminOnly={true}><AddCar /></ProtectRoute>} />
         <Route path="/admin/edit/:id" element={<ProtectRoute adminOnly={true}><EditCar /></ProtectRoute>} />
         <Route path="/admin/orders" element={<ProtectRoute adminOnly={true}><OrdersManagement /></ProtectRoute>} />
+        <Route path="/admin/my-bookings" element={<ProtectRoute adminOnly={true}><AdminMyBookings /></ProtectRoute>} />
 
         <Route path="/cars" element={<Cars />} />
         <Route path="/car/:id" element={<CarDetails />} />

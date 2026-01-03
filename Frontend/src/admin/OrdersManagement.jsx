@@ -67,7 +67,13 @@ const OrdersManagement = () => {
         }
     }, []);
 
-    const initials = adminUser?.name?.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2) || "A";
+    const initials = (adminUser?.name || "Admin")
+        .split(" ")
+        .filter(Boolean)
+        .map(n => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2) || "A";
 
     return (
         <div className="admin-layout">
@@ -95,7 +101,7 @@ const OrdersManagement = () => {
                         </div>
                     ) : (
                         <div className="inventory-rows">
-                            <div className="rows-header">
+                            <div className="rows-header order-rows-header">
                                 <span>Order ID</span>
                                 <span>Customer</span>
                                 <span>Vehicle(s)</span>
@@ -104,7 +110,7 @@ const OrdersManagement = () => {
                                 <span>Actions</span>
                             </div>
                             {orders.map((order) => (
-                                <div key={order._id} className="inventory-row">
+                                <div key={order._id} className="inventory-row order-inventory-row">
                                     <div className="row-name">
                                         <span className="order-id-short">#{order._id.substring(order._id.length - 8).toUpperCase()}</span>
                                     </div>

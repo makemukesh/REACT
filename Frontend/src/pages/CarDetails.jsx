@@ -8,6 +8,7 @@ import {
     MdPalette, MdOutlineHeight, MdWorkOutline,
     MdSpeed, MdBolt, MdDirectionsCar
 } from 'react-icons/md';
+import { FiEdit2, FiTrash2, FiArrowLeft } from 'react-icons/fi';
 import { deleteProduct } from '../../services/productServices';
 
 const CarDetails = () => {
@@ -90,7 +91,7 @@ const CarDetails = () => {
         <div className="car-details-page">
             <div className="car-details-container">
                 <button className="back-btn" onClick={() => navigate(-1)}>
-                    &larr; Back
+                    <FiArrowLeft /> Back
                 </button>
 
                 <div className="car-details-content">
@@ -120,26 +121,24 @@ const CarDetails = () => {
                         </p>
 
                         <div className="action-buttons">
-                            {user?.role === 'admin' ? (
-                                <>
-                                    <button className="btn-edit-details" onClick={() => navigate(`/admin/edit/${car._id}`)}>
-                                        Edit Car
-                                    </button>
-                                    <button className="btn-delete-details" onClick={handleDelete}>
-                                        Delete Car
-                                    </button>
-                                </>
-                            ) : (
-                                <>
-                                    <button className="btn-add-to-cart" onClick={handleAddToCart}>
-                                        Add to Cart
-                                    </button>
-                                    <button className="btn-contact-dealer" onClick={() => navigate('/contact')}>
-                                        Contact Dealer
-                                    </button>
-                                </>
-                            )}
+                            <button className="btn-add-to-cart" onClick={handleAddToCart}>
+                                Add to Cart
+                            </button>
+                            <button className="btn-contact-dealer" onClick={() => navigate('/contact')}>
+                                Contact Dealer
+                            </button>
                         </div>
+
+                        {user?.role === 'admin' && (
+                            <div className="action-buttons admin-exclusive-row">
+                                <button className="btn-admin-edit" onClick={() => navigate(`/admin/edit/${car._id}`)}>
+                                    Edit Details
+                                </button>
+                                <button className="btn-admin-delete" onClick={handleDelete}>
+                                    Remove Listing
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -221,6 +220,62 @@ const CarDetails = () => {
                 </div>
 
                 <style>{`
+                    .action-buttons {
+                        display: flex;
+                        gap: 15px;
+                        margin-top: 30px;
+                    }
+                    .btn-admin-edit, .btn-admin-delete {
+                        flex: 1;
+                        padding: 14px 24px;
+                        border-radius: 8px;
+                        font-weight: 600;
+                        font-size: 1rem;
+                        cursor: pointer;
+                        transition: all 0.3s;
+                        border: none;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    .btn-admin-edit {
+                        background: #334155;
+                        color: white;
+                    }
+                    .btn-admin-edit:hover {
+                        background: #1e293b;
+                    }
+                    .btn-admin-delete {
+                        background: #fef2f2;
+                        color: #ef4444;
+                        border: 1px solid #fee2e2;
+                    }
+                    .btn-admin-delete:hover {
+                        background: #fee2e2;
+                    }
+                    .admin-exclusive-row {
+                        margin-top: 15px !important;
+                        padding-top: 15px;
+                        border-top: 1px dashed #e2e8f0;
+                    }
+                    .btn-add-to-cart {
+                        background: #ff3d00;
+                        color: white !important;
+                        border: none !important;
+                        border-radius: 8px !important;
+                        font-weight: 600 !important;
+                        padding: 14px 24px !important;
+                        font-size: 1rem !important;
+                    }
+                    .btn-contact-dealer {
+                        background: transparent !important;
+                        color: #111 !important;
+                        border: 1px solid #111 !important;
+                        border-radius: 8px !important;
+                        font-weight: 600 !important;
+                        padding: 14px 24px !important;
+                        font-size: 1rem !important;
+                    }
                     .car-specs-grid-section {
                         margin-top: 30px;
                         padding: 30px;

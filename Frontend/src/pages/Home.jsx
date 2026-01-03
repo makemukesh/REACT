@@ -294,7 +294,7 @@ const Home = () => {
           ) : null}
 
           <div className="cars-grid">
-            {cars.map((car) => (
+            {cars.slice(0, 12).map((car) => (
               <div key={car._id || car.id} className="car-card">
                 <div className="car-image-container">
                   <img
@@ -343,6 +343,8 @@ const Home = () => {
               </div>
             ))}
           </div>
+
+
         </div>
       </section>
     </div>

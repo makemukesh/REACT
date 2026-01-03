@@ -346,13 +346,13 @@ button {
    VERIFY OTP PAGE CSS
    ============================================ */
 .verify-otp-page {
-    padding: 120px 8% 80px;
+    padding: 100px 8% 80px;
     background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
     color: #333;
-    min-height: 100vh;
+    min-height: calc(100vh - 70px);
     box-sizing: border-box;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 }
 
@@ -695,7 +695,7 @@ button {
 .about-page {
     padding: 100px 10% 60px;
     background: var(--bg-light);
-    min-height: 100vh;
+    min-height: calc(100vh - 70px);
 }
 
 .about-hero {
@@ -775,7 +775,7 @@ button {
    ============================================ */
 .services-page {
     padding: 100px 10% 60px;
-    min-height: 100vh;
+    min-height: calc(100vh - 70px);
 }
 
 .services-hero {
@@ -851,11 +851,9 @@ button {
    ============================================ */
 .contact-page {
     padding: 100px 10% 60px;
-    min-height: 100vh;
+    min-height: calc(100vh - 70px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .contact-hero {
@@ -2330,9 +2328,10 @@ button {
     font-size: 16px;
     color: var(--text-light);
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     display: inline-flex;
     align-items: center;
+    gap: 8px;
     transition: color 0.3s;
     padding: 0;
 }
@@ -2555,8 +2554,8 @@ button {
    CART PAGE STYLES
    ============================================ */
 .cart-page-container {
-    padding: 120px 8% 80px;
-    min-height: 100vh;
+    padding: 100px 8% 80px;
+    min-height: calc(100vh - 70px);
     background: var(--bg-light);
 }
 
@@ -3174,13 +3173,11 @@ button {
    CHECKOUT PAGE STYLES
    ============================================ */
 .checkout-page-container {
-    padding: 120px 8% 80px;
-    min-height: 100vh;
+    padding: 100px 8% 80px;
+    min-height: 80vh;
     background: var(--bg-light);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .checkout-header {
@@ -3226,6 +3223,10 @@ button {
     margin-bottom: 15px;
 }
 
+.form-row .input-group {
+    flex: 1;
+}
+
 .form-group-card input {
     width: 100%;
     padding: 16px 20px;
@@ -3246,25 +3247,25 @@ button {
 }
 
 /* ============================================
-   ORDER SUCCESS STATE
+   ORDER SUCCESS STATE (Light Theme)
    ============================================ */
 .checkout-success-container {
-    min-height: 100vh;
-    background: #0f172a;
+    padding: 100px 40px;
+    min-height: 90vh;
+    background: #f8fafc;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px;
     position: relative;
     overflow: hidden;
 }
 
 .success-overlay-glow {
     position: absolute;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(255, 61, 0, 0.15) 0%, transparent 70%);
-    filter: blur(60px);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.05) 0%, transparent 70%);
+    filter: blur(80px);
     z-index: 1;
 }
 
@@ -3272,14 +3273,13 @@ button {
     z-index: 10;
     max-width: 800px;
     width: 100%;
-    background: rgba(30, 41, 59, 0.7);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: white;
+    border: 1px solid #e2e8f0;
     padding: 60px;
     border-radius: 40px;
     text-align: center;
-    color: white;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+    color: #1e293b;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
 }
 
 .success-icon {
@@ -3297,15 +3297,15 @@ button {
     margin-bottom: 40px;
 }
 
-/* Truck Animation */
+/* Truck Animation (Lightened) */
 .delivery-animation-box {
     height: 250px;
-    background: rgba(15, 23, 42, 0.5);
+    background: #f1f5f9;
     border-radius: 24px;
     position: relative;
     overflow: hidden;
     margin: 30px 0;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid #e2e8f0;
 }
 
 .animation-road {
@@ -3314,7 +3314,7 @@ button {
     left: 0;
     width: 200%;
     height: 4px;
-    background: repeating-linear-gradient(90deg, #334155 0, #334155 30px, transparent 30px, transparent 60px);
+    background: repeating-linear-gradient(90deg, #94a3b8 0, #94a3b8 30px, transparent 30px, transparent 60px);
     animation: roadScroll 1s linear infinite;
 }
 
@@ -3339,7 +3339,7 @@ button {
     bottom: 10px;
     width: 70px;
     height: 50px;
-    background: #1e293b;
+    background: #475569;
     border-radius: 8px 15px 5px 5px;
     border: 2px solid #334155;
 }
@@ -3351,9 +3351,9 @@ button {
     right: 8px;
     width: 30px;
     height: 20px;
-    background: #38bdf8;
+    background: #bae6fd;
     border-radius: 3px 8px 3px 3px;
-    opacity: 0.6;
+    opacity: 0.8;
 }
 
 .truck-bed {
@@ -3362,7 +3362,7 @@ button {
     bottom: 5px;
     width: 205px;
     height: 45px;
-    background: #0f172a;
+    background: #64748b;
     border: 2px solid #334155;
     border-right: none;
     border-radius: 5px 0 0 5px;
@@ -3428,26 +3428,28 @@ button {
 }
 
 .order-details-summary {
-    background: rgba(255, 255, 255, 0.03);
+    background: #f8fafc;
     padding: 20px;
+    border: 1px solid #e2e8f0;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-bottom: 40px;
+    text-align: left;
 }
 
 .order-details-summary .order-number {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 1.2rem;
-    color: #fbbf24;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #4f46e5;
 }
 
 .order-track-info {
-    font-size: 0.85rem;
-    opacity: 0.5;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 500;
 }
 
 .btn-return-home {
@@ -3570,11 +3572,11 @@ button {
    AUTH PAGE (LOGIN/SIGNUP)
    ============================================ */
 .auth-page-container {
-    min-height: 100vh;
+    min-height: calc(100vh - 70px);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding: 40px 20px;
+    padding: 100px 20px 80px;
     background: #f8fafc;
     background-image:
         radial-gradient(at 0% 0%, rgba(255, 61, 0, 0.05) 0px, transparent 50%),
@@ -4078,9 +4080,9 @@ button {
 }
 
 .orders-list-container {
-    padding: 0 6% 80px;
+    padding: 40px 6% 80px;
     max-width: 1100px;
-    margin: -80px auto 0;
+    margin: 0 auto;
     position: relative;
     z-index: 10;
 }
@@ -4093,10 +4095,10 @@ button {
 
 .user-order-card {
     background: white;
-    border-radius: 24px;
-    padding: 30px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f1f5f9;
 }
 
 .order-card-header {
@@ -4398,7 +4400,8 @@ button {
    MODERN PROFILE PAGE
    ============================================ */
 .profile-page-modern {
-    min-height: 100vh;
+    padding-top: 0;
+    min-height: calc(100vh - 70px);
     background: #f8fafc;
     display: flex;
     flex-direction: column;
@@ -4798,8 +4801,7 @@ button {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    margin-top: 20px;
 }
 
 .admin-sidebar-header {
@@ -4994,29 +4996,27 @@ button {
     width: 100%;
 }
 
+.inventory-row,
 .rows-header {
     display: grid;
-    grid-template-columns: 80px 1.5fr 1fr 1fr 1fr 120px;
-    padding: 20px;
-    font-weight: 700;
-    color: #94a3b8;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 1px solid #f1f5f9;
-}
-
-.inventory-row {
-    display: grid;
-    grid-template-columns: 80px 1.5fr 1fr 1fr 1fr 120px;
+    grid-template-columns: 120px 2fr 2fr 1.2fr 1.2fr;
     align-items: center;
-    padding: 20px;
-    transition: 0.2s;
-    border-bottom: 1px solid #f8fafc;
+    padding: 15px 20px;
+    border-bottom: 1px solid #f1f5f9;
 }
 
 .inventory-row:hover {
     background: #f8fafc;
+}
+
+.car-inventory-row,
+.car-rows-header {
+    grid-template-columns: 80px 2.5fr 1fr 1fr 180px !important;
+}
+
+.order-inventory-row,
+.order-rows-header {
+    grid-template-columns: 120px 1.5fr 1.5fr 1fr 1fr 80px !important;
 }
 
 .row-name h4 {
@@ -5128,7 +5128,8 @@ button {
 .form-group-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 25px;
+    gap: 20px;
+    align-items: flex-end;
 }
 
 .admin-form .form-group label {
@@ -5140,40 +5141,43 @@ button {
 }
 
 .admin-form input,
-.admin-form textarea {
+.admin-form textarea,
+.status-select {
     width: 100%;
-    padding: 14px 20px;
-    border: 2px solid #f1f5f9;
-    border-radius: 14px;
-    background: #f8fafc;
-    font-size: 1rem;
-    font-weight: 600;
+    padding: 12px 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 500;
     transition: 0.3s;
+    color: #1e293b;
 }
 
 .admin-form input:focus,
 .admin-form textarea:focus {
     background: white;
-    border-color: var(--accent-color);
+    border-color: #6366f1;
     outline: none;
-    box-shadow: 0 0 0 4px rgba(255, 61, 0, 0.1);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
 .btn-submit {
-    padding: 16px 40px;
-    background: var(--accent-color);
+    padding: 14px 35px;
+    background: #4f46e5;
     color: white;
     border: none;
-    border-radius: 14px;
-    font-weight: 800;
+    border-radius: 12px;
+    font-weight: 700;
     font-size: 1rem;
     cursor: pointer;
     transition: 0.3s;
 }
 
 .btn-submit:hover {
+    background: #4338ca;
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(255, 61, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
 }
 
 /* Bulk Import */
@@ -5231,4 +5235,119 @@ button {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
+}
+
+/* Dashboard Premium Stats */
+.dashboard-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.stat-card-premium {
+    background: white;
+    padding: 24px;
+    border-radius: 24px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-card-premium:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.stat-card-info h3 {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.stat-value-group {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.stat-card-info .stat-number {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.stat-trend {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #10b981;
+    background: #ecfdf5;
+    padding: 2px 8px;
+    border-radius: 100px;
+}
+
+.stat-card-info .stat-label {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+@media (max-width: 1200px) {
+    .dashboard-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.car-inventory-row {
+    grid-template-columns: 80px 2fr 1.5fr 1fr 200px !important;
+}
+
+.car-inventory-row .row-img {
+    width: 60px;
+    height: 45px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.car-inventory-row .row-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.car-inventory-row .row-actions {
+    justify-content: flex-end;
+}
+
+.view-all-link {
+    color: var(--accent-color);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.view-all-link:hover {
+    text-decoration: underline;
+    transform: translateX(5px);
 }

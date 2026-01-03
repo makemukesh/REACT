@@ -130,6 +130,7 @@ const AddCar = () => {
                             </div>
                         </div>
                         <form onSubmit={handleSubmit} className="admin-form">
+                            <h3 className="form-sub-title" style={{ marginBottom: '20px', color: '#6366f1', fontSize: '1rem' }}>Basic Information</h3>
                             <div className="form-group-grid">
                                 <div className="form-group">
                                     <label>Vehicle Name</label>
@@ -147,6 +148,10 @@ const AddCar = () => {
                                     <label>Genre / Category</label>
                                     <input name="genre" value={formData.genre} onChange={handleChange} placeholder="SUV, Luxury, etc." required />
                                 </div>
+                            </div>
+
+                            <h3 className="form-sub-title" style={{ marginTop: '30px', marginBottom: '20px', color: '#6366f1', fontSize: '1rem' }}>Technical Specifications</h3>
+                            <div className="form-group-grid">
                                 <div className="form-group">
                                     <label>Inventory Stock</label>
                                     <input name="stock" type="number" value={formData.stock} onChange={handleChange} required />
@@ -163,6 +168,10 @@ const AddCar = () => {
                                     <label>Fuel Type</label>
                                     <input name="fuelType" value={formData.fuelType} onChange={handleChange} placeholder="Petrol / Diesel / Electric" />
                                 </div>
+                            </div>
+
+                            <h3 className="form-sub-title" style={{ marginTop: '30px', marginBottom: '20px', color: '#6366f1', fontSize: '1rem' }}>Performance & Dimensions</h3>
+                            <div className="form-group-grid">
                                 <div className="form-group">
                                     <label>Ground Clearance</label>
                                     <input name="groundClearance" value={formData.groundClearance} onChange={handleChange} placeholder="e.g. 140 mm" />
