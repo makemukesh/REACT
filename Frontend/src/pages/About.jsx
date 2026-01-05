@@ -4,54 +4,60 @@ import Faqs from '../components/Faqs';
 
 const About = () => {
   return (
-    <section className="about-page">
-      <div className="about-hero">
-        <h1>About AutoDrive</h1>
-        <p>Innovation, safety, and performance—crafted for every road you take.</p>
-      </div>
-
-      <div className="about-grid">
-        <div className="about-card">
-          <h3>Our Mission</h3>
-          <p>
-            To deliver reliable mobility with cutting-edge technology, thoughtful design, and
-            service you can trust.
-          </p>
-        </div>
-        <div className="about-card">
-          <h3>What We Offer</h3>
-          <ul>
-            <li>Electric and hybrid vehicles</li>
-            <li>Comprehensive service plans</li>
-            <li>Flexible financing options</li>
-            <li>Test drives at your doorstep</li>
-          </ul>
-        </div>
-        <div className="about-card">
-          <h3>Why Choose Us</h3>
-          <p>
-            We pair expert guidance with transparent pricing, ensuring every driver feels confident
-            from first inquiry to every mile thereafter.
-          </p>
+    <section className="about-page-premium">
+      <div className="about-hero-premium">
+        <div className="hero-text-content">
+          <h1>Driving the Future of Mobility</h1>
+          <p className="hero-subtitle">Innovation, sustainability, and unparalleled luxury crafted for the modern road.</p>
         </div>
       </div>
 
-      <div className="about-stats">
-        <div className="stat">
-          <span className="stat-number">15+</span>
-          <span className="stat-label">Years of service</span>
+      <div className="mission-section-premium">
+        <div className="mission-text">
+          <h2>Our Mission</h2>
+          <p>
+            At AutoDrive, we believe that a car is more than just a mode of transportation—it's an extension of your lifestyle.
+            Our mission is to deliver reliable mobility with cutting-edge technology, thoughtful design, and service you can trust.
+          </p>
+          <p>
+            Whether you are looking for a high-performance sports car or an eco-friendly electric vehicle, we curate the finest selection to match your desires.
+          </p>
         </div>
-        <div className="stat">
-          <span className="stat-number">50k</span>
-          <span className="stat-label">Happy drivers</span>
+        <div className="mission-stats-grid">
+          <div className="stat-card">
+            <span className="stat-number">15+</span>
+            <span className="stat-label">Years of Excellence</span>
+          </div>
+          <div className="stat-card">
+            <span className="stat-number">50k+</span>
+            <span className="stat-label">Happy Drivers</span>
+          </div>
+          <div className="stat-card">
+            <span className="stat-number">120</span>
+            <span className="stat-label">Global Centers</span>
+          </div>
+          <div className="stat-card">
+            <span className="stat-number">24/7</span>
+            <span className="stat-label">Premium Support</span>
+          </div>
         </div>
-        <div className="stat">
-          <span className="stat-number">120</span>
-          <span className="stat-label">Service centers</span>
-        </div>
-        <div className="stat">
-          <span className="stat-number">24/7</span>
-          <span className="stat-label">Support</span>
+      </div>
+
+      <div className="core-values-section">
+        <h2>Our Core Values</h2>
+        <div className="values-grid">
+          <div className="value-card">
+            <h3>Integrity</h3>
+            <p>We believe in transparent pricing and honest advice, ensuring you make the best decision for your journey.</p>
+          </div>
+          <div className="value-card">
+            <h3>Innovation</h3>
+            <p>Embracing the latest in automotive technology to bring you safe, efficient, and smart vehicles.</p>
+          </div>
+          <div className="value-card">
+            <h3>Customer First</h3>
+            <p>Your satisfaction is our priority. From the first test drive to after-sales service, we are with you.</p>
+          </div>
         </div>
       </div>
 
