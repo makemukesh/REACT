@@ -26,7 +26,7 @@ const Footer = () => {
                         <ul>
                             <li><Link to="/">Home</Link></li>
                             <li><Link to="/cars">Inventory</Link></li>
-                            <li><Link to="/sell-car">Sell Your Car</Link></li>
+
                             <li><Link to="/emi-calculator">EMI Calculator</Link></li>
                             <li><Link to="/about">Our Story</Link></li>
                             <li><Link to="/services">Services</Link></li>
@@ -43,14 +43,7 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                    <div className="footer-column newsletter-column">
-                        <h4>Stay Updated</h4>
-                        <p>Subscribe to our newsletter for exclusive offers and new arrivals.</p>
-                        <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
-                            <input type="email" placeholder="Your email address" />
-                            <button type="submit">Subscribe</button>
-                        </form>
-                    </div>
+
                 </div>
             </div>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Faqs from '../components/Faqs';
+
 
 const About = () => {
   return (
@@ -61,7 +61,7 @@ const About = () => {
         </div>
       </div>
 
-      <Faqs />
+
     </section>
   );
 };

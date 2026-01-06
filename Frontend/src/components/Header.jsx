@@ -63,7 +63,7 @@ const Header = () => {
         <nav className="nav">
           <Link to="/">Home</Link>
           <Link to="/cars">Cars</Link>
-          <Link to="/sell-car">Sell Car</Link>
+
           <Link to="/about">About</Link>
           <Link to="/services">Services</Link>
           <Link to="/contact">Contact</Link>

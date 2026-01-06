@@ -5,7 +5,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Services from './pages/Services'
-import SellCar from './pages/SellCar'
+
 import EMICalculator from './pages/EMICalculator'
 import VerifyOtp from './pages/VerifyOtp'
 import Profile from './pages/Profile'
@@ -23,7 +23,10 @@ import Auth from './pages/Auth'
 import MyOrders from './pages/MyOrders'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
+import FAQ from './pages/FAQ'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 import NotFound from './pages/NotFound'
+import TermsOfService from './pages/TermsOfService'
 import { Routes, Route, useLocation } from 'react-router-dom'
 
 import ProtectRoute from './components/ProtectRoute'
@@ -69,13 +72,16 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/cars" element={<Cars />} />
           <Route path="/car/:id" element={<CarDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/sell-car" element={<SellCar />} />
+
           <Route path="/emi-calculator" element={<EMICalculator />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/my-bookings" element={<MyOrders />} />
           <Route path="*" element={<NotFound />} />
         </Route>
