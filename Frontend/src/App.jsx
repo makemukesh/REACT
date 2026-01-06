@@ -31,6 +31,7 @@ import Footer from './components/Footer'
 const App = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
+  const isAuthRoute = ['/login', '/auth', '/forgot-password', '/reset-password', '/verify-otp'].includes(location.pathname);
 
   // Dynamic Theme Rotation on Reload
   React.useEffect(() => {
@@ -57,15 +58,25 @@ const App = () => {
   return (
     <>
       <ScrollToTop />
-      {!isAdminRoute && <Header />}
+      {!isAdminRoute && !isAuthRoute && <Header />}
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/services" element={<Services />} />
+        {/* Protected Public Routes */}
+        <Route element={<ProtectRoute adminOnly={false} />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/cars" element={<Cars />} />
+          <Route path="/car/:id" element={<CarDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/my-bookings" element={<MyOrders />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+
         <Route path="/verify-otp" element={<VerifyOtp />} />
-        <Route path="/profile" element={<Profile />} />
 
         {/* Admin Routes wrapped in ProtectRoute */}
         <Route path="/admin" element={<ProtectRoute adminOnly={true}><AdminDashboard /></ProtectRoute>} />
@@ -75,18 +86,12 @@ const App = () => {
         <Route path="/admin/orders" element={<ProtectRoute adminOnly={true}><OrdersManagement /></ProtectRoute>} />
         <Route path="/admin/my-bookings" element={<ProtectRoute adminOnly={true}><AdminMyBookings /></ProtectRoute>} />
 
-        <Route path="/cars" element={<Cars />} />
-        <Route path="/car/:id" element={<CarDetails />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/my-bookings" element={<ProtectRoute adminOnly={false}><MyOrders /></ProtectRoute>} />
         <Route path="/login" element={<Auth />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="*" element={<NotFound />} />
       </Routes>
-      {!isAdminRoute && <Footer />}
+      {!isAdminRoute && !isAuthRoute && <Footer />}
     </>
   )
 }

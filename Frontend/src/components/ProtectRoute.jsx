@@ -8,7 +8,7 @@ const ProtectRoute = ({ children, adminOnly = false }) => {
 
     if (!token) {
         // Redirect to login if not authenticated (or home/login modal trigger)
-        return <Navigate to="/" state={{ from: location }} replace />;
+        return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
     if (adminOnly && user.role !== 'admin') {

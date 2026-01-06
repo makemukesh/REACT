@@ -8,6 +8,13 @@ const Auth = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [loading, setLoading] = useState(false);
 
+    React.useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            navigate('/');
+        }
+    }, [navigate]);
+
     const [loginData, setLoginData] = useState({
         email: "",
         password: ""
