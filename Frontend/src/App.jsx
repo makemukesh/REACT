@@ -5,6 +5,8 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Services from './pages/Services'
+import SellCar from './pages/SellCar'
+import EMICalculator from './pages/EMICalculator'
 import VerifyOtp from './pages/VerifyOtp'
 import Profile from './pages/Profile'
 import AdminDashboard from './admin/AdminDashboard'
@@ -72,6 +74,8 @@ const App = () => {
           <Route path="/car/:id" element={<CarDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/sell-car" element={<SellCar />} />
+          <Route path="/emi-calculator" element={<EMICalculator />} />
           <Route path="/my-bookings" element={<MyOrders />} />
           <Route path="*" element={<NotFound />} />
         </Route>

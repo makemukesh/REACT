@@ -53,6 +53,21 @@ const Services = () => {
           </div>
         </div>
       </div>
+      <div className="financial-tools-section">
+        <h2>Financial Tools & Resources</h2>
+        <div className="tools-grid">
+          <div className="tool-card" onClick={() => window.location.href = '/emi-calculator'}>
+            <h3>EMI Calculator</h3>
+            <p>Plan your budget with our easy-to-use finance calculator.</p>
+            <button className="btn-link">Calculate Now &rarr;</button>
+          </div>
+          <div className="tool-card" onClick={() => window.location.href = '/sell-car'}>
+            <h3>Sell Your Car</h3>
+            <p>Get an instant valuation and best price for your vehicle.</p>
+            <button className="btn-link">Get Quote &rarr;</button>
+          </div>
+        </div>
+      </div>
     </section>
   )
 }
