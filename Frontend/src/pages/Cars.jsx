@@ -61,7 +61,7 @@ const Cars = () => {
 
     const filteredCars = cars.filter(car => {
         // Brand Filter
-        if (filters.brand !== 'All' && !car.title.toLowerCase().includes(filters.brand.toLowerCase())) {
+        if (filters.brand !== 'All' && car.brand !== filters.brand) {
             return false;
         }
         // Type Filter (assuming genre maps to type)

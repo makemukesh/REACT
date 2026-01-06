@@ -11,11 +11,9 @@ dotenv.config();
 
 connectDB();
 
-
 const app = express();
 app.use(cors());
 app.use(express.json());
-
 
 app.use('/api/admin/cars', carRoutes);
 app.use('/users', userRoutes);
@@ -25,7 +23,7 @@ app.use('/api/orders', orderRoutes);
 const PORT = process.env.PORT || 10000;
 
 app.get('/', (req, res) => {
-  res.send('Backend  is running...');
+  res.send('Backend is running...');
 });
 
 app.listen(PORT, '0.0.0.0', () => {

@@ -13,6 +13,7 @@ const EditCar = () => {
         price: '',
         image: '',
         genre: '',
+        brand: '',
         stock: '',
         manufacturingYear: '',
         transmission: '',
@@ -37,6 +38,7 @@ const EditCar = () => {
                     price: product.price,
                     image: product.image,
                     genre: product.genre,
+                    brand: product.brand || '',
                     stock: product.stock,
                     manufacturingYear: product.manufacturingYear || '',
                     transmission: product.transmission || '',
@@ -126,6 +128,20 @@ const EditCar = () => {
                                     <div className="form-group">
                                         <label>Genre / Type</label>
                                         <input name="genre" value={formData.genre} onChange={handleChange} required />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Brand</label>
+                                        <select name="brand" value={formData.brand} onChange={handleChange} required>
+                                            <option value="">Select Brand</option>
+                                            <option value="BMW">BMW</option>
+                                            <option value="Mercedes">Mercedes</option>
+                                            <option value="Audi">Audi</option>
+                                            <option value="Bentley">Bentley</option>
+                                            <option value="Porsche">Porsche</option>
+                                            <option value="Ferrari">Ferrari</option>
+                                            <option value="Lamborghini">Lamborghini</option>
+                                            <option value="Rolls Royce">Rolls Royce</option>
+                                        </select>
                                     </div>
                                 </div>
 

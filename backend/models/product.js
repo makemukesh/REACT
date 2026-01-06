@@ -8,6 +8,11 @@ const productSchema = new mongoose.Schema(
     price: { type: Number, default: 0 },
     description: { type: String, required: true, maxlength: 500 },
     genre: { type: String, default: "general" },
+    brand: {
+      type: String,
+      required: true,
+      enum: ['BMW', 'Mercedes', 'Audi', 'Bentley', 'Porsche', 'Ferrari', 'Lamborghini', 'Rolls Royce']
+    },
     stock: { type: Number, default: 1 },
     isActive: { type: Boolean, default: true },
     // New Car Specs

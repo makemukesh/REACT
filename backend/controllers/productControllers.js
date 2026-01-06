@@ -1,9 +1,9 @@
-import Product from "../models/product.js";
+import Product from "../models/Product.js";
 
 export const createProduct = async (req, res) => {
     try {
         const {
-            title, image, price, description, genre, stock,
+            title, image, price, description, genre, brand, stock,
             manufacturingYear, transmission, fuelType, groundClearance,
             bootSpace, torque, power, engineCapacity,
             kilometersDone, exteriorColor
@@ -22,6 +22,7 @@ export const createProduct = async (req, res) => {
             price: price || 0,
             description: description.trim(),
             genre: genre || "general",
+            brand: brand,
             stock: stock || 1,
             isActive: true,
             manufacturingYear,
@@ -59,25 +60,39 @@ export const bulkCreateProducts = async (req, res) => {
             return res.status(400).json({ message: "Data must be an array of products" });
         }
 
-        const formattedProducts = products.map(item => ({
-            title: item.title || item.name || "Untitled Car",
-            image: item.image || item.img || item.url || "",
-            price: Number(item.price || item.cost || 0),
-            description: item.description || item.desc || "No description provided",
-            genre: item.genre || item.category || item.type || "general",
-            stock: Number(item.stock || item.qty || 1),
-            isActive: true,
-            manufacturingYear: item.manufacturingYear || item.year,
-            transmission: item.transmission,
-            fuelType: item.fuelType,
-            groundClearance: item.groundClearance,
-            bootSpace: item.bootSpace,
-            torque: item.torque,
-            power: item.power,
-            engineCapacity: item.engineCapacity,
-            kilometersDone: item.kilometersDone,
-            exteriorColor: item.exteriorColor
-        }));
+        const validBrands = ['BMW', 'Mercedes', 'Audi', 'Bentley', 'Porsche', 'Ferrari', 'Lamborghini', 'Rolls Royce'];
+
+        const formattedProducts = products.map(item => {
+            const title = item.title || item.name || "Untitled Car";
+
+            // Extract brand if missing
+            let brand = item.brand;
+            if (!brand) {
+                const foundBrand = validBrands.find(b => title.toLowerCase().includes(b.toLowerCase()));
+                brand = foundBrand || "BMW"; // Default to BMW if not found
+            }
+
+            return {
+                title: title.trim(),
+                image: item.image || item.img || item.url || "",
+                price: Number(item.price || item.cost || 0),
+                description: item.description || item.desc || "No description provided",
+                genre: item.genre || item.category || item.type || "general",
+                brand: brand,
+                stock: Number(item.stock || item.qty || 1),
+                isActive: true,
+                manufacturingYear: item.manufacturingYear || item.year,
+                transmission: item.transmission,
+                fuelType: item.fuelType,
+                groundClearance: item.groundClearance,
+                bootSpace: item.bootSpace,
+                torque: item.torque,
+                power: item.power,
+                engineCapacity: item.engineCapacity,
+                kilometersDone: item.kilometersDone,
+                exteriorColor: item.exteriorColor
+            };
+        });
 
         const result = await Product.insertMany(formattedProducts);
 
@@ -124,7 +139,7 @@ export const getSingleProduct = async (req, res) => {
 export const updateProduct = async (req, res) => {
     try {
         const {
-            title, image, price, description, genre, stock,
+            title, image, price, description, genre, brand, stock,
             manufacturingYear, transmission, fuelType, groundClearance,
             bootSpace, torque, power, engineCapacity,
             kilometersDone, exteriorColor
@@ -140,6 +155,7 @@ export const updateProduct = async (req, res) => {
         product.price = price || product.price;
         product.description = description || product.description;
         product.genre = genre || product.genre;
+        product.brand = brand || product.brand;
         product.stock = stock || product.stock;
 
         product.manufacturingYear = manufacturingYear !== undefined ? manufacturingYear : product.manufacturingYear;
