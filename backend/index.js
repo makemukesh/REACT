@@ -12,7 +12,10 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://react-liard-gamma.vercel.app',
+  credentials: true
+}));
 app.use(express.json());
 
 app.use('/api/admin/cars', carRoutes);

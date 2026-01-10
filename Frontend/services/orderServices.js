@@ -1,6 +1,7 @@
 import axios from 'axios';
+import API_BASE_URL from './config.js';
 
-const API_URL = 'http://localhost:10000/api/orders';
+const API_URL = `${API_BASE_URL}/api/orders`;
 
 export const createOrder = async (orderData) => {
     const token = localStorage.getItem('token');
