@@ -1,6 +1,5 @@
-import mongoose from "mongoose";
+﻿import mongoose from "mongoose";
 
-// Simplified product schema aligned with controller inputs
 const productSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true, maxlength: 150 },
@@ -15,7 +14,6 @@ const productSchema = new mongoose.Schema(
     },
     stock: { type: Number, default: 1 },
     isActive: { type: Boolean, default: true },
-    // New Car Specs
     manufacturingYear: { type: Number },
     transmission: { type: String },
     fuelType: { type: String },

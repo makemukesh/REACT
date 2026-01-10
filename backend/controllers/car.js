@@ -1,4 +1,4 @@
-import Product from "../models/Product.js";
+import Product from "../models/product.js";
 
 // Treat "cars" as products for now to keep the API responsive
 export const getAllCars = async (req, res) => {
