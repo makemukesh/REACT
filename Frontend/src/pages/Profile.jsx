@@ -85,146 +85,207 @@ const Profile = () => {
     window.location.reload();
   };
 
-  if (loading) return <div className="profile-loading">Loading...</div>;
+  if (loading) return (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="w-12 h-12 border-4 border-gray-200 border-t-[#ff3d00] rounded-full animate-spin"></div>
+    </div>
+  );
+
   if (!user) return null;
 
   const initials = user.name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2);
 
   return (
-    <div className="profile-page-modern">
-      <div className="profile-hero-section">
-        <div className="hero-overlay"></div>
-        <div className="profile-header-content">
-          <button onClick={() => navigate(-1)} className="btn-back-profile"><FiArrowLeft /> Back</button>
-          <div className="profile-avatar-giant">{initials}</div>
-          <div className="profile-intro">
-            <h1>{user.name}</h1>
-            <p><FiShield /> {user.role.toUpperCase()} PORTAL</p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-slate-900 to-slate-700 text-white py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center gap-2 text-white/70 hover:text-white mb-8 transition-colors"
+          >
+            <FiArrowLeft /> Back
+          </button>
+          <div className="flex items-center gap-6">
+            <div className="w-24 h-24 bg-[#ff3d00] rounded-full flex items-center justify-center text-3xl font-bold">
+              {initials}
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold mb-2">{user.name}</h1>
+              <p className="flex items-center gap-2 text-white/70">
+                <FiShield /> {user.role.toUpperCase()} PORTAL
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="profile-grid-container">
-        <div className="profile-main-card">
+      {/* Main Content */}
+      <div className="max-w-4xl mx-auto py-12 px-6">
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          {/* Alert Message */}
           {message.text && (
-            <div className={`profile-alert ${message.type}`}>
+            <div className={`mb-6 p-4 rounded-xl flex items-center gap-3 ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+              }`}>
               {message.type === 'success' ? <FiCheck /> : <FiX />}
               {message.text}
             </div>
           )}
 
-          <div className="card-section">
-            <div className="section-header">
-              <FiUser />
-              <h2>Account Details</h2>
+          {/* Account Details Section */}
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <FiUser className="text-xl text-[#ff3d00]" />
+                <h2 className="text-xl font-bold text-slate-800">Account Details</h2>
+              </div>
               {!isEditing && (
-                <button onClick={() => setIsEditing(true)} className="btn-edit-inline">
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="flex items-center gap-2 text-[#ff3d00] font-medium hover:underline"
+                >
                   <FiEdit2 /> Edit
                 </button>
               )}
             </div>
 
             {isEditing ? (
-              <form onSubmit={handleProfileUpdate} className="profile-edit-form">
-                <div className="form-row">
-                  <div className="form-group">
-                    <label>Full Name</label>
+              <form onSubmit={handleProfileUpdate} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
                     <input
                       type="text"
                       value={profileForm.name}
                       onChange={(e) => setProfileForm({ ...profileForm, name: e.target.value })}
                       required
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#ff3d00] transition-colors"
                     />
                   </div>
-                  <div className="form-group">
-                    <label>Email Address</label>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
                     <input
                       type="email"
                       value={profileForm.email}
                       onChange={(e) => setProfileForm({ ...profileForm, email: e.target.value })}
                       required
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#ff3d00] transition-colors"
                     />
                   </div>
                 </div>
-                <div className="form-actions">
-                  <button type="button" onClick={() => setIsEditing(false)} className="btn-cancel">Cancel</button>
-                  <button type="submit" className="btn-save">Save Changes</button>
+                <div className="flex gap-4 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setIsEditing(false)}
+                    className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-6 py-3 bg-[#ff3d00] text-white font-medium rounded-xl hover:bg-[#e63600] transition-colors"
+                  >
+                    Save Changes
+                  </button>
                 </div>
               </form>
             ) : (
-              <div className="profile-detail-list">
-                <div className="detail-item">
-                  <label>Display Name</label>
-                  <p>{user.name}</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <label className="text-sm text-gray-500 block mb-1">Display Name</label>
+                  <p className="font-medium text-slate-800">{user.name}</p>
                 </div>
-                <div className="detail-item">
-                  <label>Email Address</label>
-                  <p>{user.email}</p>
+                <div>
+                  <label className="text-sm text-gray-500 block mb-1">Email Address</label>
+                  <p className="font-medium text-slate-800">{user.email}</p>
                 </div>
-                <div className="detail-item">
-                  <label>Account Role</label>
-                  <p className="role-tag">{user.role}</p>
+                <div>
+                  <label className="text-sm text-gray-500 block mb-1">Account Role</label>
+                  <span className="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-sm font-medium rounded-full capitalize">
+                    {user.role}
+                  </span>
                 </div>
               </div>
             )}
           </div>
 
-          <div className="card-spacer"></div>
+          <hr className="my-8 border-gray-200" />
 
-          <div className="card-section">
-            <div className="section-header">
-              <FiLock />
-              <h2>Security Settings</h2>
+          {/* Security Section */}
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <FiLock className="text-xl text-[#ff3d00]" />
+                <h2 className="text-xl font-bold text-slate-800">Security Settings</h2>
+              </div>
               {!isChangingPassword && (
-                <button onClick={() => setIsChangingPassword(true)} className="btn-edit-inline">
+                <button
+                  onClick={() => setIsChangingPassword(true)}
+                  className="flex items-center gap-2 text-[#ff3d00] font-medium hover:underline"
+                >
                   <FiEdit2 /> Update Password
                 </button>
               )}
             </div>
 
             {isChangingPassword ? (
-              <form onSubmit={handlePasswordChange} className="profile-edit-form">
-                <div className="form-group">
-                  <label>Old Password</label>
+              <form onSubmit={handlePasswordChange} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Old Password</label>
                   <input
                     type="password"
                     value={passwordForm.oldPassword}
                     onChange={(e) => setPasswordForm({ ...passwordForm, oldPassword: e.target.value })}
                     required
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#ff3d00] transition-colors"
                   />
                 </div>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label>New Password</label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">New Password</label>
                     <input
                       type="password"
                       value={passwordForm.newPassword}
                       onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
                       required
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#ff3d00] transition-colors"
                     />
                   </div>
-                  <div className="form-group">
-                    <label>Confirm New Password</label>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
                     <input
                       type="password"
                       value={passwordForm.confirmPassword}
                       onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
                       required
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#ff3d00] transition-colors"
                     />
                   </div>
                 </div>
-                <div className="form-actions">
-                  <button type="button" onClick={() => setIsChangingPassword(false)} className="btn-cancel">Cancel</button>
-                  <button type="submit" className="btn-save">Change Password</button>
+                <div className="flex gap-4 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setIsChangingPassword(false)}
+                    className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-6 py-3 bg-[#ff3d00] text-white font-medium rounded-xl hover:bg-[#e63600] transition-colors"
+                  >
+                    Change Password
+                  </button>
                 </div>
               </form>
             ) : (
-              <div className="security-info">
-                <p>Password was last changed recently. We recommend a strong, unique password for security.</p>
+              <div>
+                <p className="text-gray-600 mb-4">
+                  Password was last changed recently. We recommend a strong, unique password for security.
+                </p>
                 <button
                   onClick={() => navigate('/forgot-password')}
-                  className="btn-link"
-                  style={{ color: 'var(--accent-color)', background: 'none', border: 'none', padding: 0, fontWeight: '700', cursor: 'pointer', marginTop: '10px' }}
+                  className="text-[#ff3d00] font-semibold hover:underline"
                 >
                   Forgot Password? Send Reset OTP to Email
                 </button>
@@ -232,8 +293,14 @@ const Profile = () => {
             )}
           </div>
 
-          <div className="profile-danger-zone">
-            <button onClick={handleLogout} className="btn-logout-full">
+          <hr className="my-8 border-gray-200" />
+
+          {/* Logout Section */}
+          <div>
+            <button
+              onClick={handleLogout}
+              className="w-full py-4 bg-red-50 text-red-600 font-semibold rounded-xl hover:bg-red-100 transition-colors flex items-center justify-center gap-2"
+            >
               <FiLogOut /> Sign Out of My Account
             </button>
           </div>

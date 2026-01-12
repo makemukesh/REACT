@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Header.css';
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 const Faqs = () => {
     const [activeIndex, setActiveIndex] = useState(null);
@@ -28,27 +28,36 @@ const Faqs = () => {
     };
 
     return (
-        <section className="faqs-section">
-            <div className="section-header">
-                <h2>Frequently Asked Questions</h2>
-                <p>Find answers to common questions about our services</p>
-            </div>
-            <div className="faqs-container">
-                {faqs.map((faq, index) => (
-                    <div
-                        key={index}
-                        className={`faq-item ${activeIndex === index ? 'active' : ''}`}
-                        onClick={() => toggleAccordion(index)}
-                    >
-                        <div className="faq-question">
-                            <h3>{faq.question}</h3>
-                            <span className="faq-icon">{activeIndex === index ? '−' : '+'}</span>
+        <section className="py-20 px-6 bg-gray-50">
+            <div className="max-w-3xl mx-auto">
+                {/* Header */}
+                <div className="text-center mb-12">
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">Frequently Asked Questions</h2>
+                    <p className="text-gray-500 text-lg">Find answers to common questions about our services</p>
+                </div>
+
+                {/* FAQ Items */}
+                <div className="space-y-4">
+                    {faqs.map((faq, index) => (
+                        <div
+                            key={index}
+                            className={`bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer transition-all duration-300 ${activeIndex === index ? 'shadow-lg' : 'hover:shadow-lg'
+                                }`}
+                            onClick={() => toggleAccordion(index)}
+                        >
+                            <div className="flex items-center justify-between p-6">
+                                <h3 className="font-semibold text-slate-800 pr-4">{faq.question}</h3>
+                                <span className={`text-[#ff3d00] transition-transform duration-300 ${activeIndex === index ? 'rotate-180' : ''}`}>
+                                    <FiChevronDown className="text-xl" />
+                                </span>
+                            </div>
+                            <div className={`overflow-hidden transition-all duration-300 ${activeIndex === index ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
+                                }`}>
+                                <p className="px-6 pb-6 text-gray-600 leading-relaxed">{faq.answer}</p>
+                            </div>
                         </div>
-                        <div className="faq-answer">
-                            <p>{faq.answer}</p>
-                        </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </section>
     );

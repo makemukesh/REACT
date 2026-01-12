@@ -3,6 +3,7 @@ import { getAllProducts } from '../../services/productServices';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../store/cartSlice';
+
 const Cars = () => {
     const [cars, setCars] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -60,15 +61,12 @@ const Cars = () => {
     };
 
     const filteredCars = cars.filter(car => {
-        // Brand Filter
         if (filters.brand !== 'All' && car.brand !== filters.brand) {
             return false;
         }
-        // Type Filter (assuming genre maps to type)
         if (filters.type !== 'All' && car.genre !== filters.type) {
             return false;
         }
-        // Price Filter
         if (filters.priceRange !== 'All') {
             const [min, max] = filters.priceRange.split('-').map(Number);
             if (car.price < min || car.price > max) return false;
@@ -76,102 +74,148 @@ const Cars = () => {
         return true;
     });
 
-    if (loading) return <div className="loading-container"><div className="loading-spinner"></div></div>;
-    if (error) return <div className="error-message">{error}</div>;
+    if (loading) return (
+        <div className="flex flex-col items-center justify-center min-h-screen">
+            <div className="w-12 h-12 border-4 border-gray-200 border-t-[#ff3d00] rounded-full animate-spin"></div>
+        </div>
+    );
+
+    if (error) return (
+        <div className="flex items-center justify-center min-h-screen">
+            <p className="text-red-500 text-lg">{error}</p>
+        </div>
+    );
 
     return (
-        <div className="cars-page">
-            <div className="cars-banner">
-                <h1>Our Complete Collection</h1>
-                <p>Browse through our extensive range of premium vehicles and find your perfect drive.</p>
+        <div className="min-h-screen bg-gray-50">
+            {/* Banner */}
+            <div className="bg-gradient-to-r from-slate-900 to-slate-700 text-white py-16 px-6 text-center">
+                <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Complete Collection</h1>
+                <p className="text-lg text-white/80 max-w-2xl mx-auto">
+                    Browse through our extensive range of premium vehicles and find your perfect drive.
+                </p>
             </div>
 
             {/* Filter Bar */}
-            <div className="cars-filter-bar">
-                <div className="filter-group">
-                    <label>Brand</label>
-                    <select
-                        value={filters.brand}
-                        onChange={(e) => handleFilterChange('brand', e.target.value)}
-                    >
-                        {brands.map(brand => <option key={brand} value={brand}>{brand}</option>)}
-                    </select>
-                </div>
-                <div className="filter-group">
-                    <label>Price Range</label>
-                    <select
-                        value={filters.priceRange}
-                        onChange={(e) => handleFilterChange('priceRange', e.target.value)}
-                    >
-                        {priceRanges.map(range => <option key={range.value} value={range.value}>{range.label}</option>)}
-                    </select>
-                </div>
-                <div className="filter-group">
-                    <label>Body Type</label>
-                    <select
-                        value={filters.type}
-                        onChange={(e) => handleFilterChange('type', e.target.value)}
-                    >
-                        {types.map(type => <option key={type} value={type}>{type}</option>)}
-                    </select>
-                </div>
-                <div className="filter-results-count">
-                    Showing {filteredCars.length} vehicles
+            <div className="sticky top-[70px] z-50 bg-white shadow-md py-4 px-6">
+                <div className="max-w-7xl mx-auto flex flex-wrap items-center gap-4 md:gap-6">
+                    <div className="flex flex-col">
+                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Brand</label>
+                        <select
+                            value={filters.brand}
+                            onChange={(e) => handleFilterChange('brand', e.target.value)}
+                            className="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#ff3d00] min-w-[140px]"
+                        >
+                            {brands.map(brand => <option key={brand} value={brand}>{brand}</option>)}
+                        </select>
+                    </div>
+                    <div className="flex flex-col">
+                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Price Range</label>
+                        <select
+                            value={filters.priceRange}
+                            onChange={(e) => handleFilterChange('priceRange', e.target.value)}
+                            className="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#ff3d00] min-w-[140px]"
+                        >
+                            {priceRanges.map(range => <option key={range.value} value={range.value}>{range.label}</option>)}
+                        </select>
+                    </div>
+                    <div className="flex flex-col">
+                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Body Type</label>
+                        <select
+                            value={filters.type}
+                            onChange={(e) => handleFilterChange('type', e.target.value)}
+                            className="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#ff3d00] min-w-[140px]"
+                        >
+                            {types.map(type => <option key={type} value={type}>{type}</option>)}
+                        </select>
+                    </div>
+                    <div className="ml-auto text-sm font-medium text-gray-600">
+                        Showing <span className="text-[#ff3d00] font-bold">{filteredCars.length}</span> vehicles
+                    </div>
                 </div>
             </div>
 
-            <div className="cars-grid">
+            {/* Cars Grid */}
+            <div className="max-w-7xl mx-auto py-12 px-6">
                 {filteredCars.length > 0 ? (
-                    filteredCars.map((car) => (
-                        <div key={car._id || car.id} className="car-card">
-                            <div className="car-image-container">
-                                <img
-                                    src={car.image || "https://images.unsplash.com/photo-1503376780353-7e6692767b70"}
-                                    alt={car.title}
-                                    onError={(e) => {
-                                        e.target.src = "https://images.unsplash.com/photo-1503376780353-7e6692767b70";
-                                    }}
-                                />
-                                {car.genre && (
-                                    <div className="car-badge">{car.genre}</div>
-                                )}
-                            </div>
-                            <div className="car-info">
-                                <div className="car-header-info">
-                                    <h3>{car.title}</h3>
-                                    <span className="car-price">
-                                        ${car.price ? car.price.toLocaleString() : "N/A"}
-                                    </span>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {filteredCars.map((car) => (
+                            <div
+                                key={car._id || car.id}
+                                className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
+                            >
+                                {/* Car Image */}
+                                <div className="relative h-52 overflow-hidden">
+                                    <img
+                                        src={car.image || "https://images.unsplash.com/photo-1503376780353-7e6692767b70"}
+                                        alt={car.title}
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        onError={(e) => {
+                                            e.target.src = "https://images.unsplash.com/photo-1503376780353-7e6692767b70";
+                                        }}
+                                    />
+                                    {car.genre && (
+                                        <div className="absolute top-3 left-3 bg-[#ff3d00] text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                            {car.genre}
+                                        </div>
+                                    )}
                                 </div>
-                                <p className="car-description">
-                                    {car.description ? car.description.substring(0, 100) + "..." : "Premium vehicle."}
-                                </p>
-                                <div className="car-specs">
-                                    <div className="spec-item">
-                                        <span className="spec-label">Type:</span>
-                                        <span className="spec-value">{car.genre || "N/A"}</span>
+
+                                {/* Car Info */}
+                                <div className="p-5">
+                                    <div className="flex justify-between items-start mb-3">
+                                        <h3 className="text-lg font-bold text-slate-800">{car.title}</h3>
+                                        <span className="text-[#ff3d00] font-bold text-lg whitespace-nowrap ml-2">
+                                            ${car.price ? car.price.toLocaleString() : "N/A"}
+                                        </span>
                                     </div>
-                                    <div className="spec-item">
-                                        <span className="spec-label">Stock:</span>
-                                        <span className="spec-value">{car.stock > 0 ? "Available" : "Out of Stock"}</span>
+
+                                    <p className="text-gray-500 text-sm mb-4 line-clamp-2">
+                                        {car.description ? car.description.substring(0, 100) + "..." : "Premium vehicle."}
+                                    </p>
+
+                                    {/* Specs */}
+                                    <div className="flex gap-6 mb-4 py-3 border-t border-gray-100">
+                                        <div className="flex flex-col">
+                                            <span className="text-xs text-gray-400 uppercase tracking-wide">Type</span>
+                                            <span className="text-sm font-medium text-slate-700">{car.genre || "N/A"}</span>
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-xs text-gray-400 uppercase tracking-wide">Stock</span>
+                                            <span className={`text-sm font-medium ${car.stock > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                                                {car.stock > 0 ? "Available" : "Out of Stock"}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Actions */}
+                                    <div className="flex gap-3">
+                                        <button
+                                            className="flex-1 py-2.5 px-4 bg-[#ff3d00] text-white text-sm font-semibold rounded-lg hover:bg-[#e63600] transition-colors duration-300"
+                                            onClick={() => navigate(`/car/${car._id}`)}
+                                        >
+                                            View Details
+                                        </button>
+                                        <button
+                                            className="flex-1 py-2.5 px-4 border-2 border-[#ff3d00] text-[#ff3d00] text-sm font-semibold rounded-lg hover:bg-[#ff3d00] hover:text-white transition-all duration-300"
+                                            onClick={() => handleAddToCart(car)}
+                                        >
+                                            Add to Cart
+                                        </button>
                                     </div>
                                 </div>
-                                <div className="car-actions">
-                                    <button
-                                        className="btn-view-details"
-                                        onClick={() => navigate(`/car/${car._id}`)}
-                                    >
-                                        View Details
-                                    </button>
-                                    <button className="btn-add-to-cart-mini" onClick={() => handleAddToCart(car)}>Add to Cart</button>
-                                </div>
                             </div>
-                        </div>
-                    ))
+                        ))}
+                    </div>
                 ) : (
-                    <div className="no-cars-message">
-                        <h3>No vehicles found matching your criteria.</h3>
-                        <button onClick={() => setFilters({ brand: 'All', priceRange: 'All', type: 'All' })}>Clear Filters</button>
+                    <div className="text-center py-20">
+                        <h3 className="text-xl text-gray-600 mb-4">No vehicles found matching your criteria.</h3>
+                        <button
+                            onClick={() => setFilters({ brand: 'All', priceRange: 'All', type: 'All' })}
+                            className="px-6 py-3 bg-[#ff3d00] text-white font-semibold rounded-lg hover:bg-[#e63600] transition-colors"
+                        >
+                            Clear Filters
+                        </button>
                     </div>
                 )}
             </div>

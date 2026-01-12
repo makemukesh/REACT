@@ -28,15 +28,21 @@ const MyOrders = () => {
             try {
                 await cancelOrder(orderId);
                 alert("Order cancelled successfully");
-                fetchMyOrders(); // Refresh orders
+                fetchMyOrders();
             } catch (err) {
                 alert(err.response?.data?.message || "Failed to cancel order");
             }
         }
     };
 
-    const getStatusClass = (status) => {
-        return status.toLowerCase();
+    const getStatusStyles = (status) => {
+        switch (status) {
+            case 'Processing': return 'bg-yellow-100 text-yellow-700';
+            case 'Shipped': return 'bg-blue-100 text-blue-700';
+            case 'Delivered': return 'bg-green-100 text-green-700';
+            case 'Cancelled': return 'bg-red-100 text-red-700';
+            default: return 'bg-gray-100 text-gray-700';
+        }
     };
 
     const getStatusIcon = (status) => {
@@ -50,81 +56,90 @@ const MyOrders = () => {
     };
 
     if (loading) return (
-        <div className="orders-loading-overlay">
-            <div className="loader-pulse"></div>
-            <p>Retrieving your bookings...</p>
+        <div className="flex flex-col items-center justify-center min-h-screen">
+            <div className="w-12 h-12 border-4 border-gray-200 border-t-[#ff3d00] rounded-full animate-spin mb-4"></div>
+            <p className="text-gray-500">Retrieving your bookings...</p>
         </div>
     );
 
     return (
-        <div className="my-orders-page">
-            <div className="orders-hero">
-                <div className="hero-content">
-                    <h1>My Bookings</h1>
-                    <p>Track your luxury vehicle orders and delivery status in real-time.</p>
-                </div>
+        <div className="min-h-screen bg-gray-50">
+            {/* Hero Section */}
+            <div className="bg-gradient-to-r from-slate-900 to-slate-700 text-white py-16 px-6 text-center">
+                <h1 className="text-4xl md:text-5xl font-bold mb-4">My Bookings</h1>
+                <p className="text-lg text-white/80 max-w-2xl mx-auto">
+                    Track your luxury vehicle orders and delivery status in real-time.
+                </p>
             </div>
 
-            <div className="orders-list-container">
+            {/* Orders List */}
+            <div className="max-w-5xl mx-auto py-12 px-6">
                 {orders.length === 0 ? (
-                    <div className="empty-orders-state">
-                        <div className="empty-visual">
-                            <FiPackage />
-                        </div>
-                        <h2>No Bookings Found</h2>
-                        <p>It looks like you haven't booked any luxury cars yet.</p>
-                        <button onClick={() => navigate('/cars')} className="btn-browse-cars">
+                    <div className="text-center py-20 bg-white rounded-2xl shadow-lg">
+                        <FiPackage className="text-6xl text-gray-300 mx-auto mb-6" />
+                        <h2 className="text-2xl font-bold text-gray-700 mb-2">No Bookings Found</h2>
+                        <p className="text-gray-500 mb-8">It looks like you haven't booked any luxury cars yet.</p>
+                        <button
+                            onClick={() => navigate('/cars')}
+                            className="px-6 py-3 bg-[#ff3d00] text-white font-semibold rounded-xl hover:bg-[#e63600] transition-colors flex items-center gap-2 mx-auto"
+                        >
                             Browse Collection <FiArrowRight />
                         </button>
                     </div>
                 ) : (
-                    <div className="orders-grid-user">
+                    <div className="space-y-6">
                         {orders.map((order) => (
-                            <div key={order._id} className="user-order-card">
-                                <div className="order-card-header">
-                                    <div className="header-left">
-                                        <span className="order-date">
+                            <div key={order._id} className="bg-white rounded-2xl shadow-lg overflow-hidden">
+                                {/* Order Header */}
+                                <div className="flex flex-wrap items-center justify-between gap-4 p-6 border-b border-gray-100">
+                                    <div className="flex items-center gap-4">
+                                        <span className="flex items-center gap-2 text-sm text-gray-500">
                                             <FiCalendar /> {new Date(order.createdAt).toLocaleDateString()}
                                         </span>
-                                        <span className="order-id-tag">ID: #{order._id.substring(order._id.length - 6).toUpperCase()}</span>
+                                        <span className="text-sm font-mono text-gray-400">
+                                            ID: #{order._id.substring(order._id.length - 6).toUpperCase()}
+                                        </span>
                                     </div>
-                                    <div className={`order-status-pill ${getStatusClass(order.status)}`}>
+                                    <div className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${getStatusStyles(order.status)}`}>
                                         {getStatusIcon(order.status)}
-                                        {order.status === 'Cancelled' ? (
-                                            order.cancelledBy === 'Admin' ? 'Admin Cancelled' : 'User Cancelled'
-                                        ) : order.status}
+                                        {order.status === 'Cancelled'
+                                            ? (order.cancelledBy === 'Admin' ? 'Admin Cancelled' : 'User Cancelled')
+                                            : order.status}
                                     </div>
                                 </div>
 
-                                <div className="order-card-body">
-                                    <div className="booked-items">
-                                        {order.items.map((item, idx) => (
-                                            <div key={idx} className="booked-item-row">
-                                                <div className="item-img-box">
-                                                    <img src={item.image} alt={item.title} />
-                                                </div>
-                                                <div className="item-info">
-                                                    <h4>{item.title}</h4>
-                                                    <p>Quantity: {item.quantity}</p>
-                                                    <span className="item-price-tag">${item.price.toLocaleString()}</span>
-                                                </div>
+                                {/* Order Items */}
+                                <div className="p-6 space-y-4">
+                                    {order.items.map((item, idx) => (
+                                        <div key={idx} className="flex items-center gap-4">
+                                            <div className="w-20 h-16 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
+                                                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                                             </div>
-                                        ))}
-                                    </div>
+                                            <div className="flex-1 min-w-0">
+                                                <h4 className="font-semibold text-slate-800 truncate">{item.title}</h4>
+                                                <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
+                                            </div>
+                                            <span className="font-bold text-[#ff3d00]">${item.price.toLocaleString()}</span>
+                                        </div>
+                                    ))}
                                 </div>
 
-                                <div className="order-card-footer">
-                                    <div className="footer-info">
-                                        <label>Total Investment</label>
-                                        <div className="total-amount">${order.totalPrice.toLocaleString()}</div>
+                                {/* Order Footer */}
+                                <div className="flex flex-wrap items-center justify-between gap-4 p-6 bg-gray-50">
+                                    <div>
+                                        <span className="text-sm text-gray-500 block">Total Investment</span>
+                                        <span className="text-2xl font-bold text-slate-800">${order.totalPrice.toLocaleString()}</span>
                                     </div>
-                                    <div className="payment-status">
+                                    <div className="flex items-center gap-4">
                                         {order.status === 'Processing' && (
-                                            <button onClick={() => handleCancelOrder(order._id)} className="btn-cancel-order">
+                                            <button
+                                                onClick={() => handleCancelOrder(order._id)}
+                                                className="px-4 py-2 text-red-600 border border-red-200 rounded-lg hover:bg-red-50 font-medium transition-colors"
+                                            >
                                                 Cancel Booking
                                             </button>
                                         )}
-                                        <span className="paid-badge">
+                                        <span className="flex items-center gap-2 text-sm text-green-600 font-medium">
                                             <FiCheckCircle /> Payment Verified
                                         </span>
                                     </div>

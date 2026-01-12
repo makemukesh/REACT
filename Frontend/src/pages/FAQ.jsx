@@ -3,7 +3,7 @@ import Faqs from '../components/Faqs';
 
 const FAQ = () => {
     return (
-        <div style={{ paddingTop: '80px', minHeight: '80vh' }}>
+        <div className="pt-0 min-h-screen bg-gray-50">
             <Faqs />
         </div>
     );

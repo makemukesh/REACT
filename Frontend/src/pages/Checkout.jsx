@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../store/cartSlice";
 import {
-  FiArrowLeft,
   FiCheckCircle,
   FiCreditCard,
   FiMapPin,
@@ -13,21 +12,20 @@ import { createOrder } from "../../services/orderServices";
 
 const DeliveryAnimation = ({ carImage }) => {
   return (
-    <div className="delivery-animation-box">
-      <div className="animation-road"></div>
-      <div className="truck-wrapper">
-        <div className="truck-body">
-          <div className="truck-cabin"></div>
-          <div className="truck-bed">
-            <div className="loaded-car">
-              <img src={carImage} alt="Loaded Vehicle" />
-            </div>
+    <div className="relative bg-gradient-to-r from-slate-100 to-slate-200 rounded-2xl p-8 overflow-hidden my-8">
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-slate-300"></div>
+      <div className="flex items-center justify-center">
+        <div className="relative animate-bounce">
+          <div className="w-32 h-20 bg-slate-700 rounded-lg flex items-center justify-center">
+            <img
+              src={carImage}
+              alt="Loaded Vehicle"
+              className="w-20 h-12 object-cover rounded"
+            />
           </div>
-          <div className="truck-wheel wheel-1"></div>
-          <div className="truck-wheel wheel-2"></div>
         </div>
       </div>
-      <div className="loading-effect-text">
+      <div className="text-center mt-4 text-sm font-semibold text-slate-600 tracking-wider animate-pulse">
         PREPARING YOUR LUXURY SHIPMENT...
       </div>
     </div>
@@ -39,7 +37,7 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
 
-  const [step, setStep] = useState(1); // 1: Details, 2: Payment
+  const [step, setStep] = useState(1);
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -96,7 +94,7 @@ const Checkout = () => {
 
     const options = {
       key: "rzp_test_RwZ8MWEM2Bc67U",
-      amount: totalPriceValue * 100, // Amount in paise
+      amount: totalPriceValue * 100,
       currency: "INR",
       name: "AutoDrive Luxury",
       description: "Premium Car Purchase",
@@ -120,9 +118,7 @@ const Checkout = () => {
           setLoading(false);
         } catch (err) {
           console.error("Error creating order:", err);
-          alert(
-            "Payment successful, but failed to save order. Please contact support."
-          );
+          alert("Payment successful, but failed to save order. Please contact support.");
           setLoading(false);
         }
       },
@@ -148,291 +144,298 @@ const Checkout = () => {
     0
   );
 
+  // Success Screen
   if (isOrderPlaced) {
     return (
-      <div className="checkout-success-container">
-        <div className="success-overlay-glow"></div>
-        <div className="success-card">
-          <div className="success-header-top">
-            <FiCheckCircle className="success-icon" />
-            <h1>Payment Confirmed!</h1>
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-6">
+        <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 text-center">
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <FiCheckCircle className="text-4xl text-green-600" />
           </div>
+          <h1 className="text-3xl font-bold text-slate-800 mb-2">Payment Confirmed!</h1>
 
           <DeliveryAnimation
-            carImage={
-              cartItems[0]?.image ||
-              "https://images.unsplash.com/photo-1503376780353-7e6692767b70"
-            }
+            carImage={cartItems[0]?.image || "https://images.unsplash.com/photo-1503376780353-7e6692767b70"}
           />
 
-          <div className="success-info-bottom">
-            <p>
-              Your order has been secured. Our transport team is now dispatching
-              your vehicle to the provided address.
-            </p>
-            <div className="order-details-summary">
-              <span className="order-number">
-                Order ID: #AD-{Math.floor(Math.random() * 90000) + 10000}
-              </span>
-              <span className="order-track-info">
-                Track delivery in your profile
-              </span>
-            </div>
-            <button onClick={() => navigate("/")} className="btn-return-home">
-              Explore More Vehicles
-            </button>
+          <p className="text-gray-600 mb-6">
+            Your order has been secured. Our transport team is now dispatching your vehicle to the provided address.
+          </p>
+
+          <div className="bg-gray-50 rounded-xl p-4 mb-6">
+            <span className="block text-lg font-bold text-slate-800">
+              Order ID: #AD-{Math.floor(Math.random() * 90000) + 10000}
+            </span>
+            <span className="text-sm text-gray-500">Track delivery in your profile</span>
           </div>
+
+          <button
+            onClick={() => navigate("/")}
+            className="w-full py-4 bg-[#ff3d00] text-white font-bold rounded-xl hover:bg-[#e63600] transition-all duration-300"
+          >
+            Explore More Vehicles
+          </button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="checkout-page-container">
-      <div className="checkout-header-stepper">
-        <div className={`step-item ${step >= 1 ? "active" : ""}`}>
-          <div className="step-number">
-            <FiUser />
+    <div className="min-h-screen bg-gray-50 py-8 px-6">
+      <div className="max-w-6xl mx-auto">
+        {/* Stepper */}
+        <div className="flex items-center justify-center gap-4 mb-12">
+          <div className={`flex items-center gap-2 ${step >= 1 ? 'text-[#ff3d00]' : 'text-gray-400'}`}>
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-[#ff3d00] text-white' : 'bg-gray-200'}`}>
+              <FiUser />
+            </div>
+            <span className="font-medium hidden sm:inline">Details</span>
           </div>
-          <span>Details</span>
-        </div>
-        <div className="step-line"></div>
-        <div className={`step-item ${step >= 2 ? "active" : ""}`}>
-          <div className="step-number">
-            <FiCreditCard />
+          <div className={`w-20 h-1 rounded-full ${step >= 2 ? 'bg-[#ff3d00]' : 'bg-gray-200'}`}></div>
+          <div className={`flex items-center gap-2 ${step >= 2 ? 'text-[#ff3d00]' : 'text-gray-400'}`}>
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-[#ff3d00] text-white' : 'bg-gray-200'}`}>
+              <FiCreditCard />
+            </div>
+            <span className="font-medium hidden sm:inline">Payment</span>
           </div>
-          <span>Payment</span>
         </div>
-      </div>
 
-      <div className="checkout-main-grid">
-        <div className="checkout-left-col">
-          {step === 1 ? (
-            <form onSubmit={handleNextStep} className="checkout-step-form">
-              <div className="form-section-card">
-                <h2>
-                  <FiUser /> Personal Details
-                </h2>
-                <div className="form-row">
-                  <div className="input-group">
-                    <label>First Name</label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      placeholder="John"
-                      required
-                      value={formData.firstName}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label>Last Name</label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      placeholder="Doe"
-                      required
-                      value={formData.lastName}
-                      onChange={handleChange}
-                    />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2">
+            {step === 1 ? (
+              <form onSubmit={handleNextStep} className="space-y-6">
+                {/* Personal Details */}
+                <div className="bg-white rounded-2xl p-6 shadow-md">
+                  <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                    <FiUser className="text-[#ff3d00]" /> Personal Details
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                      <input
+                        type="text"
+                        name="firstName"
+                        placeholder="John"
+                        required
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#ff3d00] transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                      <input
+                        type="text"
+                        name="lastName"
+                        placeholder="Doe"
+                        required
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#ff3d00] transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="john@example.com"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#ff3d00] transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="+91 98765 43210"
+                        required
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#ff3d00] transition-colors"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div className="form-row">
-                  <div className="input-group">
-                    <label>Email Address</label>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="john@example.com"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label>Phone Number</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      placeholder="+91 98765 43210"
-                      required
-                      value={formData.phone}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-              </div>
 
-              <div className="form-section-card">
-                <h2>
-                  <FiMapPin /> Delivery Address
-                </h2>
-                <div className="input-group">
-                  <label>Street Address</label>
-                  <input
-                    type="text"
-                    name="address"
-                    placeholder="123 Luxury Lane"
-                    required
-                    value={formData.address}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-row">
-                  <div className="input-group">
-                    <label>City</label>
-                    <input
-                      type="text"
-                      name="city"
-                      placeholder="Mumbai"
-                      required
-                      value={formData.city}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label>ZIP/Postal Code</label>
-                    <input
-                      type="text"
-                      name="zip"
-                      placeholder="400001"
-                      required
-                      value={formData.zip}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <button type="submit" className="btn-continue-step">
-                Continue to Payment
-              </button>
-            </form>
-          ) : (
-            <div className="payment-step-container">
-              <div className="payment-summary-card">
-                <h2>Review Your Information</h2>
-                <div className="review-grid">
-                  <div className="review-item">
-                    <strong>Name:</strong>
-                    <span>
-                      {formData.firstName} {formData.lastName}
-                    </span>
-                  </div>
-                  <div className="review-item">
-                    <strong>Contact:</strong>
-                    <span>
-                      {formData.email} | {formData.phone}
-                    </span>
-                  </div>
-                  <div className="review-item">
-                    <strong>Address:</strong>
-                    <span>
-                      {formData.address}, {formData.city} - {formData.zip}
-                    </span>
-                  </div>
-                </div>
-                <button className="btn-edit-details" onClick={() => setStep(1)}>
-                  Edit Details
-                </button>
-              </div>
-
-              <div className="payment-methods-card">
-                <h2>Select Payment Method</h2>
-                <div className="payment-methods-grid">
-                  <div
-                    className="payment-option active"
-                    onClick={handleRazorpayPayment}
-                  >
-                    <div className="option-header">
-                      <div className="option-title">
-                        <img
-                          src="https://upload.wikimedia.org/wikipedia/commons/8/89/Razorpay_logo.svg"
-                          alt="Razorpay"
-                          style={{ height: "18px" }}
+                {/* Delivery Address */}
+                <div className="bg-white rounded-2xl p-6 shadow-md">
+                  <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                    <FiMapPin className="text-[#ff3d00]" /> Delivery Address
+                  </h2>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Street Address</label>
+                      <input
+                        type="text"
+                        name="address"
+                        placeholder="123 Luxury Lane"
+                        required
+                        value={formData.address}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#ff3d00] transition-colors"
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">City</label>
+                        <input
+                          type="text"
+                          name="city"
+                          placeholder="Mumbai"
+                          required
+                          value={formData.city}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#ff3d00] transition-colors"
                         />
-                        <span>Secure Online Payment</span>
                       </div>
-                      <div className="option-badge">Recommended</div>
-                    </div>
-                    <p className="option-desc">
-                      UPI, Credit/Debit Cards, NetBanking, and Wallets
-                    </p>
-                    <div className="method-icons">
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo.png"
-                        alt="UPI"
-                      />
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
-                        alt="Visa"
-                      />
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
-                        alt="Mastercard"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="payment-option disabled">
-                    <div className="option-header">
-                      <div className="option-title">
-                        <FiCreditCard />
-                        <span>Cash on Delivery</span>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">ZIP/Postal Code</label>
+                        <input
+                          type="text"
+                          name="zip"
+                          placeholder="400001"
+                          required
+                          value={formData.zip}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#ff3d00] transition-colors"
+                        />
                       </div>
                     </div>
-                    <p className="option-desc">
-                      Currently unavailable for high-value transactions
-                    </p>
                   </div>
                 </div>
 
                 <button
-                  className={`btn-pay-now ${loading ? "loading" : ""}`}
-                  onClick={handleRazorpayPayment}
-                  disabled={loading}
+                  type="submit"
+                  className="w-full py-4 bg-[#ff3d00] text-white font-bold rounded-xl hover:bg-[#e63600] transition-all duration-300 shadow-lg"
                 >
-                  {loading
-                    ? "Processing..."
-                    : `Complete Purchase - pay ₹${totalPrice.toLocaleString()}`}
+                  Continue to Payment
                 </button>
-                <p className="secure-footer">
-                  🔒 All transactions are secured and encrypted with SSL
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="checkout-right-col">
-          <div className="order-summary-card">
-            <h2>Order Summary</h2>
-            <div className="cart-items-preview">
-              {cartItems.map((item) => (
-                <div key={item._id || item.id} className="preview-item">
-                  <img src={item.image} alt={item.title} />
-                  <div className="item-meta">
-                    <h4>{item.title}</h4>
-                    <p>Qty: {item.quantity}</p>
+              </form>
+            ) : (
+              <div className="space-y-6">
+                {/* Review Info */}
+                <div className="bg-white rounded-2xl p-6 shadow-md">
+                  <h2 className="text-xl font-bold text-slate-800 mb-4">Review Your Information</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600">
+                    <div>
+                      <span className="text-sm text-gray-400">Name</span>
+                      <p className="font-medium">{formData.firstName} {formData.lastName}</p>
+                    </div>
+                    <div>
+                      <span className="text-sm text-gray-400">Contact</span>
+                      <p className="font-medium">{formData.email}</p>
+                      <p className="font-medium">{formData.phone}</p>
+                    </div>
+                    <div className="md:col-span-2">
+                      <span className="text-sm text-gray-400">Address</span>
+                      <p className="font-medium">{formData.address}, {formData.city} - {formData.zip}</p>
+                    </div>
                   </div>
-                  <div className="item-price">
-                    ${((item.price || 0) * item.quantity).toLocaleString()}
-                  </div>
+                  <button
+                    className="mt-4 text-[#ff3d00] font-medium hover:underline"
+                    onClick={() => setStep(1)}
+                  >
+                    Edit Details
+                  </button>
                 </div>
-              ))}
-            </div>
-            <div className="price-details">
-              <div className="price-row">
-                <span>Subtotal</span>
-                <span>${totalPrice.toLocaleString()}</span>
+
+                {/* Payment Methods */}
+                <div className="bg-white rounded-2xl p-6 shadow-md">
+                  <h2 className="text-xl font-bold text-slate-800 mb-6">Select Payment Method</h2>
+
+                  <div className="space-y-4">
+                    {/* Razorpay Option */}
+                    <div
+                      className="border-2 border-[#ff3d00] rounded-xl p-5 cursor-pointer hover:bg-orange-50 transition-colors"
+                      onClick={handleRazorpayPayment}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-3">
+                          <img
+                            src="https://upload.wikimedia.org/wikipedia/commons/8/89/Razorpay_logo.svg"
+                            alt="Razorpay"
+                            className="h-5"
+                          />
+                          <span className="font-medium">Secure Online Payment</span>
+                        </div>
+                        <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">Recommended</span>
+                      </div>
+                      <p className="text-sm text-gray-500 mb-3">UPI, Credit/Debit Cards, NetBanking, and Wallets</p>
+                      <div className="flex items-center gap-3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo.png" alt="UPI" className="h-6" />
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="h-4" />
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-6" />
+                      </div>
+                    </div>
+
+                    {/* COD Option (Disabled) */}
+                    <div className="border border-gray-200 rounded-xl p-5 opacity-50 cursor-not-allowed">
+                      <div className="flex items-center gap-3 mb-2">
+                        <FiCreditCard className="text-xl text-gray-400" />
+                        <span className="font-medium text-gray-400">Cash on Delivery</span>
+                      </div>
+                      <p className="text-sm text-gray-400">Currently unavailable for high-value transactions</p>
+                    </div>
+                  </div>
+
+                  <button
+                    className={`w-full mt-6 py-4 bg-[#ff3d00] text-white font-bold rounded-xl transition-all duration-300 shadow-lg ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-[#e63600]'}`}
+                    onClick={handleRazorpayPayment}
+                    disabled={loading}
+                  >
+                    {loading ? "Processing..." : `Complete Purchase - ₹${totalPrice.toLocaleString()}`}
+                  </button>
+
+                  <p className="text-center text-sm text-gray-500 mt-4">
+                    🔒 All transactions are secured and encrypted with SSL
+                  </p>
+                </div>
               </div>
-              <div className="price-row">
-                <span>Delivery Cost</span>
-                <span className="free">FREE</span>
+            )}
+          </div>
+
+          {/* Order Summary Sidebar */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-2xl p-6 shadow-lg sticky top-24">
+              <h2 className="text-xl font-bold text-slate-800 mb-6">Order Summary</h2>
+
+              <div className="space-y-4 max-h-64 overflow-y-auto mb-6">
+                {cartItems.map((item) => (
+                  <div key={item._id || item.id} className="flex items-center gap-4">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-16 h-12 object-cover rounded-lg"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-medium text-slate-800 truncate">{item.title}</h4>
+                      <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+                    </div>
+                    <span className="font-bold text-slate-800">
+                      ${((item.price || 0) * item.quantity).toLocaleString()}
+                    </span>
+                  </div>
+                ))}
               </div>
-              <div className="price-total">
-                <span>Grand Total</span>
-                <span>${totalPrice.toLocaleString()}</span>
+
+              <div className="border-t border-gray-200 pt-4 space-y-3">
+                <div className="flex justify-between text-gray-600">
+                  <span>Subtotal</span>
+                  <span>${totalPrice.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between text-gray-600">
+                  <span>Delivery Cost</span>
+                  <span className="text-green-600 font-medium">FREE</span>
+                </div>
+                <div className="flex justify-between items-center pt-3 border-t border-gray-200">
+                  <span className="text-lg font-bold text-slate-800">Grand Total</span>
+                  <span className="text-xl font-bold text-[#ff3d00]">${totalPrice.toLocaleString()}</span>
+                </div>
               </div>
             </div>
           </div>

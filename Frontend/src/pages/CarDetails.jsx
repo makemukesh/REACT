@@ -8,7 +8,7 @@ import {
     MdPalette, MdOutlineHeight, MdWorkOutline,
     MdSpeed, MdBolt, MdDirectionsCar
 } from 'react-icons/md';
-import { FiEdit2, FiTrash2, FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft } from 'react-icons/fi';
 import { deleteProduct } from '../../services/productServices';
 
 const CarDetails = () => {
@@ -83,143 +83,141 @@ const CarDetails = () => {
         alert(`${car.title} added to cart successfully!`);
     };
 
-    if (loading) return <div className="loading-container"><div className="loading-spinner"></div></div>;
-    if (error) return <div className="error-message">{error}</div>;
-    if (!car) return <div className="error-message">Car not found</div>;
+    if (loading) return (
+        <div className="flex flex-col items-center justify-center min-h-screen">
+            <div className="w-12 h-12 border-4 border-gray-200 border-t-[#ff3d00] rounded-full animate-spin"></div>
+        </div>
+    );
+
+    if (error) return (
+        <div className="flex items-center justify-center min-h-screen">
+            <p className="text-red-500 text-lg">{error}</p>
+        </div>
+    );
+
+    if (!car) return (
+        <div className="flex items-center justify-center min-h-screen">
+            <p className="text-gray-500 text-lg">Car not found</p>
+        </div>
+    );
+
+    const specs = [
+        { icon: MdCalendarMonth, label: 'Manufacturing Year', value: car.manufacturingYear },
+        { icon: MdRoute, label: 'Kilometers Done', value: car.kilometersDone },
+        { icon: MdSettings, label: 'Transmission', value: car.transmission },
+        { icon: MdLocalGasStation, label: 'Fuel Type', value: car.fuelType },
+        { icon: MdPalette, label: 'Exterior Color', value: car.exteriorColor },
+        { icon: MdOutlineHeight, label: 'Ground Clearance', value: car.groundClearance },
+        { icon: MdWorkOutline, label: 'Boot Space', value: car.bootSpace },
+        { icon: MdSpeed, label: 'Torque', value: car.torque },
+        { icon: MdBolt, label: 'Power', value: car.power },
+        { icon: MdDirectionsCar, label: 'Engine Capacity', value: car.engineCapacity },
+    ];
 
     return (
-        <div className="car-details-page">
-            <div className="car-details-container">
-                <button className="back-btn" onClick={() => navigate(-1)}>
-                    <FiArrowLeft /> Back
+        <div className="min-h-screen bg-gray-50 py-8">
+            <div className="max-w-7xl mx-auto px-6">
+                {/* Back Button */}
+                <button
+                    className="flex items-center gap-2 text-gray-600 hover:text-[#ff3d00] mb-6 transition-colors"
+                    onClick={() => navigate(-1)}
+                >
+                    <FiArrowLeft className="text-xl" />
+                    <span className="font-medium">Back</span>
                 </button>
 
-                <div className="car-details-content">
-                    <div className="car-details-image">
-                        <img
-                            src={car.image || "https://images.unsplash.com/photo-1503376780353-7e6692767b70"}
-                            alt={car.title}
-                            onError={(e) => {
-                                e.target.src = "https://images.unsplash.com/photo-1503376780353-7e6692767b70";
-                            }}
-                        />
-                    </div>
-
-                    <div className="car-details-info">
-                        <h1>{car.title}</h1>
-                        <p className="car-price-large">${car.price ? car.price.toLocaleString() : "N/A"}</p>
-
-                        <div className="car-tags">
-                            {car.genre && <span className="tag">{car.genre}</span>}
-                            <span className={`tag ${car.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
-                                {car.stock > 0 ? 'In Stock' : 'Out of Stock'}
-                            </span>
+                {/* Main Content */}
+                <div className="bg-white rounded-3xl shadow-lg overflow-hidden mb-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2">
+                        {/* Image Section */}
+                        <div className="h-80 lg:h-auto lg:min-h-[500px] relative overflow-hidden">
+                            <img
+                                src={car.image || "https://images.unsplash.com/photo-1503376780353-7e6692767b70"}
+                                alt={car.title}
+                                className="w-full h-full object-cover"
+                                onError={(e) => {
+                                    e.target.src = "https://images.unsplash.com/photo-1503376780353-7e6692767b70";
+                                }}
+                            />
                         </div>
 
-                        <p className="car-description-full">
-                            {car.description}
-                        </p>
+                        {/* Info Section */}
+                        <div className="p-8 lg:p-12 flex flex-col justify-center">
+                            <h1 className="text-3xl lg:text-4xl font-bold text-slate-800 mb-3">{car.title}</h1>
+                            <p className="text-4xl font-bold text-[#ff3d00] mb-6">
+                                ${car.price ? car.price.toLocaleString() : "N/A"}
+                            </p>
 
-                        <div className="action-buttons">
-                            <button className="btn-add-to-cart" onClick={handleAddToCart}>
-                                Add to Cart
-                            </button>
-                            <button className="btn-contact-dealer" onClick={() => navigate('/contact')}>
-                                Contact Dealer
-                            </button>
-                        </div>
+                            {/* Tags */}
+                            <div className="flex flex-wrap gap-3 mb-6">
+                                {car.genre && (
+                                    <span className="px-4 py-2 bg-slate-100 text-slate-700 text-sm font-medium rounded-full">
+                                        {car.genre}
+                                    </span>
+                                )}
+                                <span className={`px-4 py-2 text-sm font-medium rounded-full ${car.stock > 0
+                                        ? 'bg-green-100 text-green-700'
+                                        : 'bg-red-100 text-red-600'
+                                    }`}>
+                                    {car.stock > 0 ? 'In Stock' : 'Out of Stock'}
+                                </span>
+                            </div>
 
-                        {user?.role === 'admin' && (
-                            <div className="action-buttons admin-exclusive-row">
-                                <button className="btn-admin-edit" onClick={() => navigate(`/admin/edit/${car._id}`)}>
-                                    Edit Details
+                            <p className="text-gray-600 leading-relaxed mb-8">{car.description}</p>
+
+                            {/* Action Buttons */}
+                            <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                                <button
+                                    className="flex-1 py-4 px-6 bg-[#ff3d00] text-white font-bold rounded-xl hover:bg-[#e63600] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                                    onClick={handleAddToCart}
+                                >
+                                    Add to Cart
                                 </button>
-                                <button className="btn-admin-delete" onClick={handleDelete}>
-                                    Remove Listing
+                                <button
+                                    className="flex-1 py-4 px-6 border-2 border-slate-800 text-slate-800 font-bold rounded-xl hover:bg-slate-800 hover:text-white transition-all duration-300"
+                                    onClick={() => navigate('/contact')}
+                                >
+                                    Contact Dealer
                                 </button>
                             </div>
-                        )}
-                    </div>
-                </div>
 
-                {/* Technical Specifications Section */}
-                <div className="car-specs-grid-section">
-                    <h2>Technical Specifications</h2>
-                    <div className="specs-grid">
-                        <div className="spec-card">
-                            <MdCalendarMonth className="spec-icon" />
-                            <div className="spec-info-text">
-                                <span className="label">Manufacturing Year</span>
-                                <span className="value">{car.manufacturingYear || 'N/A'}</span>
-                            </div>
-                        </div>
-                        <div className="spec-card">
-                            <MdRoute className="spec-icon" />
-                            <div className="spec-info-text">
-                                <span className="label">Kilometers Done</span>
-                                <span className="value">{car.kilometersDone || 'N/A'}</span>
-                            </div>
-                        </div>
-                        <div className="spec-card">
-                            <MdSettings className="spec-icon" />
-                            <div className="spec-info-text">
-                                <span className="label">Transmission</span>
-                                <span className="value">{car.transmission || 'N/A'}</span>
-                            </div>
-                        </div>
-                        <div className="spec-card">
-                            <MdLocalGasStation className="spec-icon" />
-                            <div className="spec-info-text">
-                                <span className="label">Fuel Type</span>
-                                <span className="value">{car.fuelType || 'N/A'}</span>
-                            </div>
-                        </div>
-                        <div className="spec-card">
-                            <MdPalette className="spec-icon" />
-                            <div className="spec-info-text">
-                                <span className="label">Exterior Color</span>
-                                <span className="value">{car.exteriorColor || 'N/A'}</span>
-                            </div>
-                        </div>
-                        <div className="spec-card">
-                            <MdOutlineHeight className="spec-icon" />
-                            <div className="spec-info-text">
-                                <span className="label">Ground Clearance</span>
-                                <span className="value">{car.groundClearance || 'N/A'}</span>
-                            </div>
-                        </div>
-                        <div className="spec-card">
-                            <MdWorkOutline className="spec-icon" />
-                            <div className="spec-info-text">
-                                <span className="label">Boot Space</span>
-                                <span className="value">{car.bootSpace || 'N/A'}</span>
-                            </div>
-                        </div>
-                        <div className="spec-card">
-                            <MdSpeed className="spec-icon" />
-                            <div className="spec-info-text">
-                                <span className="label">Torque</span>
-                                <span className="value">{car.torque || 'N/A'}</span>
-                            </div>
-                        </div>
-                        <div className="spec-card">
-                            <MdBolt className="spec-icon" />
-                            <div className="spec-info-text">
-                                <span className="label">Power</span>
-                                <span className="value">{car.power || 'N/A'}</span>
-                            </div>
-                        </div>
-                        <div className="spec-card">
-                            <MdDirectionsCar className="spec-icon" />
-                            <div className="spec-info-text">
-                                <span className="label">Engine Capacity</span>
-                                <span className="value">{car.engineCapacity || 'N/A'}</span>
-                            </div>
+                            {/* Admin Buttons */}
+                            {user?.role === 'admin' && (
+                                <div className="flex gap-4 pt-4 border-t border-gray-200">
+                                    <button
+                                        className="flex-1 py-3 px-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                                        onClick={() => navigate(`/admin/edit/${car._id}`)}
+                                    >
+                                        Edit Details
+                                    </button>
+                                    <button
+                                        className="flex-1 py-3 px-4 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors"
+                                        onClick={handleDelete}
+                                    >
+                                        Remove Listing
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
 
-
+                {/* Technical Specifications */}
+                <div className="bg-white rounded-3xl shadow-lg p-8 lg:p-12">
+                    <h2 className="text-2xl font-bold text-slate-800 mb-8">Technical Specifications</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {specs.map((spec, index) => (
+                            <div
+                                key={index}
+                                className="bg-gray-50 rounded-2xl p-5 flex flex-col items-center text-center hover:shadow-md transition-shadow"
+                            >
+                                <spec.icon className="text-3xl text-[#ff3d00] mb-3" />
+                                <span className="text-xs text-gray-500 uppercase tracking-wide mb-1">{spec.label}</span>
+                                <span className="text-sm font-semibold text-slate-800">{spec.value || 'N/A'}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );

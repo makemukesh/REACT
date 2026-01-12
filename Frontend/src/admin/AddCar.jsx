@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createProduct, bulkCreateProducts } from '../../services/productServices';
 import { useNavigate } from 'react-router-dom';
 import AdminSidebar from './AdminSidebar';
+import { FiUpload } from 'react-icons/fi';
 
 const AddCar = () => {
     const navigate = useNavigate();
@@ -42,12 +43,12 @@ const AddCar = () => {
                 cars = Array.isArray(jsonData) ? jsonData : [jsonData];
             } catch (parseError) {
                 console.error("JSON Parsing Error:", parseError);
-                alert("Invalid JSON file. Please check for syntax errors or extra characters at the end of the file.");
+                alert("Invalid JSON file. Please check for syntax errors.");
                 e.target.value = '';
                 return;
             }
 
-            const confirmMsg = `Found ${cars.length} car(s).\nFormat Example: { "title": "BMW X5", "price": 50000, ... }\n\nContinue with import?`;
+            const confirmMsg = `Found ${cars.length} car(s). Continue with import?`;
 
             if (window.confirm(confirmMsg)) {
                 setLoading(true);
@@ -96,138 +97,161 @@ const AddCar = () => {
 
     const initials = adminUser?.name?.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2) || "A";
 
+    const inputClass = "w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#ff3d00] transition-colors bg-gray-50";
+    const labelClass = "block text-sm font-medium text-gray-700 mb-2";
+
     return (
-        <div className="admin-layout">
+        <div className="flex min-h-screen bg-gray-100">
             <AdminSidebar />
-            <main className="admin-main-content">
-                <div className="admin-top-bar">
-                    <div className="top-bar-left">
-                        <h1>Add New Listing</h1>
-                        <p className="subtitle">Expand your premium vehicle inventory</p>
+            <main className="flex-1 p-8">
+                {/* Top Bar */}
+                <div className="flex items-center justify-between mb-8">
+                    <div>
+                        <h1 className="text-2xl font-bold text-slate-800">Add New Listing</h1>
+                        <p className="text-gray-500">Expand your premium vehicle inventory</p>
                     </div>
-                    <div className="top-bar-right">
-                        <div className="user-chip" onClick={() => navigate('/profile')}>
-                            <div className="user-avatar">{initials}</div>
-                        </div>
+                    <div
+                        className="w-10 h-10 bg-[#ff3d00] rounded-full flex items-center justify-center text-white font-bold cursor-pointer"
+                        onClick={() => navigate('/profile')}
+                    >
+                        {initials}
                     </div>
                 </div>
 
-                <div className="recent-activity-section">
-                    <div className="form-container">
-                        <div className="form-header-flex">
-                            <h2>Vehicle Details</h2>
-                            <div className="bulk-import-container">
-                                <label htmlFor="json-upload-add" className={`bulk-import-btn ${loading ? 'loading' : ''}`} style={{ cursor: 'pointer' }}>
-                                    {loading ? "⌛ Processing..." : "📤 Bulk Import JSON"}
-                                </label>
-                                <input
-                                    id="json-upload-add"
-                                    type="file"
-                                    accept=".json"
-                                    onChange={handleFileUpload}
-                                    style={{ display: 'none' }}
-                                    disabled={loading}
-                                />
+                {/* Form Card */}
+                <div className="bg-white rounded-2xl p-8 shadow-sm">
+                    <div className="flex items-center justify-between mb-8">
+                        <h2 className="text-xl font-bold text-slate-800">Vehicle Details</h2>
+                        <label
+                            htmlFor="json-upload-add"
+                            className={`flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 font-medium rounded-lg cursor-pointer hover:bg-indigo-100 transition-colors ${loading ? 'opacity-50' : ''}`}
+                        >
+                            <FiUpload /> {loading ? "Processing..." : "Bulk Import JSON"}
+                        </label>
+                        <input
+                            id="json-upload-add"
+                            type="file"
+                            accept=".json"
+                            onChange={handleFileUpload}
+                            className="hidden"
+                            disabled={loading}
+                        />
+                    </div>
+
+                    <form onSubmit={handleSubmit}>
+                        {/* Basic Information */}
+                        <h3 className="text-sm font-semibold text-indigo-600 mb-4">Basic Information</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                            <div>
+                                <label className={labelClass}>Vehicle Name</label>
+                                <input name="title" value={formData.title} onChange={handleChange} placeholder="e.g. Mercedes-Benz G-Class" required className={inputClass} />
+                            </div>
+                            <div>
+                                <label className={labelClass}>Base Price ($)</label>
+                                <input name="price" type="number" value={formData.price} onChange={handleChange} required className={inputClass} />
+                            </div>
+                            <div>
+                                <label className={labelClass}>Display Image URL</label>
+                                <input name="image" value={formData.image} onChange={handleChange} required className={inputClass} />
+                            </div>
+                            <div>
+                                <label className={labelClass}>Genre / Category</label>
+                                <input name="genre" value={formData.genre} onChange={handleChange} placeholder="SUV, Luxury, etc." required className={inputClass} />
+                            </div>
+                            <div>
+                                <label className={labelClass}>Brand</label>
+                                <select name="brand" value={formData.brand} onChange={handleChange} required className={inputClass}>
+                                    <option value="">Select Brand</option>
+                                    <option value="BMW">BMW</option>
+                                    <option value="Mercedes">Mercedes</option>
+                                    <option value="Audi">Audi</option>
+                                    <option value="Bentley">Bentley</option>
+                                    <option value="Porsche">Porsche</option>
+                                    <option value="Ferrari">Ferrari</option>
+                                    <option value="Lamborghini">Lamborghini</option>
+                                    <option value="Rolls Royce">Rolls Royce</option>
+                                </select>
                             </div>
                         </div>
-                        <form onSubmit={handleSubmit} className="admin-form">
-                            <h3 className="form-sub-title" style={{ marginBottom: '20px', color: '#6366f1', fontSize: '1rem' }}>Basic Information</h3>
-                            <div className="form-group-grid">
-                                <div className="form-group">
-                                    <label>Vehicle Name</label>
-                                    <input name="title" value={formData.title} onChange={handleChange} placeholder="e.g. Mercedes-Benz G-Class" required />
-                                </div>
-                                <div className="form-group">
-                                    <label>Base Price ($)</label>
-                                    <input name="price" type="number" value={formData.price} onChange={handleChange} required />
-                                </div>
-                                <div className="form-group">
-                                    <label>Display Image URL</label>
-                                    <input name="image" value={formData.image} onChange={handleChange} required />
-                                </div>
-                                <div className="form-group">
-                                    <label>Genre / Category</label>
-                                    <input name="genre" value={formData.genre} onChange={handleChange} placeholder="SUV, Luxury, etc." required />
-                                </div>
-                                <div className="form-group">
-                                    <label>Brand</label>
-                                    <select name="brand" value={formData.brand} onChange={handleChange} required>
-                                        <option value="">Select Brand</option>
-                                        <option value="BMW">BMW</option>
-                                        <option value="Mercedes">Mercedes</option>
-                                        <option value="Audi">Audi</option>
-                                        <option value="Bentley">Bentley</option>
-                                        <option value="Porsche">Porsche</option>
-                                        <option value="Ferrari">Ferrari</option>
-                                        <option value="Lamborghini">Lamborghini</option>
-                                        <option value="Rolls Royce">Rolls Royce</option>
-                                    </select>
-                                </div>
-                            </div>
 
-                            <h3 className="form-sub-title" style={{ marginTop: '30px', marginBottom: '20px', color: '#6366f1', fontSize: '1rem' }}>Technical Specifications</h3>
-                            <div className="form-group-grid">
-                                <div className="form-group">
-                                    <label>Inventory Stock</label>
-                                    <input name="stock" type="number" value={formData.stock} onChange={handleChange} required />
-                                </div>
-                                <div className="form-group">
-                                    <label>Manufacturing Year</label>
-                                    <input name="manufacturingYear" type="number" value={formData.manufacturingYear} onChange={handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <label>Transmission</label>
-                                    <input name="transmission" value={formData.transmission} onChange={handleChange} placeholder="Automatic / Manual" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Fuel Type</label>
-                                    <input name="fuelType" value={formData.fuelType} onChange={handleChange} placeholder="Petrol / Diesel / Electric" />
-                                </div>
+                        {/* Technical Specifications */}
+                        <h3 className="text-sm font-semibold text-indigo-600 mb-4">Technical Specifications</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                            <div>
+                                <label className={labelClass}>Inventory Stock</label>
+                                <input name="stock" type="number" value={formData.stock} onChange={handleChange} required className={inputClass} />
                             </div>
+                            <div>
+                                <label className={labelClass}>Manufacturing Year</label>
+                                <input name="manufacturingYear" type="number" value={formData.manufacturingYear} onChange={handleChange} className={inputClass} />
+                            </div>
+                            <div>
+                                <label className={labelClass}>Transmission</label>
+                                <input name="transmission" value={formData.transmission} onChange={handleChange} placeholder="Automatic / Manual" className={inputClass} />
+                            </div>
+                            <div>
+                                <label className={labelClass}>Fuel Type</label>
+                                <input name="fuelType" value={formData.fuelType} onChange={handleChange} placeholder="Petrol / Diesel / Electric" className={inputClass} />
+                            </div>
+                        </div>
 
-                            <h3 className="form-sub-title" style={{ marginTop: '30px', marginBottom: '20px', color: '#6366f1', fontSize: '1rem' }}>Performance & Dimensions</h3>
-                            <div className="form-group-grid">
-                                <div className="form-group">
-                                    <label>Ground Clearance</label>
-                                    <input name="groundClearance" value={formData.groundClearance} onChange={handleChange} placeholder="e.g. 140 mm" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Boot Space</label>
-                                    <input name="bootSpace" value={formData.bootSpace} onChange={handleChange} placeholder="e.g. 490 L" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Torque</label>
-                                    <input name="torque" value={formData.torque} onChange={handleChange} placeholder="e.g. 450 Nm" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Power</label>
-                                    <input name="power" value={formData.power} onChange={handleChange} placeholder="e.g. 300 hp" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Engine Capacity</label>
-                                    <input name="engineCapacity" value={formData.engineCapacity} onChange={handleChange} placeholder="e.g. 3.0 L" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Kilometers Done</label>
-                                    <input name="kilometersDone" value={formData.kilometersDone} onChange={handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <label>Exterior Color</label>
-                                    <input name="exteriorColor" value={formData.exteriorColor} onChange={handleChange} />
-                                </div>
+                        {/* Performance & Dimensions */}
+                        <h3 className="text-sm font-semibold text-indigo-600 mb-4">Performance & Dimensions</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                            <div>
+                                <label className={labelClass}>Ground Clearance</label>
+                                <input name="groundClearance" value={formData.groundClearance} onChange={handleChange} placeholder="e.g. 140 mm" className={inputClass} />
                             </div>
-                            <div className="form-group full-width" style={{ marginTop: '20px' }}>
-                                <label>Detailed Description</label>
-                                <textarea name="description" value={formData.description} onChange={handleChange} rows="5" required />
+                            <div>
+                                <label className={labelClass}>Boot Space</label>
+                                <input name="bootSpace" value={formData.bootSpace} onChange={handleChange} placeholder="e.g. 490 L" className={inputClass} />
                             </div>
-                            <div className="form-actions" style={{ marginTop: '30px' }}>
-                                <button type="button" onClick={() => navigate('/admin/cars')} className="btn-cancel">Discard</button>
-                                <button type="submit" className="btn-submit" disabled={loading}>
-                                    {loading ? "Adding..." : "Launch Listing"}
-                                </button>
+                            <div>
+                                <label className={labelClass}>Torque</label>
+                                <input name="torque" value={formData.torque} onChange={handleChange} placeholder="e.g. 450 Nm" className={inputClass} />
                             </div>
-                        </form>
-                    </div>
+                            <div>
+                                <label className={labelClass}>Power</label>
+                                <input name="power" value={formData.power} onChange={handleChange} placeholder="e.g. 300 hp" className={inputClass} />
+                            </div>
+                            <div>
+                                <label className={labelClass}>Engine Capacity</label>
+                                <input name="engineCapacity" value={formData.engineCapacity} onChange={handleChange} placeholder="e.g. 3.0 L" className={inputClass} />
+                            </div>
+                            <div>
+                                <label className={labelClass}>Kilometers Done</label>
+                                <input name="kilometersDone" value={formData.kilometersDone} onChange={handleChange} className={inputClass} />
+                            </div>
+                            <div>
+                                <label className={labelClass}>Exterior Color</label>
+                                <input name="exteriorColor" value={formData.exteriorColor} onChange={handleChange} className={inputClass} />
+                            </div>
+                        </div>
+
+                        {/* Description */}
+                        <div className="mb-8">
+                            <label className={labelClass}>Detailed Description</label>
+                            <textarea name="description" value={formData.description} onChange={handleChange} rows="5" required className={`${inputClass} resize-none`} />
+                        </div>
+
+                        {/* Actions */}
+                        <div className="flex gap-4">
+                            <button
+                                type="button"
+                                onClick={() => navigate('/admin/cars')}
+                                className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors"
+                            >
+                                Discard
+                            </button>
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="px-6 py-3 bg-[#ff3d00] text-white font-medium rounded-xl hover:bg-[#e63600] transition-colors disabled:opacity-70"
+                            >
+                                {loading ? "Adding..." : "Launch Listing"}
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </main>
         </div>
